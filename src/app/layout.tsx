@@ -1,0 +1,220 @@
+import type { Metadata, Viewport } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
+import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
+import InstallPrompt from "@/components/InstallPrompt";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { headers } from "next/headers";
+import Script from "next/script";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const jetbrainsMono = JetBrains_Mono({
+	subsets: ["latin"],
+	variable: "--font-mono",
+});
+
+export const metadata: Metadata = {
+	title: "Muhammad Sayyid | AppSec Engineer",
+	description:
+		"Application Security Engineer & Full-Stack Developer securing modern web applications. Expert in White-box Testing, Secure Code Review.",
+	keywords: [
+		"Application Security",
+		"AppSec",
+		"Secure Coding",
+		"OWASP Top 10",
+		"Web Security",
+		"React.js",
+		"Node.js",
+		"Cybersecurity Portfolio",
+		"Full-Stack Portfolio",
+		"Web Developer",
+		"Next.js",
+		"Pentesting",
+		"Bug Bounty",
+		"M07ammadSayed",
+		"Muhammad Sayyid",
+	],
+	metadataBase: new URL("https://muhammad-sayyid.vercel.app"),
+	openGraph: {
+		title: "Muhammad Sayyid | AppSec Engineer",
+		description:
+			"Application Security Engineer & Full-Stack Developer securing modern web applications. Expert in White-box Testing, Secure Code Review.",
+		url: "https://muhammad-sayyid.vercel.app/",
+		siteName: "Muhammad Sayyid Portfolio",
+		type: "website",
+		images: [{ url: "/opengraph-image.png", width: 1200, height: 630 }],
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "Muhammad Sayyid | AppSec Engineer",
+		description: "Building & Securing Modern Web Applications",
+		images: ["/opengraph-image.png"],
+		creator: "@M07ammad_Sayed",
+	},
+	alternates: {
+		canonical: "https://muhammad-sayyid.vercel.app",
+	},
+	robots: {
+		index: true,
+		follow: true,
+	},
+	icons: {
+		icon: [
+			{ url: "/favicon.ico", sizes: "any" },
+			{ url: "/icon.svg", type: "image/svg+xml" },
+		],
+		apple: [
+			{
+				url: "/apple-icon.png",
+				sizes: "180x180",
+				type: "image/png",
+			},
+		],
+	},
+	manifest: "/manifest.json",
+	verification: {
+		google: "THFxf1VSo42NqnEMbGPsjkHxmLNUwef2LRZl8WWjO9w",
+	},
+	appleWebApp: {
+		capable: true,
+		statusBarStyle: "default",
+		title: "Muhammad Sayyid",
+	},
+	category: "technology",
+};
+
+export const viewport: Viewport = {
+	themeColor: "#020617",
+	width: "device-width",
+	initialScale: 1,
+	viewportFit: "cover",
+};
+
+export default async function RootLayout({
+	children,
+}: {
+	children: React.ReactNode;
+}) {
+	const headerList = await headers();
+	const nonce = headerList.get("x-nonce") || "";
+
+	const jsonLd = {
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "WebSite",
+				"@id": "https://muhammad-sayyid.vercel.app/#website",
+				url: "https://muhammad-sayyid.vercel.app",
+				name: "Muhammad Sayyid",
+				publisher: {
+					"@id": "https://muhammad-sayyid.vercel.app/#person",
+				},
+			},
+			{
+				"@type": "Person",
+				name: "Muhammad Sayyid",
+				url: "https://muhammad-sayyid.vercel.app",
+				image: "https://muhammad-sayyid.vercel.app/icon.png",
+				jobTitle:
+					"Application Security Engineer & Full-Stack Developer",
+				alumniOf: {
+					"@type": "CollegeOrUniversity",
+					name: "Zagazig University",
+				},
+				sameAs: [
+					"https://github.com/M07ammadSayed",
+					"https://www.linkedin.com/in/muhammad-sayyid/",
+				],
+				description:
+					"Full-Stack Web Developer proficient in React, Next.js, Node.js, and MongoDB. 3rd year student at Faculty of Technology and Development.",
+				knowsAbout: [
+					"Web Development",
+					"JavaScript",
+					"React.js",
+					"Next.js",
+					"Node.js",
+					"Express",
+					"PostgreSQL",
+					"Tailwind CSS",
+				],
+			},
+		],
+	};
+
+	return (
+		<html lang="en" className="scroll-smooth">
+			<head>
+				<script
+					nonce={nonce}
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+				/>
+				<link
+					rel="manifest"
+					href="/manifest.json"
+					crossOrigin="use-credentials"
+				/>
+				<link
+					rel="icon"
+					type="image/png"
+					href="/public/favicon-96x96.png"
+					sizes="96x96"
+				/>
+				<link
+					rel="icon"
+					type="image/svg+xml"
+					href="/public/favicon.svg"
+				/>
+				<link rel="shortcut icon" href="/public/favicon.ico" />
+				<link
+					rel="apple-touch-icon"
+					sizes="180x180"
+					href="/public/apple-touch-icon.png"
+				/>
+				<meta name="apple-mobile-web-app-title" content="<MS />" />
+				<link rel="manifest" href="/public/site.webmanifest" />
+			</head>
+			<body
+				className={`${inter.className} ${jetbrainsMono.variable} bg-[#020617] text-slate-200 antialiased selection:bg-cyan-500/30`}
+				suppressHydrationWarning={true}
+			>
+				{children}
+
+				<Analytics />
+				<SpeedInsights />
+				<InstallPrompt />
+
+				<Script
+					src="https://www.googletagmanager.com/gtag/js?id=G-WGWDPQMLKR"
+					strategy="lazyOnload"
+				/>
+				<Script id="google-analytics" strategy="lazyOnload">
+					{`
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+                        gtag('config', 'G-WGWDPQMLKR');
+                    `}
+				</Script>
+
+				<Script
+					id="register-sw"
+					strategy="afterInteractive"
+					nonce={nonce}
+				>
+					{`
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+            .then(function(reg) {
+                console.log('SW registered with scope:', reg.scope);
+            })
+            .catch(function(err) {
+                console.error('SW registration failed:', err);
+            });
+        }
+    `}
+				</Script>
+			</body>
+		</html>
+	);
+}
