@@ -154,25 +154,14 @@ export default async function RootLayout({
 					href="/manifest.json"
 					crossOrigin="use-credentials"
 				/>
-				<link
-					rel="icon"
-					type="image/png"
-					href="/public/favicon-96x96.png"
-					sizes="96x96"
-				/>
-				<link
-					rel="icon"
-					type="image/svg+xml"
-					href="/public/favicon.svg"
-				/>
-				<link rel="shortcut icon" href="/public/favicon.ico" />
+				<link rel="icon" type="image/svg+xml" href="/icon.svg" />
+				<link rel="shortcut icon" href="/favicon.ico" />
 				<link
 					rel="apple-touch-icon"
 					sizes="180x180"
-					href="/public/apple-touch-icon.png"
+					href="/apple-icon.png"
 				/>
 				<meta name="apple-mobile-web-app-title" content="<MS />" />
-				<link rel="manifest" href="/public/site.webmanifest" />
 			</head>
 			<body
 				className={`${inter.className} ${jetbrainsMono.variable} bg-[#020617] text-slate-200 antialiased selection:bg-cyan-500/30`}
