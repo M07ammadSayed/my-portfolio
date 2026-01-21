@@ -91,21 +91,21 @@
 // 	}
 // });
 
-const CACHE_NAME = "muhammad-portfolio-v26";
+const CACHE_NAME = "muhammad-portfolio-v27";
 const OFFLINE_URL = "/offline";
 
-const PRECACHE_ASSETS = [
-	"/",
-	OFFLINE_URL,
-	"/favicon.ico",
-	"/manifest.json",
-	"/icon.svg",
-];
+const PRECACHE_ASSETS = ["/", OFFLINE_URL, "/manifest.json"];
 
 self.addEventListener("install", (event) => {
 	event.waitUntil(
 		caches.open(CACHE_NAME).then((cache) => {
-			return cache.addAll(PRECACHE_ASSETS);
+			return Promise.allSettled(
+				PRECACHE_ASSETS.map((url) =>
+					fetch(url).then((res) => {
+						if (res.ok) return cache.put(url, res);
+					}),
+				),
+			);
 		}),
 	);
 	self.skipWaiting();
@@ -130,11 +130,7 @@ self.addEventListener("fetch", (event) => {
 
 	if (
 		url.origin !== location.origin ||
-		url.includes("vercel.live") ||
-		url.includes("vercel-insights") ||
-		url.includes("google-analytics") ||
-		url.includes("collect?") ||
-		url.startsWith("chrome-extension")
+		request.url.startsWith("chrome-extension")
 	) {
 		return;
 	}
@@ -149,33 +145,29 @@ self.addEventListener("fetch", (event) => {
 		);
 	} else {
 		event.respondWith(
-			caches.match(request).then((cachedResponse) => {
-				if (cachedResponse) return cachedResponse;
-
-				return fetch(request)
-					.then((networkResponse) => {
-						if (
-							networkResponse.ok &&
-							(url.pathname.includes("_next/static") ||
+			caches.match(request).then((response) => {
+				return (
+					response ||
+					fetch(request)
+						.then((netRes) => {
+							if (
+								netRes.ok &&
 								url.pathname.match(
-									/\.(webp|png|jpg|jpeg|svg|js|woff2)$/,
-								))
-						) {
-							const responseToCache = networkResponse.clone();
-							caches.open(CACHE_NAME).then((cache) => {
-								cache.put(request, responseToCache);
-							});
-						}
-						return networkResponse;
-					})
-					.catch(() => {
-						if (
-							request.destination === "script" ||
-							request.destination === "style"
-						) {
-							return new Response("", { status: 200 });
-						}
-					});
+									/\.(js|css|png|jpg|svg|woff2)$/,
+								)
+							) {
+								const clone = netRes.clone();
+								caches
+									.open(CACHE_NAME)
+									.then((c) => c.put(request, clone));
+							}
+							return netRes;
+						})
+						.catch(() => {
+							if (request.destination === "script")
+								return new Response("");
+						})
+				);
 			}),
 		);
 	}
