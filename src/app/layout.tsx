@@ -72,7 +72,7 @@ export const metadata: Metadata = {
 			},
 		],
 	},
-	manifest: "/manifest.json",
+	// manifest: "/manifest.json",
 	verification: {
 		google: "THFxf1VSo42NqnEMbGPsjkHxmLNUwef2LRZl8WWjO9w",
 	},
@@ -149,6 +149,11 @@ export default async function RootLayout({
 					nonce={nonce}
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+				/>
+				<link
+					rel="manifest"
+					href="/manifest.json"
+					crossOrigin="use-credentials"
 				/>
 				<meta name="apple-mobile-web-app-title" content="<MS />" />
 			</head>
