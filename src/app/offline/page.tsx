@@ -27,13 +27,15 @@ export default function OfflinePage() {
 				backgroundColor: "#020617",
 				color: "white",
 				minHeight: "100vh",
+				width: "100%",
 				display: "flex",
 				flexDirection: "column",
 				alignItems: "center",
 				justifyContent: "center",
 				padding: "1rem",
 				textAlign: "center",
-				fontFamily: "sans-serif",
+				boxSizing: "border-box",
+				fontFamily: "system-ui, -apple-system, sans-serif",
 				position: "relative",
 			}}
 		>

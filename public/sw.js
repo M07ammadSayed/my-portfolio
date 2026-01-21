@@ -73,7 +73,18 @@ self.addEventListener("fetch", (event) => {
 	} else {
 		event.respondWith(
 			caches.match(event.request).then((response) => {
-				return response || fetch(event.request);
+				if (response) return response;
+				if (
+					!navigator.onLine &&
+					(event.request.url.includes(".css") ||
+						event.request.url.includes(".js"))
+				) {
+					return new Response("", {
+						status: 200,
+						headers: { "Content-Type": "text/css" },
+					});
+				}
+				return fetch(event.request);
 			}),
 		);
 	}
