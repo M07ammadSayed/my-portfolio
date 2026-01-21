@@ -130,7 +130,12 @@ self.addEventListener("fetch", (event) => {
 
 	if (
 		url.origin !== location.origin ||
-		request.url.startsWith("chrome-extension")
+		request.url.startsWith("chrome-extension") ||
+		url.includes("vercel.live") ||
+		url.includes("vercel-insights") ||
+		url.includes("google-analytics") ||
+		url.includes("collect?") ||
+		url.startsWith("chrome-extension")
 	) {
 		return;
 	}
