@@ -1,4 +1,4 @@
-const CACHE_NAME = "muhammad-portfolio-v3";
+const CACHE_NAME = "muhammad-portfolio-v1";
 const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
@@ -12,13 +12,29 @@ const PRECACHE_ASSETS = [
 	"/manifest.json",
 	"/src/components/CustomCursor.tsx",
 	"/src/app/offline/page.tsx",
+	"/icon.svg",
 ];
+
+// self.addEventListener("install", (event) => {
+// 	event.waitUntil(
+// 		caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS)),
+// 	);
+// 	self.skipWaiting();
+// });
 
 self.addEventListener("install", (event) => {
 	event.waitUntil(
-		caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS)),
+		caches.open("v1").then((cache) => {
+			return Promise.allSettled(
+				PRECACHE_ASSETS.map((asset) =>
+					fetch(asset).then((response) => {
+						if (response.ok) return cache.put(asset, response);
+						throw new Error("Failed to fetch " + asset);
+					}),
+				),
+			);
+		}),
 	);
-	self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
