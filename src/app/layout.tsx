@@ -98,14 +98,14 @@ export default async function RootLayout({
 }) {
 	const headerList = await headers();
 	const nonce = headerList.get("x-nonce") || "";
-	if (typeof window !== "undefined" && "serviceWorker" in navigator) {
-		window.addEventListener("load", () => {
-			navigator.serviceWorker.register("/sw.js").then((reg) => {
-				reg.update();
-				console.log("SW registered and updated!");
-			});
-		});
-	}
+	// if (typeof window !== "undefined" && "serviceWorker" in navigator) {
+	// 	window.addEventListener("load", () => {
+	// 		navigator.serviceWorker.register("/sw.js").then((reg) => {
+	// 			reg.update();
+	// 			console.log("SW registered and updated!");
+	// 		});
+	// 	});
+	// }
 
 	const jsonLd = {
 		"@context": "https://schema.org",
