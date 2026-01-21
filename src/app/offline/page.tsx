@@ -22,50 +22,120 @@ export default function OfflinePage() {
 	};
 
 	return (
-		<div className="flex min-h-screen flex-col items-center justify-center bg-[#020617] p-4 text-center cursor-none">
-			<style jsx global>{`
-				html,
-				body,
-				* {
-					cursor: auto !important;
-				}
-			`}</style>
+		<div
+			style={{
+				backgroundColor: "#020617",
+				color: "white",
+				minHeight: "100vh",
+				display: "flex",
+				flexDirection: "column",
+				alignItems: "center",
+				justifyContent: "center",
+				padding: "1rem",
+				textAlign: "center",
+				fontFamily: "sans-serif",
+				position: "relative",
+			}}
+		>
+			<style
+				dangerouslySetInnerHTML={{
+					__html: `
+                html, body { margin: 0; padding: 0; cursor: auto !important; }
+                .ping {
+                    position: absolute; top: -4px; right: -4px;
+                    height: 16px; width: 16px; background-color: #ef4444;
+                    border-radius: 50%; animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+                }
+                @keyframes ping { 75%, 100% { transform: scale(2); opacity: 0; } }
+                .spin {
+                    animation: spin 1s linear infinite;
+                    border: 2px solid white; border-top-color: transparent;
+                    border-radius: 50%; width: 16px; height: 16px; display: inline-block;
+                }
+                @keyframes spin { to { transform: rotate(360deg); } }
+            `,
+				}}
+			/>
 
-			<div className="relative mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-slate-900 shadow-[0_0_20px_rgba(8,145,178,0.4)]">
-				<span className="text-5xl">📡</span>
-				<div className="absolute -top-1 -right-1 h-4 w-4 animate-ping rounded-full bg-red-500"></div>
+			{/* الأيقونة */}
+			<div
+				style={{
+					position: "relative",
+					marginBottom: "2rem",
+					height: "96px",
+					width: "96px",
+					backgroundColor: "#0f172a",
+					borderRadius: "50%",
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "center",
+					boxShadow: "0 0 20px rgba(8, 145, 178, 0.4)",
+				}}
+			>
+				<span style={{ fontSize: "3rem" }}>📡</span>
+				<div className="ping"></div>
 			</div>
 
-			<h1 className="mb-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+			{/* النصوص */}
+			<h1
+				style={{
+					fontSize: "2rem",
+					fontWeight: "bold",
+					marginBottom: "0.5rem",
+				}}
+			>
 				Oops! You're Offline
 			</h1>
 
-			<p className="mb-8 max-w-md text-slate-400">
+			<p
+				style={{
+					color: "#94a3b8",
+					maxWidth: "400px",
+					marginBottom: "2rem",
+					lineHeight: "1.5",
+				}}
+			>
 				It seems you've lost your connection. Don't worry, my portfolio
 				is designed to work even when you're disconnected!
 			</p>
 
+			{/* الزرار */}
 			<button
 				onClick={handleReconnect}
 				disabled={isChecking}
-				className={`group relative flex items-center justify-center overflow-hidden rounded-xl bg-cyan-600 px-8 py-3 font-semibold text-white transition-all 
-                ${
-					isChecking
-						? "opacity-70 cursor-not-allowed"
-						: "hover:bg-cyan-500 hover:ring-2 hover:ring-cyan-400 hover:ring-offset-2 hover:ring-offset-[#020617] active:scale-95"
-				}`}
+				style={{
+					backgroundColor: "#0891b2",
+					color: "white",
+					padding: "12px 32px",
+					borderRadius: "12px",
+					fontWeight: "600",
+					border: "none",
+					cursor: isChecking ? "not-allowed" : "pointer",
+					opacity: isChecking ? 0.7 : 1,
+					transition: "all 0.2s",
+					display: "flex",
+					alignItems: "center",
+					gap: "8px",
+				}}
 			>
 				{isChecking ? (
-					<span className="flex items-center gap-2">
-						<span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
+					<>
+						<span className="spin"></span>
 						Checking...
-					</span>
+					</>
 				) : (
 					"Try To Reconnect"
 				)}
 			</button>
 
-			<footer className="absolute bottom-8 text-sm text-slate-600">
+			<footer
+				style={{
+					position: "absolute",
+					bottom: "2rem",
+					fontSize: "0.875rem",
+					color: "#475569",
+				}}
+			>
 				&copy; {new Date().getFullYear()} Muhammad Sayyid • Developed
 				with ❤️
 			</footer>
