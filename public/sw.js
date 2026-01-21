@@ -1,11 +1,20 @@
-const CACHE_NAME = "muhammad-portfolio-v1";
+const CACHE_NAME = "muhammad-portfolio-v2";
 const OFFLINE_URL = "/offline";
 
-const PRECACHE_ASSETS = [OFFLINE_URL, "/favicon-32x32.png", "/manifest.json"];
+const PRECACHE_ASSETS = [
+	OFFLINE_URL,
+	"/favicon.ico",
+	"/icon.svg",
+	"/favicon-96x96.png",
+	"/apple-touch-icon.png",
+	"/web-app-manifest-192x192.png",
+	"/web-app-manifest-512x512.png",
+	"/manifest.json",
+];
 
 self.addEventListener("install", (event) => {
 	event.waitUntil(
-		caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS))
+		caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS)),
 	);
 	self.skipWaiting();
 });
@@ -16,9 +25,9 @@ self.addEventListener("activate", (event) => {
 			return Promise.all(
 				cacheNames
 					.filter((name) => name !== CACHE_NAME)
-					.map((name) => caches.delete(name))
+					.map((name) => caches.delete(name)),
 			);
-		})
+		}),
 	);
 });
 
@@ -41,7 +50,7 @@ self.addEventListener("fetch", (event) => {
 				const cache = await caches.open(CACHE_NAME);
 				const offlineResponse = await cache.match(OFFLINE_URL);
 				return offlineResponse;
-			})
+			}),
 		);
 	} else {
 		event.respondWith(
@@ -60,19 +69,22 @@ self.addEventListener("fetch", (event) => {
 						if (
 							networkResponse.status === 200 &&
 							(url.includes("_next/static") ||
-								url.includes("/fonts"))
+								url.includes("/fonts") ||
+								url.pathname.match(
+									/\.(webp|png|jpg|jpeg|svg)$/,
+								))
 						) {
 							const responseToCache = networkResponse.clone();
 							caches
 								.open(CACHE_NAME)
 								.then((cache) =>
-									cache.put(event.request, responseToCache)
+									cache.put(event.request, responseToCache),
 								);
 						}
 						return networkResponse;
 					})
 					.catch(() => new Response(null, { status: 404 }));
-			})
+			}),
 		);
 	}
 });

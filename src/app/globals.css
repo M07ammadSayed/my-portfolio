@@ -55,7 +55,9 @@ body {
 ::selection {
 	background-color: rgba(34, 211, 238, 0.1);
 	color: #ffffff;
-	text-shadow: 0 0 2px rgba(34, 211, 238, 1), 0 0 10px rgba(34, 211, 238, 0.8),
+	text-shadow:
+		0 0 2px rgba(34, 211, 238, 1),
+		0 0 10px rgba(34, 211, 238, 0.8),
 		0 0 30px rgba(34, 211, 238, 0.4);
 }
 
@@ -130,7 +132,8 @@ body {
 /* --- Grid & Noise Patterns --- */
 .bg-grid-pattern {
 	background-size: 50px 50px;
-	background-image: linear-gradient(
+	background-image:
+		linear-gradient(
 			to right,
 			rgba(255, 255, 255, 0.03) 1px,
 			transparent 1px
