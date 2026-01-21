@@ -1,5 +1,5 @@
 const CACHE_NAME = "muhammad-portfolio-v4";
-const OFFLINE_URL = "/fallback.html";
+const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
 	OFFLINE_URL,
@@ -48,16 +48,7 @@ self.addEventListener("fetch", (event) => {
 		event.respondWith(
 			fetch(event.request).catch(async () => {
 				const cache = await caches.open(CACHE_NAME);
-				const cachedResponse =
-					(await cache.match(OFFLINE_URL)) ||
-					(await cache.match("/fallback.html"));
-
-				if (cachedResponse) {
-					return cachedResponse;
-				}
-				return new Response("<h1>Offline Mode Ready</h1>", {
-					headers: { "Content-Type": "text/html" },
-				});
+				return (await cache.match(OFFLINE_URL)) || Response.error();
 			}),
 		);
 	} else {
