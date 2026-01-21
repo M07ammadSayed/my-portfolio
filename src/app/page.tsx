@@ -27,7 +27,7 @@ export default function Portfolio() {
 			<Footer />
 			<ScrollToTop />
 			<div style={{ display: "none" }}>
-				<Link href="/offline">Offline</Link>
+				<Link href="/offline.html">Offline</Link>
 			</div>
 		</PageManager>
 	);
