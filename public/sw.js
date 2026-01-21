@@ -124,7 +124,6 @@ const PRECACHE_ASSETS = [
 self.addEventListener("install", (event) => {
 	event.waitUntil(
 		caches.open(CACHE_NAME).then((cache) => {
-			// استخدمنا الثابت الموحد هنا
 			return Promise.allSettled(
 				PRECACHE_ASSETS.map((asset) =>
 					fetch(asset).then((response) => {
@@ -151,15 +150,14 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-	const requestUrl = new URL(event.request.url); // تحويل لـ URL Object عشان الـ pathname يشتغل
+	const requestUrl = new URL(event.request.url);
 
-	// استثناءات الميتا وأدوات التحليل
 	if (
 		requestUrl.href.includes("vercel.live") ||
 		requestUrl.href.includes("vercel-insights") ||
 		requestUrl.href.includes("google-analytics") ||
 		requestUrl.href.includes("collect?") ||
-		requestUrl.startsWith("chrome-extension")
+		requestUrl.href.startsWith("chrome-extension")
 	) {
 		return;
 	}
@@ -171,7 +169,10 @@ self.addEventListener("fetch", (event) => {
 				const offlineResponse = await cache.match(OFFLINE_URL);
 				return (
 					offlineResponse ||
-					new Response("Offline content not available")
+					new Response("Offline page not found in cache", {
+						status: 503,
+						headers: { "Content-Type": "text/html" },
+					})
 				);
 			}),
 		);
@@ -179,13 +180,6 @@ self.addEventListener("fetch", (event) => {
 		event.respondWith(
 			caches.match(event.request).then((cachedResponse) => {
 				if (cachedResponse) return cachedResponse;
-
-				if (!navigator.onLine) {
-					return new Response(null, {
-						status: 404,
-						statusText: "Offline",
-					});
-				}
 
 				return fetch(event.request)
 					.then((networkResponse) => {
@@ -204,7 +198,11 @@ self.addEventListener("fetch", (event) => {
 						}
 						return networkResponse;
 					})
-					.catch(() => new Response(null, { status: 404 }));
+					.catch(() => {
+						if (event.request.destination === "image") {
+							return new Response(null, { status: 404 });
+						}
+					});
 			}),
 		);
 	}
