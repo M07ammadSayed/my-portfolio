@@ -48,13 +48,16 @@ self.addEventListener("fetch", (event) => {
 		event.respondWith(
 			fetch(event.request).catch(async () => {
 				const cache = await caches.open(CACHE_NAME);
-				const cachedResponse = await cache.match(OFFLINE_URL);
+				const cachedResponse =
+					(await cache.match(OFFLINE_URL)) ||
+					(await cache.match("/fallback.html"));
 
 				if (cachedResponse) {
-					return new Response(cachedResponse.body, {
-						headers: { "Content-Type": "text/html; charset=utf-8" },
-					});
+					return cachedResponse;
 				}
+				return new Response("<h1>Offline Mode Ready</h1>", {
+					headers: { "Content-Type": "text/html" },
+				});
 			}),
 		);
 	} else {
