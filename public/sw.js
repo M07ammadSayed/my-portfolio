@@ -1,4 +1,4 @@
-const CACHE_NAME = "muhammad-portfolio-v3";
+const CACHE_NAME = "muhammad-portfolio-v4";
 const OFFLINE_URL = "/fallback.html";
 
 const PRECACHE_ASSETS = [
@@ -12,10 +12,10 @@ const PRECACHE_ASSETS = [
 ];
 
 self.addEventListener("install", (event) => {
+	self.skipWaiting();
 	event.waitUntil(
 		caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS)),
 	);
-	self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
