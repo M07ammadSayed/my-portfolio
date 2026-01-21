@@ -91,24 +91,25 @@
 // 	}
 // });
 
-const CACHE_NAME = "portfolio-cache-v1";
+const CACHE_NAME = "portfolio-fixed-v1";
 const OFFLINE_URL = "/offline";
 
-const PRECACHE_ASSETS = ["/", OFFLINE_URL, "/manifest.json", "/favicon.ico"];
+const PRECACHE_ASSETS = [
+	"/",
+	OFFLINE_URL,
+	"/manifest.json",
+	"/favicon.ico",
+	"/icon.svg",
+];
 
 self.addEventListener("install", (event) => {
 	event.waitUntil(
 		caches.open(CACHE_NAME).then((cache) => {
-			return Promise.all(
-				PRECACHE_ASSETS.map((url) => {
-					return fetch(url)
-						.then((res) => {
-							if (res.ok) return cache.put(url, res);
-						})
-						.catch(() =>
-							console.warn(`Failed to precache: ${url}`),
-						);
-				}),
+			// بنحمل كل ملف لوحده عشان لو الأيقونة مثلاً ضايعة، صفحة الأوفلاين تتسجل برضه
+			return Promise.allSettled(
+				PRECACHE_ASSETS.map((asset) =>
+					fetch(asset).then((res) => res.ok && cache.put(asset, res)),
+				),
 			);
 		}),
 	);
@@ -117,26 +118,25 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("activate", (event) => {
 	event.waitUntil(
-		caches.keys().then((keys) => {
-			return Promise.all(
-				keys.map((key) => key !== CACHE_NAME && caches.delete(key)),
-			);
-		}),
+		caches
+			.keys()
+			.then((keys) =>
+				Promise.all(
+					keys.map((key) => key !== CACHE_NAME && caches.delete(key)),
+				),
+			),
 	);
 	self.clients.claim();
 });
 
 self.addEventListener("fetch", (event) => {
 	const { request } = event;
-	const url = new URL(request.url);
+	const url = new URL(request.url); // ده Object
 
+	// حل مشكلة الـ includes والـ startsWith (بنستخدم الـ href اللي هو string)
 	if (
 		url.origin !== location.origin ||
-		request.url.startsWith("chrome-extension") ||
-		url.includes("vercel.live") ||
-		url.includes("vercel-insights") ||
-		url.includes("google-analytics") ||
-		url.includes("collect?")
+		url.href.startsWith("chrome-extension")
 	) {
 		return;
 	}
@@ -145,38 +145,23 @@ self.addEventListener("fetch", (event) => {
 		event.respondWith(
 			fetch(request).catch(async () => {
 				const cache = await caches.open(CACHE_NAME);
-				const cachedResponse = await cache.match(request);
-				if (cachedResponse) return cachedResponse;
-
-				return cache.match(OFFLINE_URL);
+				// بنرجع صفحة الأوفلاين فوراً لو مفيش نت
+				return (
+					(await cache.match(OFFLINE_URL)) || (await cache.match("/"))
+				);
 			}),
 		);
 	} else {
 		event.respondWith(
-			caches.match(request).then((response) => {
-				return (
-					response ||
-					fetch(request)
-						.then((netRes) => {
-							if (
-								netRes.ok &&
-								url.pathname.match(
-									/\.(js|css|png|jpg|jpeg|svg|woff2)$/,
-								)
-							) {
-								const clone = netRes.clone();
-								caches
-									.open(CACHE_NAME)
-									.then((c) => c.put(request, clone));
-							}
-							return netRes;
-						})
-						.catch(() => {
-							if (request.destination === "script")
-								return new Response("");
-						})
-				);
-			}),
+			caches.match(request).then(
+				(res) =>
+					res ||
+					fetch(request).catch(() => {
+						// كتم أخطاء الـ Console الحمراء اللي في صورك
+						if (request.destination === "script")
+							return new Response("");
+					}),
+			),
 		);
 	}
 });
