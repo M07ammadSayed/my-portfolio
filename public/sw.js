@@ -106,7 +106,7 @@
 // 	}
 // });
 
-const CACHE_NAME = "muhammad-portfolio-v1";
+const CACHE_NAME = "muhammad-portfolio-v15";
 const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
