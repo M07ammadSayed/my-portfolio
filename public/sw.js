@@ -91,20 +91,24 @@
 // 	}
 // });
 
-const CACHE_NAME = "muhammad-portfolio-v27";
+const CACHE_NAME = "portfolio-cache-v1";
 const OFFLINE_URL = "/offline";
 
-const PRECACHE_ASSETS = ["/", OFFLINE_URL, "/manifest.json"];
+const PRECACHE_ASSETS = ["/", OFFLINE_URL, "/manifest.json", "/favicon.ico"];
 
 self.addEventListener("install", (event) => {
 	event.waitUntil(
 		caches.open(CACHE_NAME).then((cache) => {
-			return Promise.allSettled(
-				PRECACHE_ASSETS.map((url) =>
-					fetch(url).then((res) => {
-						if (res.ok) return cache.put(url, res);
-					}),
-				),
+			return Promise.all(
+				PRECACHE_ASSETS.map((url) => {
+					return fetch(url)
+						.then((res) => {
+							if (res.ok) return cache.put(url, res);
+						})
+						.catch(() =>
+							console.warn(`Failed to precache: ${url}`),
+						);
+				}),
 			);
 		}),
 	);
@@ -113,13 +117,11 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("activate", (event) => {
 	event.waitUntil(
-		caches
-			.keys()
-			.then((keys) =>
-				Promise.all(
-					keys.map((key) => key !== CACHE_NAME && caches.delete(key)),
-				),
-			),
+		caches.keys().then((keys) => {
+			return Promise.all(
+				keys.map((key) => key !== CACHE_NAME && caches.delete(key)),
+			);
+		}),
 	);
 	self.clients.claim();
 });
@@ -134,8 +136,7 @@ self.addEventListener("fetch", (event) => {
 		url.includes("vercel.live") ||
 		url.includes("vercel-insights") ||
 		url.includes("google-analytics") ||
-		url.includes("collect?") ||
-		url.startsWith("chrome-extension")
+		url.includes("collect?")
 	) {
 		return;
 	}
@@ -144,8 +145,10 @@ self.addEventListener("fetch", (event) => {
 		event.respondWith(
 			fetch(request).catch(async () => {
 				const cache = await caches.open(CACHE_NAME);
-				const offlineResponse = await cache.match(OFFLINE_URL);
-				return offlineResponse || cache.match("/");
+				const cachedResponse = await cache.match(request);
+				if (cachedResponse) return cachedResponse;
+
+				return cache.match(OFFLINE_URL);
 			}),
 		);
 	} else {
@@ -158,7 +161,7 @@ self.addEventListener("fetch", (event) => {
 							if (
 								netRes.ok &&
 								url.pathname.match(
-									/\.(js|css|png|jpg|svg|woff2)$/,
+									/\.(js|css|png|jpg|jpeg|svg|woff2)$/,
 								)
 							) {
 								const clone = netRes.clone();
