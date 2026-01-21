@@ -6,12 +6,8 @@
 // 	"/",
 // 	"/favicon.ico",
 // 	"/favicon-96x96.png",
-// 	"/apple-touch-icon.png",
-// 	"/web-app-manifest-192x192.png",
-// 	"/web-app-manifest-512x512.png",
 // 	"/manifest.json",
 // 	"/icon.svg",
-// 	"/src/components/CustomCursor.tsx",
 // ];
 
 // self.addEventListener("install", (event) => {
@@ -37,6 +33,7 @@
 // 	const url = event.request.url;
 
 // 	if (
+// 		url.origin !== location.origin ||
 // 		url.includes("vercel.live") ||
 // 		url.includes("vercel-insights") ||
 // 		url.includes("google-analytics") ||
@@ -91,7 +88,7 @@
 // 	}
 // });
 
-const CACHE_NAME = "portfolio-fixed-v1";
+const CACHE_NAME = "muhammad-portfolio-v30"; // إصدار جديد تماماً
 const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
@@ -99,16 +96,20 @@ const PRECACHE_ASSETS = [
 	OFFLINE_URL,
 	"/manifest.json",
 	"/favicon.ico",
+	"/favicon-96x96.png",
 	"/icon.svg",
 ];
 
+// 1. التثبيت والتخزين المسبق
 self.addEventListener("install", (event) => {
 	event.waitUntil(
 		caches.open(CACHE_NAME).then((cache) => {
-			// بنحمل كل ملف لوحده عشان لو الأيقونة مثلاً ضايعة، صفحة الأوفلاين تتسجل برضه
+			// بنحمل كل ملف لوحده عشان نضمن نجاح العملية حتى لو في أيقونة ناقصة
 			return Promise.allSettled(
 				PRECACHE_ASSETS.map((asset) =>
-					fetch(asset).then((res) => res.ok && cache.put(asset, res)),
+					fetch(asset).then((res) => {
+						if (res.ok) return cache.put(asset, res);
+					}),
 				),
 			);
 		}),
@@ -116,6 +117,7 @@ self.addEventListener("install", (event) => {
 	self.skipWaiting();
 });
 
+// 2. تفعيل وتنظيف الكاش القديم
 self.addEventListener("activate", (event) => {
 	event.waitUntil(
 		caches
@@ -129,13 +131,15 @@ self.addEventListener("activate", (event) => {
 	self.clients.claim();
 });
 
+// 3. معالجة الطلبات والتحويل الإجباري للأوفلاين
 self.addEventListener("fetch", (event) => {
 	const { request } = event;
-	const url = new URL(request.url); // ده Object
+	const url = new URL(request.url);
 
-	// حل مشكلة الـ includes والـ startsWith (بنستخدم الـ href اللي هو string)
+	// استثناء الـ Extensions والروابط الخارجية عشان الـ Console ينضف
 	if (
 		url.origin !== location.origin ||
+		url.href.includes("vercel") ||
 		url.href.startsWith("chrome-extension")
 	) {
 		return;
@@ -145,23 +149,52 @@ self.addEventListener("fetch", (event) => {
 		event.respondWith(
 			fetch(request).catch(async () => {
 				const cache = await caches.open(CACHE_NAME);
-				// بنرجع صفحة الأوفلاين فوراً لو مفيش نت
-				return (
-					(await cache.match(OFFLINE_URL)) || (await cache.match("/"))
+				const offlineResponse = await cache.match(OFFLINE_URL);
+
+				// لو المتصفح بيحاول يفتح أي صفحة والنت قطع، بنرمي صفحة الـ offline فوراً
+				if (offlineResponse) {
+					return offlineResponse;
+				}
+
+				// Fallback أخير لو الكاش لسه مخلصش
+				return new Response(
+					"Offline mode activated. Please refresh when online.",
+					{
+						status: 200,
+						headers: { "Content-Type": "text/html" },
+					},
 				);
 			}),
 		);
 	} else {
+		// معالجة الملفات (صور، JS، CSS) - استراتيجية Cache First
 		event.respondWith(
-			caches.match(request).then(
-				(res) =>
-					res ||
-					fetch(request).catch(() => {
-						// كتم أخطاء الـ Console الحمراء اللي في صورك
+			caches.match(request).then((cachedResponse) => {
+				if (cachedResponse) return cachedResponse;
+
+				return fetch(request)
+					.then((networkResponse) => {
+						// تخزين تلقائي لملفات Next.js والصور أثناء تصفحك والنت شغال
+						if (
+							networkResponse.ok &&
+							(url.pathname.includes("_next/static") ||
+								url.pathname.match(
+									/\.(webp|png|jpg|jpeg|svg|js|css|woff2)$/,
+								))
+						) {
+							const responseToCache = networkResponse.clone();
+							caches
+								.open(CACHE_NAME)
+								.then((c) => c.put(request, responseToCache));
+						}
+						return networkResponse;
+					})
+					.catch(() => {
+						// كتم أخطاء الـ Console للملفات المفقودة وأنت أوفلاين
 						if (request.destination === "script")
 							return new Response("");
-					}),
-			),
+					});
+			}),
 		);
 	}
 });
