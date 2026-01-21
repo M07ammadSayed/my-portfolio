@@ -51,11 +51,11 @@ self.addEventListener("fetch", (event) => {
 		url.origin !== location.origin ||
 		url.pathname.includes("vercel") ||
 		url.pathname.startsWith("/_next") ||
-		url.includes("vercel.live") ||
-		url.includes("vercel-insights") ||
-		url.includes("google-analytics") ||
-		url.includes("collect?") ||
-		url.startsWith("chrome-extension")
+		url.href.includes("vercel.live") ||
+		url.href.includes("vercel-insights") ||
+		url.href.includes("google-analytics") ||
+		url.href.includes("collect?") ||
+		url.href.startsWith("chrome-extension")
 	) {
 		return;
 	}
