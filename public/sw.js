@@ -1,4 +1,4 @@
-const CACHE_NAME = "muhammad-portfolio-v15";
+const CACHE_NAME = "muhammad-portfolio-v20";
 const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
@@ -11,6 +11,7 @@ const PRECACHE_ASSETS = [
 	"/web-app-manifest-512x512.png",
 	"/manifest.json",
 	"/icon.svg",
+	"/src/components/CustomCursor.tsx",
 ];
 
 self.addEventListener("install", (event) => {
