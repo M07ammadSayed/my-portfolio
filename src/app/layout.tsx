@@ -61,11 +61,11 @@ export const metadata: Metadata = {
 	icons: {
 		icon: [
 			{ url: "/favicon.ico", sizes: "any" },
-			{ url: "/icon.svg", type: "image/svg+xml" },
+			{ url: "/favicon.svg", type: "image/svg+xml" },
 		],
 		apple: [
 			{
-				url: "/apple-icon.png",
+				url: "/apple-touch-icon.png",
 				sizes: "180x180",
 				type: "image/png",
 			},
@@ -154,14 +154,21 @@ export default async function RootLayout({
 					href="/manifest.json"
 					crossOrigin="use-credentials"
 				/>
-				<link rel="icon" type="image/svg+xml" href="/icon.svg" />
+				<link
+					rel="icon"
+					type="image/png"
+					href="/favicon-96x96.png"
+					sizes="96x96"
+				/>
+				<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 				<link rel="shortcut icon" href="/favicon.ico" />
 				<link
 					rel="apple-touch-icon"
 					sizes="180x180"
-					href="/apple-icon.png"
+					href="/apple-touch-icon.png"
 				/>
 				<meta name="apple-mobile-web-app-title" content="<MS />" />
+				<link rel="manifest" href="/site.webmanifest" />
 			</head>
 			<body
 				className={`${inter.className} ${jetbrainsMono.variable} bg-[#020617] text-slate-200 antialiased selection:bg-cyan-500/30`}
