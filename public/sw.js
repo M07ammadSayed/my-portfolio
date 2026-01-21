@@ -91,7 +91,7 @@
 // 	}
 // });
 
-const CACHE_NAME = "muhammad-portfolio-v22";
+const CACHE_NAME = "muhammad-portfolio-v23";
 const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
@@ -151,13 +151,15 @@ self.addEventListener("fetch", (event) => {
 			fetch(request).catch(async () => {
 				const cache = await caches.open(CACHE_NAME);
 				const offlineResponse = await cache.match(OFFLINE_URL);
-				return (
-					offlineResponse ||
-					new Response("You are offline", {
-						status: 200,
-						headers: { "Content-Type": "text/html" },
-					})
-				);
+
+				if (offlineResponse) {
+					return offlineResponse;
+				}
+
+				return new Response("You are offline", {
+					status: 200,
+					headers: { "Content-Type": "text/html" },
+				});
 			}),
 		);
 	} else {
