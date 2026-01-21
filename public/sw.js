@@ -94,7 +94,13 @@
 const CACHE_NAME = "muhammad-portfolio-v26";
 const OFFLINE_URL = "/offline";
 
-const PRECACHE_ASSETS = ["/", OFFLINE_URL, "/favicon.ico", "/manifest.json"];
+const PRECACHE_ASSETS = [
+	"/",
+	OFFLINE_URL,
+	"/favicon.ico",
+	"/manifest.json",
+	"/icon.svg",
+];
 
 self.addEventListener("install", (event) => {
 	event.waitUntil(
@@ -119,20 +125,58 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-	if (event.request.mode === "navigate") {
+	const { request } = event;
+	const url = new URL(request.url);
+
+	if (
+		url.origin !== location.origin ||
+		url.includes("vercel.live") ||
+		url.includes("vercel-insights") ||
+		url.includes("google-analytics") ||
+		url.includes("collect?") ||
+		url.startsWith("chrome-extension")
+	) {
+		return;
+	}
+
+	if (request.mode === "navigate") {
 		event.respondWith(
-			fetch(event.request).catch(async () => {
+			fetch(request).catch(async () => {
 				const cache = await caches.open(CACHE_NAME);
-				return (
-					(await cache.match(OFFLINE_URL)) || (await cache.match("/"))
-				);
+				const offlineResponse = await cache.match(OFFLINE_URL);
+				return offlineResponse || cache.match("/");
 			}),
 		);
 	} else {
 		event.respondWith(
-			caches
-				.match(event.request)
-				.then((res) => res || fetch(event.request)),
+			caches.match(request).then((cachedResponse) => {
+				if (cachedResponse) return cachedResponse;
+
+				return fetch(request)
+					.then((networkResponse) => {
+						if (
+							networkResponse.ok &&
+							(url.pathname.includes("_next/static") ||
+								url.pathname.match(
+									/\.(webp|png|jpg|jpeg|svg|js|woff2)$/,
+								))
+						) {
+							const responseToCache = networkResponse.clone();
+							caches.open(CACHE_NAME).then((cache) => {
+								cache.put(request, responseToCache);
+							});
+						}
+						return networkResponse;
+					})
+					.catch(() => {
+						if (
+							request.destination === "script" ||
+							request.destination === "style"
+						) {
+							return new Response("", { status: 200 });
+						}
+					});
+			}),
 		);
 	}
 });
