@@ -8,7 +8,7 @@ const nextConfig = {
 	async headers() {
 		return [
 			{
-				source: "/((?!offline\\.html).*)",
+				source: "/((?!page\\.tsx).*)",
 				headers: [
 					{ key: "X-Frame-Options", value: "DENY" },
 					{ key: "X-Content-Type-Options", value: "nosniff" },
