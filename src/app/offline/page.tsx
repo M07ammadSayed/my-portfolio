@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import CustomCursor from "@/components/CustomCursor";
+// import CustomCursor from "@/components/CustomCursor";
 
 export default function OfflinePage() {
 	const [isChecking, setIsChecking] = React.useState(false);
@@ -24,14 +24,14 @@ export default function OfflinePage() {
 
 	return (
 		<div className="flex min-h-screen flex-col items-center justify-center bg-[#020617] p-4 text-center cursor-none">
-			{/* <style jsx global>{`
+			<style jsx global>{`
 				html,
 				body,
 				* {
 					cursor: auto !important;
 				}
-			`}</style> */}
-			<CustomCursor />
+			`}</style>
+			{/* <CustomCursor /> */}
 
 			<div className="relative mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-slate-900 shadow-[0_0_20px_rgba(8,145,178,0.4)]">
 				<span className="text-5xl">📡</span>
