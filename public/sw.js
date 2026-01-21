@@ -3,8 +3,8 @@ const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
 	OFFLINE_URL,
+	"/",
 	"/favicon.ico",
-	"/icon.svg",
 	"/favicon-96x96.png",
 	"/apple-touch-icon.png",
 	"/web-app-manifest-192x192.png",
