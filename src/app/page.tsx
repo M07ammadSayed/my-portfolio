@@ -3,6 +3,7 @@ import PageManager from "@/components/PageManager";
 import NavBar from "@/components/NavBar";
 import Hero from "@/components/Hero";
 import VisualBackground from "@/components/VisualBackground";
+import { Link } from "lucide-react";
 
 const Skills = dynamic(() => import("@/components/Skills"), { ssr: true });
 const Projects = dynamic(() => import("@/components/Projects"), { ssr: true });
@@ -25,6 +26,9 @@ export default function Portfolio() {
 			<Projects />
 			<Footer />
 			<ScrollToTop />
+			<div style={{ display: "none" }}>
+				<Link href="/offline">Offline</Link>
+			</div>
 		</PageManager>
 	);
 }

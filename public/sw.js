@@ -91,16 +91,10 @@
 // 	}
 // });
 
-const CACHE_NAME = "muhammad-portfolio-v25";
+const CACHE_NAME = "muhammad-portfolio-v26";
 const OFFLINE_URL = "/offline";
 
-const PRECACHE_ASSETS = [
-	"/",
-	OFFLINE_URL,
-	"/favicon.ico",
-	"/manifest.json",
-	"/icon.svg",
-];
+const PRECACHE_ASSETS = ["/", OFFLINE_URL, "/favicon.ico", "/manifest.json"];
 
 self.addEventListener("install", (event) => {
 	event.waitUntil(
@@ -113,72 +107,32 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("activate", (event) => {
 	event.waitUntil(
-		caches.keys().then((cacheNames) => {
-			return Promise.all(
-				cacheNames
-					.filter((name) => name !== CACHE_NAME)
-					.map((name) => caches.delete(name)),
-			);
-		}),
+		caches
+			.keys()
+			.then((keys) =>
+				Promise.all(
+					keys.map((key) => key !== CACHE_NAME && caches.delete(key)),
+				),
+			),
 	);
 	self.clients.claim();
 });
 
 self.addEventListener("fetch", (event) => {
-	const { request } = event;
-	const url = new URL(request.url);
-
-	if (
-		url.origin !== location.origin ||
-		url.pathname.includes("vercel") ||
-		url.pathname.includes("google-analytics") ||
-		request.url.startsWith("chrome-extension")
-	) {
-		return;
-	}
-
-	if (request.mode === "navigate") {
+	if (event.request.mode === "navigate") {
 		event.respondWith(
-			fetch(request).catch(async () => {
+			fetch(event.request).catch(async () => {
 				const cache = await caches.open(CACHE_NAME);
-				const offlineResponse = await cache.match(OFFLINE_URL);
 				return (
-					offlineResponse ||
-					new Response("Offline page not found", { status: 404 })
+					(await cache.match(OFFLINE_URL)) || (await cache.match("/"))
 				);
 			}),
 		);
 	} else {
 		event.respondWith(
-			caches.match(request).then((cachedResponse) => {
-				if (cachedResponse) return cachedResponse;
-
-				return fetch(request)
-					.then((networkResponse) => {
-						// تخزين ملفات الـ Static (الصور والخطوط) تلقائياً أثناء التصفح
-						if (
-							networkResponse.ok &&
-							(url.pathname.includes("_next/static") ||
-								url.pathname.match(
-									/\.(webp|png|jpg|jpeg|svg|js)$/,
-								))
-						) {
-							const responseToCache = networkResponse.clone();
-							caches.open(CACHE_NAME).then((cache) => {
-								cache.put(request, responseToCache);
-							});
-						}
-						return networkResponse;
-					})
-					.catch(() => {
-						if (
-							request.destination === "script" ||
-							request.destination === "style"
-						) {
-							return new Response("", { status: 200 });
-						}
-					});
-			}),
+			caches
+				.match(event.request)
+				.then((res) => res || fetch(event.request)),
 		);
 	}
 });
