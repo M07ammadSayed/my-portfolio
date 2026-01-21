@@ -12,10 +12,10 @@ const PRECACHE_ASSETS = [
 ];
 
 self.addEventListener("install", (event) => {
-	self.skipWaiting();
 	event.waitUntil(
 		caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS)),
 	);
+	self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
@@ -48,7 +48,7 @@ self.addEventListener("fetch", (event) => {
 		event.respondWith(
 			fetch(event.request).catch(async () => {
 				const cache = await caches.open(CACHE_NAME);
-				return (await cache.match(OFFLINE_URL)) || Response.error();
+				return await cache.match(OFFLINE_URL);
 			}),
 		);
 	} else {
