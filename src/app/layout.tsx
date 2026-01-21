@@ -98,14 +98,6 @@ export default async function RootLayout({
 }) {
 	const headerList = await headers();
 	const nonce = headerList.get("x-nonce") || "";
-	if (typeof window !== "undefined" && "serviceWorker" in navigator) {
-		window.addEventListener("load", () => {
-			navigator.serviceWorker.register("/sw.js").then((reg) => {
-				reg.update();
-				console.log("SW registered and updated!");
-			});
-		});
-	}
 
 	const jsonLd = {
 		"@context": "https://schema.org",
@@ -194,16 +186,17 @@ export default async function RootLayout({
 					nonce={nonce}
 				>
 					{`
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-            .then(function(reg) {
-                console.log('SW registered with scope:', reg.scope);
-            })
-            .catch(function(err) {
-                console.error('SW registration failed:', err);
-            });
-        }
-    `}
+                        if ('serviceWorker' in navigator) {
+                            window.addEventListener('load', function() {
+                                navigator.serviceWorker.register('/sw.js').then(function(reg) {
+                                    reg.update();
+                                    console.log('SW registered and updated!');
+                                }).catch(function(err) {
+                                    console.error('SW registration failed:', err);
+                                });
+                            });
+                        }
+                    `}
 				</Script>
 			</body>
 		</html>

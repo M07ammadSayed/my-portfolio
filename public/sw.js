@@ -5,6 +5,8 @@ const PRECACHE_ASSETS = [
 	OFFLINE_URL,
 	"/favicon.ico",
 	"/favicon-96x96.png",
+	"/web-app-manifest-192x192.png",
+	"/web-app-manifest-512x512.png",
 	"/manifest.json",
 	"/icon.svg",
 ];
