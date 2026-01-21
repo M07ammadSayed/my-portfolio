@@ -15,6 +15,13 @@ export function middleware(request: NextRequest) {
 		return NextResponse.next();
 	}
 
+	if (pathname.includes("offline.html")) {
+		const response = NextResponse.next();
+		response.headers.delete("Content-Security-Policy");
+		response.headers.delete("X-Frame-Options");
+		return response;
+	}
+
 	const nonce = btoa(
 		String.fromCharCode(...crypto.getRandomValues(new Uint8Array(16))),
 	);
