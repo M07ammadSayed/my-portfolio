@@ -74,6 +74,7 @@ self.addEventListener("fetch", (event) => {
 		event.respondWith(
 			caches.match(event.request).then((response) => {
 				if (response) return response;
+
 				if (
 					!navigator.onLine &&
 					(event.request.url.includes(".css") ||
@@ -84,7 +85,13 @@ self.addEventListener("fetch", (event) => {
 						headers: { "Content-Type": "text/css" },
 					});
 				}
-				return fetch(event.request);
+
+				return fetch(event.request).catch(() => {
+					return new Response(null, {
+						status: 204,
+						statusText: "Offline",
+					});
+				});
 			}),
 		);
 	}
