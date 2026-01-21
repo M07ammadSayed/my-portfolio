@@ -1,9 +1,8 @@
-const CACHE_NAME = "muhammad-portfolio-v100";
+const CACHE_NAME = "muhammad-portfolio-v1";
 const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
 	OFFLINE_URL,
-	"/",
 	"/favicon.ico",
 	"/favicon-96x96.png",
 	"/manifest.json",
