@@ -64,13 +64,10 @@ self.addEventListener("fetch", (event) => {
 		event.respondWith(
 			fetch(event.request).catch(async () => {
 				const cache = await caches.open(CACHE_NAME);
-				const offlineResponse =
-					(await cache.match("/offline")) ||
-					(await cache.match("/offline/"));
-				if (offlineResponse) {
-					return offlineResponse;
-				}
-				return cache.match("/");
+				const match =
+					(await cache.match(OFFLINE_URL)) ||
+					(await cache.match("/offline"));
+				return match || cache.match("/");
 			}),
 		);
 	} else {
@@ -81,6 +78,44 @@ self.addEventListener("fetch", (event) => {
 		);
 	}
 });
+
+// self.addEventListener("fetch", (event) => {
+// 	const url = new URL(event.request.url);
+
+// 	if (
+// 		url.origin !== location.origin ||
+// 		url.pathname.includes("vercel") ||
+// 		url.pathname.startsWith("/_next") ||
+// 		url.includes("vercel.live") ||
+// 		url.includes("vercel-insights") ||
+// 		url.includes("google-analytics") ||
+// 		url.includes("collect?") ||
+// 		url.startsWith("chrome-extension")
+// 	) {
+// 		return;
+// 	}
+
+// 	if (event.request.mode === "navigate") {
+// 		event.respondWith(
+// 			fetch(event.request).catch(async () => {
+// 				const cache = await caches.open(CACHE_NAME);
+// 				const offlineResponse =
+// 					(await cache.match("/offline")) ||
+// 					(await cache.match("/offline/"));
+// 				if (offlineResponse) {
+// 					return offlineResponse;
+// 				}
+// 				return cache.match("/");
+// 			}),
+// 		);
+// 	} else {
+// 		event.respondWith(
+// 			caches.match(event.request).then((response) => {
+// 				return response || fetch(event.request);
+// 			}),
+// 		);
+// 	}
+// });
 
 // self.addEventListener("fetch", (event) => {
 // 	const url = event.request.url;
