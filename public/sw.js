@@ -91,7 +91,7 @@
 // 	}
 // });
 
-const CACHE_NAME = "muhammad-portfolio-v24";
+const CACHE_NAME = "muhammad-portfolio-v25";
 const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
@@ -105,7 +105,6 @@ const PRECACHE_ASSETS = [
 self.addEventListener("install", (event) => {
 	event.waitUntil(
 		caches.open(CACHE_NAME).then((cache) => {
-			console.log("Service Worker: Pre-caching Offline Page...");
 			return cache.addAll(PRECACHE_ASSETS);
 		}),
 	);
@@ -126,23 +125,59 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-	if (event.request.mode === "navigate") {
+	const { request } = event;
+	const url = new URL(request.url);
+
+	if (
+		url.origin !== location.origin ||
+		url.pathname.includes("vercel") ||
+		url.pathname.includes("google-analytics") ||
+		request.url.startsWith("chrome-extension")
+	) {
+		return;
+	}
+
+	if (request.mode === "navigate") {
 		event.respondWith(
-			fetch(event.request).catch(async () => {
+			fetch(request).catch(async () => {
 				const cache = await caches.open(CACHE_NAME);
-				const cachedResponse = await cache.match(OFFLINE_URL);
-				if (cachedResponse) {
-					return cachedResponse;
-				}
-				return new Response("Offline content not available", {
-					status: 503,
-				});
+				const offlineResponse = await cache.match(OFFLINE_URL);
+				return (
+					offlineResponse ||
+					new Response("Offline page not found", { status: 404 })
+				);
 			}),
 		);
 	} else {
 		event.respondWith(
-			caches.match(event.request).then((response) => {
-				return response || fetch(event.request);
+			caches.match(request).then((cachedResponse) => {
+				if (cachedResponse) return cachedResponse;
+
+				return fetch(request)
+					.then((networkResponse) => {
+						// تخزين ملفات الـ Static (الصور والخطوط) تلقائياً أثناء التصفح
+						if (
+							networkResponse.ok &&
+							(url.pathname.includes("_next/static") ||
+								url.pathname.match(
+									/\.(webp|png|jpg|jpeg|svg|js)$/,
+								))
+						) {
+							const responseToCache = networkResponse.clone();
+							caches.open(CACHE_NAME).then((cache) => {
+								cache.put(request, responseToCache);
+							});
+						}
+						return networkResponse;
+					})
+					.catch(() => {
+						if (
+							request.destination === "script" ||
+							request.destination === "style"
+						) {
+							return new Response("", { status: 200 });
+						}
+					});
 			}),
 		);
 	}
