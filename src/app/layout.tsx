@@ -115,7 +115,7 @@ export default async function RootLayout({
 				"@type": "Person",
 				name: "Muhammad Sayyid",
 				url: "https://muhammad-sayyid.vercel.app",
-				image: "https://muhammad-sayyid.vercel.app/icon.png",
+				image: "https://muhammad-sayyid.vercel.app/icon.svg",
 				jobTitle:
 					"Application Security Engineer & Full-Stack Developer",
 				alumniOf: {
@@ -149,24 +149,6 @@ export default async function RootLayout({
 					nonce={nonce}
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-				/>
-				<link
-					rel="manifest"
-					href="/manifest.json"
-					crossOrigin="use-credentials"
-				/>
-				<link
-					rel="icon"
-					type="image/png"
-					href="/favicon-96x96.png"
-					sizes="96x96"
-				/>
-				<link rel="icon" type="image/svg+xml" href="/icon.svg" />
-				<link rel="shortcut icon" href="/favicon.ico" />
-				<link
-					rel="apple-touch-icon"
-					sizes="180x180"
-					href="/apple-touch-icon.png"
 				/>
 				<meta name="apple-mobile-web-app-title" content="<MS />" />
 			</head>

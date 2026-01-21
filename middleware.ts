@@ -15,7 +15,7 @@ export function middleware(request: NextRequest) {
 	}
 
 	const nonce = btoa(
-		String.fromCharCode(...crypto.getRandomValues(new Uint8Array(16)))
+		String.fromCharCode(...crypto.getRandomValues(new Uint8Array(16))),
 	);
 
 	const cspHeader = `
@@ -51,7 +51,7 @@ export function middleware(request: NextRequest) {
 	response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
 	response.headers.set(
 		"Permissions-Policy",
-		"camera=(), microphone=(), geolocation=()"
+		"camera=(), microphone=(), geolocation=()",
 	);
 
 	return response;
@@ -60,7 +60,7 @@ export function middleware(request: NextRequest) {
 export const config = {
 	matcher: [
 		{
-			source: "/((?!api|_next/static|_next/image|favicon.ico|manifest|sw.js|.*\\.png$|.*\\.jpg$).*)",
+			source: "/((?!api|_next/static|_next/image|favicon.ico|manifest\\.json|sw\\.js|.*\\.png$|.*\\.jpg$|.*\\.svg$).*)",
 			missing: [
 				{ type: "header", key: "next-router-prefetch" },
 				{ type: "header", key: "purpose", value: "prefetch" },
