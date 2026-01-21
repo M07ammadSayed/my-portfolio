@@ -61,7 +61,7 @@ export function middleware(request: NextRequest) {
 export const config = {
 	matcher: [
 		{
-			source: "/((?!api|_next/static|_next/image|offline.html|favicon.ico|manifest.json|sw.js|icons/|images/|.*\\.png$|.*\\.jpg$|.*\\.svg$).*)",
+			source: "/((?!api|_next/static|_next/image|offline.html|favicon.ico|manifest.json|sw.js|.*\\.png$|.*\\.jpg$|.*\\.svg$).*)",
 			missing: [
 				{ type: "header", key: "next-router-prefetch" },
 				{ type: "header", key: "purpose", value: "prefetch" },
