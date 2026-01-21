@@ -2,6 +2,7 @@ const CACHE_NAME = "muhammad-portfolio-v4";
 const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
+	"/",
 	OFFLINE_URL,
 	"/favicon.ico",
 	"/favicon-96x96.png",
@@ -13,7 +14,20 @@ const PRECACHE_ASSETS = [
 
 self.addEventListener("install", (event) => {
 	event.waitUntil(
-		caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS)),
+		caches.open(CACHE_NAME).then(async (cache) => {
+			console.log("Forcing cache for offline assets...");
+			const promises = PRECACHE_ASSETS.map(async (url) => {
+				try {
+					const response = await fetch(url, { cache: "reload" });
+					if (!response.ok)
+						throw new Error("Network response was not ok");
+					return cache.put(url, response);
+				} catch (error) {
+					console.error(`Failed to cache ${url}:`, error);
+				}
+			});
+			return Promise.all(promises);
+		}),
 	);
 	self.skipWaiting();
 });
@@ -48,7 +62,9 @@ self.addEventListener("fetch", (event) => {
 		event.respondWith(
 			fetch(event.request).catch(async () => {
 				const cache = await caches.open(CACHE_NAME);
-				return await cache.match(OFFLINE_URL);
+				const match = await cache.match(OFFLINE_URL);
+				if (match) return match;
+				return await cache.match("/");
 			}),
 		);
 	} else {
