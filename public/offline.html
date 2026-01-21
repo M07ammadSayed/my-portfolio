@@ -1,97 +1,155 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Oops! You're Offline | Muhammad Sayyid</title>
-		<script src="https://cdn.tailwindcss.com"></script>
+		<meta
+			http-equiv="Content-Security-Policy"
+			content="script-src 'unsafe-inline'; style-src 'unsafe-inline';"
+		/>
+		<title>Offline - Muhammad Sayyid</title>
 		<style>
-			html,
-			body,
-			* {
-				cursor: auto !important;
+			body {
+				background-color: #020617;
+				color: white;
+				font-family:
+					system-ui,
+					-apple-system,
+					sans-serif;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				min-height: 100vh;
+				margin: 0;
+				text-align: center;
+				padding: 20px;
+			}
+			.icon-container {
+				position: relative;
+				margin-bottom: 32px;
+				width: 96px;
+				height: 96px;
+				background: #0f172a;
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				box-shadow: 0 0 20px rgba(8, 145, 178, 0.4);
+			}
+			.emoji {
+				font-size: 48px;
+			}
+			.ping {
+				position: absolute;
+				top: -4px;
+				right: -4px;
+				width: 16px;
+				height: 16px;
+				background: #ef4444;
+				border-radius: 50%;
+				animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+			}
+			@keyframes ping {
+				75%,
+				100% {
+					transform: scale(2);
+					opacity: 0;
+				}
+			}
+			h1 {
+				font-size: 2rem;
+				margin-bottom: 8px;
+				font-weight: bold;
+			}
+			p {
+				color: #94a3b8;
+				max-width: 400px;
+				margin-bottom: 32px;
+				line-height: 1.5;
+			}
+			#reconnect-btn {
+				background: #0891b2;
+				color: white;
+				border: none;
+				padding: 12px 32px;
+				border-radius: 12px;
+				font-weight: 600;
+				cursor: pointer;
+				transition: all 0.2s;
+			}
+			#reconnect-btn:hover {
+				background: #06b6d4;
+				transform: scale(1.05);
+			}
+			#reconnect-btn:disabled {
+				opacity: 0.6;
+				cursor: not-allowed;
+			}
+			.spinner {
+				display: inline-block;
+				width: 16px;
+				height: 16px;
+				border: 2px solid white;
+				border-top-color: transparent;
+				border-radius: 50%;
+				animation: spin 1s linear infinite;
+				margin-right: 8px;
+			}
+			@keyframes spin {
+				to {
+					transform: rotate(360deg);
+				}
+			}
+			footer {
+				position: absolute;
+				bottom: 32px;
+				font-size: 0.875rem;
+				color: #475569;
 			}
 		</style>
 	</head>
-	<body class="bg-[#020617]">
-		<div
-			class="flex min-h-screen flex-col items-center justify-center p-4 text-center"
-		>
-			<div
-				class="relative mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-slate-900 shadow-[0_0_20px_rgba(8,145,178,0.4)]"
-			>
-				<span class="text-5xl">📡</span>
-				<div
-					class="absolute -top-1 -right-1 h-4 w-4 animate-ping rounded-full bg-red-500"
-				></div>
-			</div>
-
-			<h1
-				class="mb-2 text-3xl font-bold tracking-tight text-white sm:text-4xl"
-			>
-				Oops! You're Offline
-			</h1>
-
-			<p class="mb-8 max-w-md text-slate-400">
-				It seems you've lost your connection. Don't worry, my portfolio
-				is designed to work even when you're disconnected!
-			</p>
-
-			<button
-				id="reconnect-btn"
-				onclick="tryReconnect()"
-				class="group relative flex items-center justify-center overflow-hidden rounded-xl bg-cyan-600 px-8 py-3 font-semibold text-white transition-all hover:bg-cyan-500 hover:ring-2 hover:ring-cyan-400 hover:ring-offset-2 hover:ring-offset-[#020617] active:scale-95"
-			>
-				<span id="btn-text">Try To Reconnect</span>
-				<span id="btn-loading" class="hidden flex items-center gap-2">
-					<span
-						class="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"
-					></span>
-					Checking...
-				</span>
-			</button>
-
-			<footer class="absolute bottom-8 text-sm text-slate-600">
-				&copy; <span id="year"></span> Muhammad Sayyid • Developed with
-				❤️
-			</footer>
+	<body>
+		<div class="icon-container">
+			<span class="emoji">📡</span>
+			<div class="ping"></div>
 		</div>
 
+		<h1>Oops! You're Offline</h1>
+		<p>
+			It seems you've lost your connection. Don't worry, my portfolio is
+			designed to work even when you're disconnected!
+		</p>
+
+		<button id="reconnect-btn">Try To Reconnect</button>
+
+		<footer>
+			&copy; <span id="year"></span> Muhammad Sayyid • Developed with ❤️
+		</footer>
+
 		<script>
-			// Set Current Year
 			document.getElementById("year").textContent =
 				new Date().getFullYear();
+			const btn = document.getElementById("reconnect-btn");
 
-			let isChecking = false;
-
-			async function tryReconnect() {
-				if (isChecking) return;
-
-				const btnText = document.getElementById("btn-text");
-				const btnLoading = document.getElementById("btn-loading");
-				const btn = document.getElementById("reconnect-btn");
-
-				isChecking = true;
-				btnText.classList.add("hidden");
-				btnLoading.classList.remove("hidden");
-				btn.classList.add("opacity-50", "cursor-not-allowed");
+			btn.onclick = async function () {
+				btn.disabled = true;
+				btn.innerHTML = '<span class="spinner"></span> Checking...';
 
 				try {
-					// Same logic as your React component
-					await fetch(`/?t=${Date.now()}`, {
+					await fetch("/favicon.ico", {
 						cache: "no-store",
 						mode: "no-cors",
 					});
-					// If fetch succeeds, redirect to home
 					window.location.href = "/";
-				} catch (error) {
-					// If still offline, reset button state
-					isChecking = false;
-					btnText.classList.remove("hidden");
-					btnLoading.classList.add("hidden");
-					btn.classList.remove("opacity-50", "cursor-not-allowed");
+				} catch (e) {
+					console.log("Offline...");
+					setTimeout(() => {
+						btn.disabled = false;
+						btn.innerHTML = "Try To Reconnect";
+					}, 1500);
 				}
-			}
+			};
 		</script>
 	</body>
 </html>

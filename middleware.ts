@@ -7,6 +7,7 @@ export function middleware(request: NextRequest) {
 	if (
 		pathname.includes("manifest") ||
 		pathname.includes("sw.js") ||
+		pathname.includes("offline.html") ||
 		pathname.endsWith(".png") ||
 		pathname.endsWith(".ico") ||
 		pathname.endsWith(".webmanifest")
@@ -60,7 +61,7 @@ export function middleware(request: NextRequest) {
 export const config = {
 	matcher: [
 		{
-			source: "/((?!api|_next/static|_next/image|favicon.ico|manifest\\.json|sw\\.js|.*\\.png$|.*\\.jpg$|.*\\.svg$).*)",
+			source: "/((?!api|_next/static|_next/image|favicon.ico|manifest\\.json|sw\\.js|offline\\.html|.*\\.png$|.*\\.jpg$|.*\\.svg$).*)",
 			missing: [
 				{ type: "header", key: "next-router-prefetch" },
 				{ type: "header", key: "purpose", value: "prefetch" },
