@@ -17,6 +17,7 @@ export const metadata: Metadata = {
 	title: "Muhammad Sayyid | AppSec Engineer",
 	description:
 		"Application Security Engineer & Full-Stack Developer securing modern web applications. Expert in White-box Testing, Secure Code Review.",
+	applicationName: "Muhammad Sayyid",
 	keywords: [
 		"Application Security",
 		"AppSec",
@@ -40,7 +41,7 @@ export const metadata: Metadata = {
 		description:
 			"Application Security Engineer & Full-Stack Developer securing modern web applications. Expert in White-box Testing, Secure Code Review.",
 		url: "https://muhammad-sayyid.vercel.app/",
-		siteName: "Muhammad Sayyid Portfolio",
+		siteName: "Muhammad Sayyid",
 		type: "website",
 		images: [{ url: "/opengraph-image.png", width: 1200, height: 630 }],
 	},
@@ -72,14 +73,13 @@ export const metadata: Metadata = {
 			},
 		],
 	},
-	// manifest: "/manifest.json",
 	verification: {
 		google: "THFxf1VSo42NqnEMbGPsjkHxmLNUwef2LRZl8WWjO9w",
 	},
 	appleWebApp: {
 		capable: true,
 		statusBarStyle: "default",
-		title: "Muhammad Sayyid",
+		title: "<MS />",
 	},
 	category: "technology",
 };
@@ -113,6 +113,7 @@ export default async function RootLayout({
 			},
 			{
 				"@type": "Person",
+				"@id": "https://muhammad-sayyid.vercel.app/#person",
 				name: "Muhammad Sayyid",
 				url: "https://muhammad-sayyid.vercel.app",
 				image: "https://muhammad-sayyid.vercel.app/icon.svg",
@@ -156,6 +157,7 @@ export default async function RootLayout({
 					crossOrigin="use-credentials"
 				/>
 				<meta name="apple-mobile-web-app-title" content="<MS />" />
+				<meta name="application-name" content="Muhammad Sayyid" />
 			</head>
 			<body
 				className={`${inter.className} ${jetbrainsMono.variable} bg-[#020617] text-slate-200 antialiased selection:bg-cyan-500/30`}
