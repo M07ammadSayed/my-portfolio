@@ -1,4 +1,4 @@
-const CACHE_NAME = "muhammad-portfolio-v10";
+const CACHE_NAME = "muhammad-portfolio-v777";
 const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
