@@ -59,7 +59,6 @@ export default function OfflinePage() {
 				}}
 			/>
 
-			{/* الأيقونة */}
 			<div
 				style={{
 					position: "relative",
@@ -78,7 +77,6 @@ export default function OfflinePage() {
 				<div className="ping"></div>
 			</div>
 
-			{/* النصوص */}
 			<h1
 				style={{
 					fontSize: "2rem",
@@ -101,7 +99,6 @@ export default function OfflinePage() {
 				is designed to work even when you're disconnected!
 			</p>
 
-			{/* الزرار */}
 			<button
 				onClick={handleReconnect}
 				disabled={isChecking}
