@@ -17,7 +17,7 @@ export default function NavBar() {
 
 	const handleNavClick = (
 		e: React.MouseEvent<HTMLAnchorElement>,
-		id: string
+		id: string,
 	) => {
 		e.preventDefault();
 		setIsMobileMenuOpen(false);
@@ -46,7 +46,7 @@ export default function NavBar() {
 			{
 				threshold: [0.2, 0.5],
 				rootMargin: "-15% 0px -50% 0px",
-			}
+			},
 		);
 
 		const refreshObserver = () => {
@@ -66,9 +66,7 @@ export default function NavBar() {
 
 	return (
 		<>
-			<nav
-				className="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] md:w-auto z-[10001] will-change-transform"
-			>
+			<nav className="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] md:w-auto z-[10001] will-change-transform">
 				<div
 					className={`transition-all duration-500 ${
 						scrolled
@@ -114,7 +112,7 @@ export default function NavBar() {
 											item.slice(1)}
 									</span>
 								</a>
-							)
+							),
 						)}
 					</div>
 
@@ -200,11 +198,25 @@ export default function NavBar() {
 												item.slice(1)}
 										</a>
 									))}
+									<div className="mt-2 pt-4 border-t border-slate-700/50 flex justify-center gap-6">
+										<SocialLink
+											href="https://github.com/M07ammadSayed"
+											icon={Github}
+											label="Visit GitHub Profile"
+											aria-label="GitHub Profile"
+										/>
+										<SocialLink
+											href="https://www.linkedin.com/in/muhammad-sayyid/"
+											icon={Linkedin}
+											label="Visit LinkedIn Profile"
+											aria-label="LinkedIn Profile"
+										/>
+									</div>
 								</motion.div>
 							</>
 						)}
 					</AnimatePresence>,
-					document.body
+					document.body,
 				)}
 		</>
 	);

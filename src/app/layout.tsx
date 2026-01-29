@@ -34,6 +34,9 @@ export const metadata: Metadata = {
 		"Bug Bounty",
 		"M07ammadSayed",
 		"Muhammad Sayyid",
+		"flex0geek hackerone",
+		"appsec github",
+		"open-appsec",
 	],
 	metadataBase: new URL("https://muhammad-sayyid.vercel.app"),
 	openGraph: {
