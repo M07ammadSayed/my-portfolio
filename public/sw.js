@@ -1,4 +1,4 @@
-const CACHE_NAME = "muhammad-portfolio-v5000";
+const CACHE_NAME = "muhammad-portfolio-v6000";
 const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
@@ -11,23 +11,22 @@ const PRECACHE_ASSETS = [
 
 self.addEventListener("install", (event) => {
 	event.waitUntil(
-		caches.open(CACHE_NAME).then((cache) => {
-			console.log("Pre-caching offline assets...");
-			return cache.addAll(PRECACHE_ASSETS);
-		}),
+		caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS)),
 	);
 	self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
 	event.waitUntil(
-		caches.keys().then((cacheNames) => {
-			return Promise.all(
-				cacheNames
-					.filter((name) => name !== CACHE_NAME)
-					.map((name) => caches.delete(name)),
-			);
-		}),
+		caches
+			.keys()
+			.then((keys) =>
+				Promise.all(
+					keys
+						.filter((key) => key !== CACHE_NAME)
+						.map((key) => caches.delete(key)),
+				),
+			),
 	);
 	self.clients.claim();
 });
@@ -36,21 +35,26 @@ self.addEventListener("fetch", (event) => {
 	const { request } = event;
 	const url = new URL(request.url);
 
+	if (!url.protocol.startsWith("http")) return;
+
 	if (request.mode === "navigate") {
 		event.respondWith(
 			fetch(request)
 				.then((networkResponse) => {
 					const responseToCache = networkResponse.clone();
-					caches.open(CACHE_NAME).then((cache) => {
-						cache.put(request, responseToCache);
-					});
+					event.waitUntil(
+						caches
+							.open(CACHE_NAME)
+							.then((cache) =>
+								cache.put(request, responseToCache),
+							),
+					);
 					return networkResponse;
 				})
 				.catch(async () => {
 					const cachedResponse = await caches.match(request);
 					if (cachedResponse) return cachedResponse;
-					const offlineCache = await caches.open(CACHE_NAME);
-					return await offlineCache.match(OFFLINE_URL);
+					return caches.match(OFFLINE_URL);
 				}),
 		);
 		return;
@@ -61,18 +65,19 @@ self.addEventListener("fetch", (event) => {
 			const fetchPromise = fetch(request)
 				.then((networkResponse) => {
 					if (
-						!networkResponse ||
-						networkResponse.status !== 200 ||
-						networkResponse.type !== "basic"
+						networkResponse &&
+						networkResponse.status === 200 &&
+						networkResponse.type === "basic"
 					) {
-						return networkResponse;
+						const responseToCache = networkResponse.clone();
+						event.waitUntil(
+							caches
+								.open(CACHE_NAME)
+								.then((cache) =>
+									cache.put(request, responseToCache),
+								),
+						);
 					}
-
-					const responseToCache = networkResponse.clone();
-					caches.open(CACHE_NAME).then((cache) => {
-						cache.put(request, responseToCache);
-					});
-
 					return networkResponse;
 				})
 				.catch(() => {
