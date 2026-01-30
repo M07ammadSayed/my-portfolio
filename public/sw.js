@@ -97,7 +97,7 @@
 // 	}
 // });
 
-const CACHE_NAME = "muhammad-portfolio-v3000";
+const CACHE_NAME = "muhammad-portfolio-v4000";
 const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
@@ -112,6 +112,7 @@ const PRECACHE_ASSETS = [
 ];
 
 self.addEventListener("install", (event) => {
+	self.skipWaiting();
 	event.waitUntil(
 		caches.open(CACHE_NAME).then(async (cache) => {
 			const promises = PRECACHE_ASSETS.map(async (url) => {
@@ -127,7 +128,6 @@ self.addEventListener("install", (event) => {
 			return Promise.all(promises);
 		}),
 	);
-	self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
@@ -168,7 +168,6 @@ self.addEventListener("fetch", (event) => {
 				const cache = await caches.open(CACHE_NAME);
 				const offlineResponse = await cache.match(OFFLINE_URL);
 				if (offlineResponse) return offlineResponse;
-
 				return cache.match("/");
 			}),
 		);

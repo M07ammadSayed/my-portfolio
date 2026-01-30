@@ -143,38 +143,36 @@
 // }
 
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 export default function OfflinePage() {
-	const [isChecking, setIsChecking] = useState(false);
-
 	useEffect(() => {
+		const script = document.createElement("script");
+		script.innerHTML = `
+            function tryReconnect() {
+                const btn = document.getElementById('reconnect-btn');
+                btn.innerText = 'Checking...';
+                btn.style.opacity = '0.5';
+                
+                fetch('/?t=' + Date.now(), { mode: 'no-cors', cache: 'no-store' })
+                    .then(() => { window.location.href = '/'; })
+                    .catch(() => {
+                        if ("vibrate" in navigator) navigator.vibrate(100);
+                        alert('Still offline...');
+                        btn.innerText = 'Try To Reconnect';
+                        btn.style.opacity = '1';
+                    });
+            }
+            window.tryReconnect = tryReconnect;
+        `;
+		document.body.appendChild(script);
+
 		const handleOnline = () => {
 			window.location.href = "/";
 		};
 		window.addEventListener("online", handleOnline);
 		return () => window.removeEventListener("online", handleOnline);
 	}, []);
-
-	const handleReconnect = async (e?: React.MouseEvent) => {
-		if (e) e.preventDefault();
-		if (isChecking) return;
-
-		setIsChecking(true);
-		try {
-			await fetch(`/?t=${Date.now()}`, {
-				cache: "no-store",
-				mode: "no-cors",
-			});
-			window.location.href = "/";
-		} catch (error) {
-			if ("vibrate" in navigator) {
-				navigator.vibrate(100);
-			}
-			console.log("Still offline...");
-			setIsChecking(false);
-		}
-	};
 
 	return (
 		<div
@@ -189,28 +187,14 @@ export default function OfflinePage() {
 				justifyContent: "center",
 				padding: "1rem",
 				textAlign: "center",
-				boxSizing: "border-box",
-				fontFamily: "system-ui, -apple-system, sans-serif",
-				position: "relative",
+				fontFamily: "system-ui, sans-serif",
 			}}
 		>
 			<style
 				dangerouslySetInnerHTML={{
 					__html: `
-                html, body { margin: 0; padding: 0; cursor: auto !important; }
-                .ping {
-                    position: absolute; top: -4px; right: -4px;
-                    height: 16px; width: 16px; background-color: #ef4444;
-                    border-radius: 50%; animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-                }
+                .ping { position: absolute; top: -4px; right: -4px; height: 16px; width: 16px; background-color: #ef4444; border-radius: 50%; animation: ping 1s infinite; }
                 @keyframes ping { 75%, 100% { transform: scale(2); opacity: 0; } }
-                .spin {
-                    animation: spin 1s linear infinite;
-                    border: 2px solid white; border-top-color: transparent;
-                    border-radius: 50%; width: 16px; height: 16px; display: inline-block;
-                }
-                @keyframes spin { to { transform: rotate(360deg); } }
-                button:active { transform: scale(0.98); }
             `,
 				}}
 			/>
@@ -226,38 +210,27 @@ export default function OfflinePage() {
 					display: "flex",
 					alignItems: "center",
 					justifyContent: "center",
-					boxShadow: "0 0 20px rgba(8, 145, 178, 0.4)",
 				}}
 			>
 				<span style={{ fontSize: "3rem" }}>📡</span>
 				<div className="ping"></div>
 			</div>
 
-			<h1
-				style={{
-					fontSize: "2rem",
-					fontWeight: "bold",
-					marginBottom: "0.5rem",
-				}}
-			>
-				Oops! You're Offline
-			</h1>
-
+			<h1>Oops! You're Offline</h1>
 			<p
 				style={{
 					color: "#94a3b8",
 					maxWidth: "400px",
 					marginBottom: "2rem",
-					lineHeight: "1.5",
 				}}
 			>
-				It seems you've lost your connection. Don't worry, my portfolio
-				is designed to work even when you're disconnected!
+				My portfolio is designed to work offline, but you need a
+				connection to sync new data.
 			</p>
 
 			<button
-				onClick={handleReconnect}
-				disabled={isChecking}
+				id="reconnect-btn"
+				onClick={() => (window as any).tryReconnect()}
 				style={{
 					backgroundColor: "#0891b2",
 					color: "white",
@@ -265,36 +238,11 @@ export default function OfflinePage() {
 					borderRadius: "12px",
 					fontWeight: "600",
 					border: "none",
-					cursor: isChecking ? "not-allowed" : "pointer",
-					opacity: isChecking ? 0.7 : 1,
-					transition: "all 0.2s",
-					display: "flex",
-					alignItems: "center",
-					gap: "8px",
-					outline: "none",
+					cursor: "pointer",
 				}}
 			>
-				{isChecking ? (
-					<>
-						<span className="spin"></span>
-						Checking Connection...
-					</>
-				) : (
-					"Try To Reconnect"
-				)}
+				Try To Reconnect
 			</button>
-
-			<footer
-				style={{
-					position: "absolute",
-					bottom: "2rem",
-					fontSize: "0.875rem",
-					color: "#475569",
-				}}
-			>
-				&copy; {new Date().getFullYear()} Muhammad Sayyid • Developed
-				with ❤️
-			</footer>
 		</div>
 	);
 }
