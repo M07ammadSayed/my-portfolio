@@ -162,7 +162,6 @@ export default function OfflinePage() {
 
 		setIsChecking(true);
 		try {
-			// محاولة جلب رابط بسيط للتأكد من الاتصال (Cache Busting)
 			await fetch(`/?t=${Date.now()}`, {
 				cache: "no-store",
 				mode: "no-cors",

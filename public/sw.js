@@ -97,7 +97,7 @@
 // 	}
 // });
 
-const CACHE_NAME = "muhammad-portfolio-v2000";
+const CACHE_NAME = "muhammad-portfolio-v3000";
 const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
@@ -114,7 +114,6 @@ const PRECACHE_ASSETS = [
 self.addEventListener("install", (event) => {
 	event.waitUntil(
 		caches.open(CACHE_NAME).then(async (cache) => {
-			console.log("Forcing cache for offline assets...");
 			const promises = PRECACHE_ASSETS.map(async (url) => {
 				try {
 					const response = await fetch(url, { cache: "reload" });
@@ -141,6 +140,7 @@ self.addEventListener("activate", (event) => {
 			);
 		}),
 	);
+	self.clients.claim();
 });
 
 self.addEventListener("fetch", (event) => {
@@ -158,7 +158,6 @@ self.addEventListener("fetch", (event) => {
 	) {
 		if (!navigator.onLine) {
 			event.respondWith(new Response(null, { status: 204 }));
-			return;
 		}
 		return;
 	}
@@ -167,10 +166,10 @@ self.addEventListener("fetch", (event) => {
 		event.respondWith(
 			fetch(event.request).catch(async () => {
 				const cache = await caches.open(CACHE_NAME);
-				const match =
-					(await cache.match(OFFLINE_URL)) ||
-					(await cache.match("/offline"));
-				return match || cache.match("/");
+				const offlineResponse = await cache.match(OFFLINE_URL);
+				if (offlineResponse) return offlineResponse;
+
+				return cache.match("/");
 			}),
 		);
 		return;
@@ -185,7 +184,7 @@ self.addEventListener("fetch", (event) => {
 					url.pathname.endsWith(".js") ||
 					url.pathname.endsWith(".css")
 				) {
-					return new Response("// Offline fallback content", {
+					return new Response("// Offline fallback", {
 						status: 200,
 						headers: {
 							"Content-Type": url.pathname.endsWith(".js")
@@ -200,19 +199,13 @@ self.addEventListener("fetch", (event) => {
 						.get("accept")
 						?.includes("application/json")
 				) {
-					return new Response(
-						JSON.stringify({ offline: true, message: "Offline" }),
-						{
-							status: 200,
-							headers: { "Content-Type": "application/json" },
-						},
-					);
+					return new Response(JSON.stringify({ offline: true }), {
+						status: 200,
+						headers: { "Content-Type": "application/json" },
+					});
 				}
 
-				return new Response(null, {
-					status: 204,
-					statusText: "Offline",
-				});
+				return new Response(null, { status: 204 });
 			});
 		}),
 	);
