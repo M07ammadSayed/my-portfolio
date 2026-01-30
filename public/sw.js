@@ -1,8 +1,7 @@
-const CACHE_NAME = "muhammad-portfolio-v6000";
+const CACHE_NAME = "muhammad-portfolio-v4000";
 const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
-	"/",
 	OFFLINE_URL,
 	"/manifest.json",
 	"/favicon.ico",
@@ -41,20 +40,11 @@ self.addEventListener("fetch", (event) => {
 		event.respondWith(
 			fetch(request)
 				.then((networkResponse) => {
-					const responseToCache = networkResponse.clone();
-					event.waitUntil(
-						caches
-							.open(CACHE_NAME)
-							.then((cache) =>
-								cache.put(request, responseToCache),
-							),
-					);
 					return networkResponse;
 				})
 				.catch(async () => {
-					const cachedResponse = await caches.match(request);
-					if (cachedResponse) return cachedResponse;
-					return caches.match(OFFLINE_URL);
+					const cache = await caches.open(CACHE_NAME);
+					return await cache.match(OFFLINE_URL);
 				}),
 		);
 		return;
@@ -62,34 +52,7 @@ self.addEventListener("fetch", (event) => {
 
 	event.respondWith(
 		caches.match(request).then((cachedResponse) => {
-			const fetchPromise = fetch(request)
-				.then((networkResponse) => {
-					if (
-						networkResponse &&
-						networkResponse.status === 200 &&
-						networkResponse.type === "basic"
-					) {
-						const responseToCache = networkResponse.clone();
-						event.waitUntil(
-							caches
-								.open(CACHE_NAME)
-								.then((cache) =>
-									cache.put(request, responseToCache),
-								),
-						);
-					}
-					return networkResponse;
-				})
-				.catch(() => {
-					if (
-						url.pathname.endsWith(".js") ||
-						url.pathname.endsWith(".css")
-					) {
-						return new Response("// Offline", { status: 200 });
-					}
-				});
-
-			return cachedResponse || fetchPromise;
+			return cachedResponse || fetch(request);
 		}),
 	);
 });
