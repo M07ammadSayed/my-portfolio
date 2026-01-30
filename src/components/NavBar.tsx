@@ -12,6 +12,18 @@ export default function NavBar() {
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
 	useEffect(() => {
+		if (isMobileMenuOpen) {
+			document.body.style.overflow = "hidden";
+		} else {
+			document.body.style.overflow = "unset";
+		}
+
+		return () => {
+			document.body.style.overflow = "unset";
+		};
+	}, [isMobileMenuOpen]);
+
+	useEffect(() => {
 		setMounted(true);
 	}, []);
 
@@ -198,7 +210,7 @@ export default function NavBar() {
 												item.slice(1)}
 										</a>
 									))}
-									<div className="mt-2 pt-4 border-t border-slate-700/50 flex justify-center gap-6">
+									<div className="mt-2 pt-4 pb-3 border-t border-slate-700/50 flex justify-center gap-6">
 										<SocialLink
 											href="https://github.com/M07ammadSayed"
 											icon={Github}
