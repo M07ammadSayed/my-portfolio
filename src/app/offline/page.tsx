@@ -40,7 +40,7 @@ export default function OfflinePage() {
 				flexDirection: "column",
 				alignItems: "center",
 				justifyContent: "space-between",
-				padding: "1rem",
+				padding: "1rem 1rem 1rem 3rem",
 				textAlign: "center",
 				boxSizing: "border-box",
 				fontFamily: "system-ui, -apple-system, sans-serif",
@@ -149,7 +149,7 @@ export default function OfflinePage() {
 			<footer
 				style={{
 					position: "relative",
-					bottom: "1rem",
+					bottom: "0",
 					fontSize: "0.875rem",
 					color: "#475569",
 				}}
