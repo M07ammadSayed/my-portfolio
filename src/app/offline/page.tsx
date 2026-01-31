@@ -34,7 +34,7 @@ export default function OfflinePage() {
 			style={{
 				backgroundColor: "#020617",
 				color: "white",
-				minHeight: "100dvh",
+				minHeight: "100vh",
 				width: "100%",
 				display: "flex",
 				flexDirection: "column",

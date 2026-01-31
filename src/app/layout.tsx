@@ -118,6 +118,7 @@ export default async function RootLayout({
 				"@type": "Person",
 				"@id": "https://muhammad-sayyid.vercel.app/#person",
 				name: "Muhammad Sayyid",
+				alternateName: "M07ammadSayed",
 				url: "https://muhammad-sayyid.vercel.app",
 				image: "https://muhammad-sayyid.vercel.app/icon.svg",
 				jobTitle:
