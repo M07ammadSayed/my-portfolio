@@ -72,6 +72,9 @@ export default function OfflinePage() {
 					position: "relative",
 					maxHeight: "max-content",
 					margin: "auto 0",
+					display: "flex",
+					flexDirection: "column",
+					alignItems: "center",
 				}}
 			>
 				<div
