@@ -148,8 +148,8 @@ export default function OfflinePage() {
 
 			<footer
 				style={{
-					// position: "absolute",
-					// bottom: "1rem",
+					position: "relative",
+					bottom: "1rem",
 					fontSize: "0.875rem",
 					color: "#475569",
 				}}
