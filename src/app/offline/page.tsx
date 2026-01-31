@@ -40,7 +40,7 @@ export default function OfflinePage() {
 				flexDirection: "column",
 				alignItems: "center",
 				justifyContent: "space-between",
-				padding: "1rem 1rem 1rem 3rem",
+				padding: "1rem 1rem 3rem 1rem",
 				textAlign: "center",
 				boxSizing: "border-box",
 				fontFamily: "system-ui, -apple-system, sans-serif",
