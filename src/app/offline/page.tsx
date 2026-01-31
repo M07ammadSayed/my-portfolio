@@ -39,7 +39,7 @@ export default function OfflinePage() {
 				display: "flex",
 				flexDirection: "column",
 				alignItems: "center",
-				justifyContent: "space-around",
+				justifyContent: "space-between",
 				padding: "1rem",
 				textAlign: "center",
 				boxSizing: "border-box",
@@ -70,7 +70,7 @@ export default function OfflinePage() {
 			<div
 				style={{
 					position: "relative",
-					maxHeight: "max-content",
+					height: "fit-content",
 					margin: "auto 0",
 					display: "flex",
 					flexDirection: "column",
