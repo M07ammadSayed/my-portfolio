@@ -39,7 +39,7 @@ export default function OfflinePage() {
 				display: "flex",
 				flexDirection: "column",
 				alignItems: "center",
-				justifyContent: "space-between",
+				justifyContent: "space-around",
 				padding: "1rem",
 				textAlign: "center",
 				boxSizing: "border-box",
