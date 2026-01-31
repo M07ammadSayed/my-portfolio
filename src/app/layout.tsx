@@ -47,11 +47,13 @@ export const metadata: Metadata = {
 		siteName: "Muhammad Sayyid",
 		type: "website",
 		images: [{ url: "/opengraph-image.png", width: 1200, height: 630 }],
+		locale: "en_US",
 	},
 	twitter: {
 		card: "summary_large_image",
 		title: "Muhammad Sayyid | AppSec Engineer",
-		description: "Building & Securing Modern Web Applications",
+		description:
+			"Application Security Engineer & Full-Stack Developer. Expert in White-box Testing and Secure Code Review.",
 		images: ["/opengraph-image.png"],
 		creator: "@M07ammad_Sayed",
 	},

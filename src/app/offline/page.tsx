@@ -137,6 +137,7 @@ export default function OfflinePage() {
 
 			<footer
 				style={{
+					position: "absolute",
 					marginTop: "auto",
 					paddingTop: "2rem",
 					fontSize: "0.875rem",
