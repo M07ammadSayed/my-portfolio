@@ -39,8 +39,8 @@ export default function OfflinePage() {
 				display: "flex",
 				flexDirection: "column",
 				alignItems: "center",
-				justifyContent: "center",
-				padding: "2rem 1rem",
+				justifyContent: "space-between",
+				padding: "1rem",
 				textAlign: "center",
 				boxSizing: "border-box",
 				fontFamily: "system-ui, -apple-system, sans-serif",
@@ -70,79 +70,86 @@ export default function OfflinePage() {
 			<div
 				style={{
 					position: "relative",
-					marginBottom: "2rem",
-					height: "96px",
-					width: "96px",
-					backgroundColor: "#0f172a",
-					borderRadius: "50%",
-					display: "flex",
-					alignItems: "center",
-					justifyContent: "center",
-					boxShadow: "0 0 20px rgba(8, 145, 178, 0.4)",
+					maxHeight: "max-content",
+					margin: "auto 0",
 				}}
 			>
-				<span style={{ fontSize: "3rem" }}>📡</span>
-				<div className="ping"></div>
+				<div
+					style={{
+						position: "relative",
+						marginBottom: "2rem",
+						height: "96px",
+						width: "96px",
+						backgroundColor: "#0f172a",
+						borderRadius: "50%",
+						display: "flex",
+						alignItems: "center",
+						justifyContent: "center",
+						boxShadow: "0 0 20px rgba(8, 145, 178, 0.4)",
+					}}
+				>
+					<span style={{ fontSize: "3rem" }}>📡</span>
+					<div className="ping"></div>
+				</div>
+
+				<h1
+					style={{
+						fontSize: "2rem",
+						fontWeight: "bold",
+						marginBottom: "0.5rem",
+					}}
+				>
+					Oops! You're Offline
+				</h1>
+
+				<p
+					style={{
+						color: "#94a3b8",
+						maxWidth: "400px",
+						marginBottom: "2rem",
+						lineHeight: "1.5",
+					}}
+				>
+					It seems you've lost your connection. Don't worry, my
+					portfolio is designed to work even when you're disconnected!
+				</p>
+
+				<button
+					onClick={handleReconnect}
+					disabled={isChecking}
+					style={{
+						backgroundColor: "#0891b2",
+						color: "white",
+						padding: "12px 32px",
+						borderRadius: "12px",
+						fontWeight: "600",
+						border: "none",
+						cursor: isChecking ? "not-allowed" : "pointer",
+						opacity: isChecking ? 0.7 : 1,
+						transition: "all 0.2s",
+						display: "flex",
+						alignItems: "center",
+						gap: "8px",
+					}}
+				>
+					{isChecking ? (
+						<>
+							<span className="spin"></span>
+							Checking...
+						</>
+					) : (
+						"Try To Reconnect"
+					)}
+				</button>
 			</div>
-
-			<h1
-				style={{
-					fontSize: "2rem",
-					fontWeight: "bold",
-					marginBottom: "0.5rem",
-				}}
-			>
-				Oops! You're Offline
-			</h1>
-
-			<p
-				style={{
-					color: "#94a3b8",
-					maxWidth: "400px",
-					marginBottom: "2rem",
-					lineHeight: "1.5",
-				}}
-			>
-				It seems you've lost your connection. Don't worry, my portfolio
-				is designed to work even when you're disconnected!
-			</p>
-
-			<button
-				onClick={handleReconnect}
-				disabled={isChecking}
-				style={{
-					backgroundColor: "#0891b2",
-					color: "white",
-					padding: "12px 32px",
-					borderRadius: "12px",
-					fontWeight: "600",
-					border: "none",
-					cursor: isChecking ? "not-allowed" : "pointer",
-					opacity: isChecking ? 0.7 : 1,
-					transition: "all 0.2s",
-					display: "flex",
-					alignItems: "center",
-					gap: "8px",
-				}}
-			>
-				{isChecking ? (
-					<>
-						<span className="spin"></span>
-						Checking...
-					</>
-				) : (
-					"Try To Reconnect"
-				)}
-			</button>
 
 			<footer
 				style={{
-					position: "absolute",
-					bottom: "1rem",
+					// position: "absolute",
+					// bottom: "1rem",
 					fontSize: "0.875rem",
 					color: "#475569",
 				}}
-				className="sm:bottom-[3rem]"
 			>
 				&copy; {new Date().getFullYear()} Muhammad Sayyid • Developed
 				with ❤️
