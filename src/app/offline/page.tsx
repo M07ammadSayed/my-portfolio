@@ -34,13 +34,13 @@ export default function OfflinePage() {
 			style={{
 				backgroundColor: "#020617",
 				color: "white",
-				minHeight: "100vh",
+				minHeight: "100dvh",
 				width: "100%",
 				display: "flex",
 				flexDirection: "column",
 				alignItems: "center",
 				justifyContent: "center",
-				padding: "1rem",
+				padding: "2rem 1rem",
 				textAlign: "center",
 				boxSizing: "border-box",
 				fontFamily: "system-ui, -apple-system, sans-serif",
@@ -137,8 +137,8 @@ export default function OfflinePage() {
 
 			<footer
 				style={{
-					position: "absolute",
-					bottom: "2rem",
+					marginTop: "auto",
+					paddingTop: "2rem",
 					fontSize: "0.875rem",
 					color: "#475569",
 				}}
