@@ -34,23 +34,25 @@ export default function OfflinePage() {
 			style={{
 				backgroundColor: "#020617",
 				color: "white",
-				minHeight: "100vh",
+				height: "100dvh",
+				minHeight: "-webkit-fill-available",
 				width: "100%",
 				display: "flex",
 				flexDirection: "column",
 				alignItems: "center",
 				justifyContent: "space-between",
-				padding: "1rem 1rem 3rem 1rem",
+				padding: "1.5rem",
 				textAlign: "center",
 				boxSizing: "border-box",
 				fontFamily: "system-ui, -apple-system, sans-serif",
 				position: "relative",
+				overflow: "hidden",
 			}}
 		>
 			<style
 				dangerouslySetInnerHTML={{
 					__html: `
-                html, body { margin: 0; padding: 0; cursor: auto !important; }
+                html, body { margin: 0; padding: 0; cursor: auto !important; height: 100%; overflow: hidden; width: 100%;}
                 .ping {
                     position: absolute; top: -4px; right: -4px;
                     height: 16px; width: 16px; background-color: #ef4444;
@@ -69,12 +71,11 @@ export default function OfflinePage() {
 
 			<div
 				style={{
-					position: "relative",
-					height: "fit-content",
-					margin: "auto 0",
+					flex: 1,
 					display: "flex",
 					flexDirection: "column",
 					alignItems: "center",
+					justifyContent: "center",
 				}}
 			>
 				<div
@@ -148,8 +149,7 @@ export default function OfflinePage() {
 
 			<footer
 				style={{
-					position: "relative",
-					bottom: "0",
+					paddingBottom: "10px",
 					fontSize: "0.875rem",
 					color: "#475569",
 				}}
