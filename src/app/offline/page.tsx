@@ -138,10 +138,11 @@ export default function OfflinePage() {
 			<footer
 				style={{
 					position: "absolute",
-					bottom: "1.5rem",
+					bottom: "1rem",
 					fontSize: "0.875rem",
 					color: "#475569",
 				}}
+				className="sm:bottom-[2rem]"
 			>
 				&copy; {new Date().getFullYear()} Muhammad Sayyid • Developed
 				with ❤️
