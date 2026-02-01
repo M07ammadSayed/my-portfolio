@@ -27,18 +27,21 @@ export default function Footer() {
 						href="https://github.com/M07ammadSayed"
 						icon={Github}
 						label="Visit GitHub Profile"
+						aria-label="GitHub Profile"
 						large
 					/>
 					<SocialLink
 						href="https://www.linkedin.com/in/muhammad-sayyid/"
 						icon={Linkedin}
 						label="Visit LinkedIn Profile"
+						aria-label="LinkedIn Profile"
 						large
 					/>
 					<SocialLink
 						href="mailto:msayed.ms2005@gmail.com?subject=Contact%20from%20Portfolio&body=Hi%20Muhammad,%0D%0A%0D%0AI%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss..."
 						icon={Mail}
 						label="Send Email"
+						aria-label="Email"
 						large
 					/>
 				</div>

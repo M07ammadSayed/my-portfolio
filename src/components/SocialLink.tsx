@@ -13,8 +13,8 @@ export default function SocialLink({
 		<a
 			href={href}
 			target="_blank"
-			rel="noopener noreferrer"
-			aria-label={label || "Social Link"}
+			rel="me noopener noreferrer"
+			// aria-label={label || "Social Link"}
 			title={label}
 			className={`text-slate-400 hover:text-white transition-all hover:scale-110 active:scale-95 active:text-cyan-400 ${
 				large

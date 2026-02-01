@@ -68,7 +68,7 @@ export default function Hero() {
 					href="/Muhammad_Sayyid_Resume.pdf?v=1"
 					download="Muhammad_Sayyid_Resume.pdf"
 					target="_blank"
-					rel="noopener noreferrer"
+					rel="me noopener noreferrer"
 					aria-label="CV Downloader"
 					className="group relative px-8 py-4 bg-cyan-600 text-white rounded-xl font-bold overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(8,145,178,0.4)] w-full sm:w-auto flex justify-center text-slate-950"
 				>
@@ -80,7 +80,7 @@ export default function Hero() {
 				<a
 					href="https://github.com/M07ammadSayed"
 					target="_blank"
-					rel="noopener noreferrer"
+					rel="me noopener noreferrer"
 					aria-label="GitHub Profile"
 					className="px-8 py-4 bg-slate-900/50 text-white rounded-xl font-medium border border-slate-700 hover:border-cyan-500/50 hover:bg-slate-800 transition-all flex items-center justify-center gap-2 hover:scale-105 active:scale-95 w-full sm:w-auto"
 				>
