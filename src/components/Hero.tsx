@@ -17,7 +17,7 @@ export default function Hero() {
 				initial={{ opacity: 0, y: 0 }}
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.8 }}
-				className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/50 border border-cyan-500/20 text-cyan-400 text-xs md:text-sm font-mono mb-4 md:mb-8 backdrop-blur-sm hover:bg-slate-900/80 transition-all cursor-default shadow-[0_0_15px_rgba(34,211,238,0.1)]"
+				className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/50 border border-cyan-500/20 text-cyan-400 text-xs md:text-sm font-mono mb-4 md:mb-8 backdrop-blur-sm hover:bg-slate-900/80 transition-all shadow-[0_0_15px_rgba(34,211,238,0.1)]"
 			>
 				<span className="relative flex h-2 w-2 pointer-events-none select-none">
 					<span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75 pointer-events-none select-none"></span>
