@@ -40,7 +40,7 @@ export default function OfflinePage() {
 				display: "flex",
 				flexDirection: "column",
 				alignItems: "center",
-				justifyContent: "space-between",
+				justifyContent: "center",
 				padding: "1.5rem",
 				textAlign: "center",
 				boxSizing: "border-box",
@@ -149,7 +149,9 @@ export default function OfflinePage() {
 
 			<footer
 				style={{
-					paddingBottom: "10px",
+					position: "absolute",
+					bottom: "1rem",
+					paddingBottom: "5px",
 					fontSize: "0.875rem",
 					color: "#475569",
 				}}
