@@ -194,7 +194,15 @@ export default function OfflinePage() {
 					</span>
 				</div>
 
-				<span className="footer-dot" style={{ opacity: 0.3 }}>
+				<span
+					className="footer-dot"
+					style={{
+						opacity: 0.6,
+						margin: "0 4px",
+						fontSize: "1.1rem",
+						verticalAlign: "middle",
+					}}
+				>
 					•
 				</span>
 
