@@ -76,6 +76,9 @@ export default function OfflinePage() {
 					45% { transform: scale(1.15); }
 					60% { transform: scale(1); }
 				}
+				@media (max-width: 400px) {
+            		.footer-dot { display: none; }
+        		}
             `,
 				}}
 			/>
@@ -158,18 +161,6 @@ export default function OfflinePage() {
 				</button>
 			</div>
 
-			{/* <footer
-				style={{
-					position: "absolute",
-					bottom: "1rem",
-					paddingBottom: "5px",
-					fontSize: "0.875rem",
-					color: "#475569",
-				}}
-			>
-				&copy; {new Date().getFullYear()} Muhammad Sayyid • Developed
-				with ❤️
-			</footer> */}
 			<footer
 				style={{
 					position: "absolute",
@@ -180,33 +171,30 @@ export default function OfflinePage() {
 					fontSize: "0.875rem",
 					color: "#475569",
 					display: "flex",
+					flexWrap: "wrap",
 					alignItems: "center",
 					justifyContent: "center",
-					gap: "6px 12px",
-					flexWrap: "wrap",
+					columnGap: "12px",
+					rowGap: "4px",
 					textAlign: "center",
-					lineHeight: "1.5",
+					userSelect: "none",
 				}}
 			>
-				<div style={{ whiteSpace: "nowrap" }}>
-					&copy; {new Date().getFullYear()}
-					<span
-						style={{
-							color: "#94a3b8",
-							fontWeight: "500",
-							marginLeft: "6px",
-						}}
-					>
+				<div
+					style={{
+						whiteSpace: "nowrap",
+						display: "flex",
+						alignItems: "center",
+						gap: "6px",
+					}}
+				>
+					<span>&copy; {new Date().getFullYear()}</span>
+					<span style={{ color: "#94a3b8", fontWeight: "500" }}>
 						Muhammad Sayyid
 					</span>
 				</div>
 
-				<span
-					style={{
-						opacity: 0.3,
-						// display: window.innerWidth > 400 ? "inline" : "none",
-					}}
-				>
+				<span className="footer-dot" style={{ opacity: 0.3 }}>
 					•
 				</span>
 
@@ -218,8 +206,8 @@ export default function OfflinePage() {
 						gap: "4px",
 					}}
 				>
-					Developed with
-					<span className="heart-pulse" style={{ color: "#ef4444" }}>
+					<span>Developed with</span>
+					<span style={{ color: "#ef4444", fontSize: "1rem" }}>
 						❤️
 					</span>
 				</div>
