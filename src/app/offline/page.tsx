@@ -53,6 +53,7 @@ export default function OfflinePage() {
 				dangerouslySetInnerHTML={{
 					__html: `
                 html, body { margin: 0; padding: 0; cursor: auto !important; height: 100%; overflow: hidden; width: 100%;}
+				button { cursor: auto !important; }
                 .ping {
                     position: absolute; top: -4px; right: -4px;
                     height: 16px; width: 16px; background-color: #ef4444;
