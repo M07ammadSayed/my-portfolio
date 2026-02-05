@@ -23,7 +23,7 @@ export default function OfflinePage() {
 			});
 			window.location.href = "/";
 		} catch (error) {
-			if ("vibrate" in navigator) navigator.vibrate(100);
+			if ("vibrate" in navigator) navigator.vibrate([100, 50, 100]);
 			console.log("Still offline...");
 			setIsChecking(false);
 		}
@@ -76,9 +76,15 @@ export default function OfflinePage() {
 					45% { transform: scale(1.15); }
 					60% { transform: scale(1); }
 				}
-				@media (max-width: 400px) {
-            		.footer-dot { display: none; }
-        		}
+				@media (max-width: 480px) {
+    			.footer-container { 
+        			flex-direction: column !important; 
+        				gap: 8px !important; 
+    				}
+    				.footer-dot { 
+        				display: none !important; 
+    				}
+				}
             `,
 				}}
 			/>
@@ -162,6 +168,7 @@ export default function OfflinePage() {
 			</div>
 
 			<footer
+				className="footer-container"
 				style={{
 					position: "absolute",
 					bottom: "1.5rem",
@@ -175,7 +182,7 @@ export default function OfflinePage() {
 					alignItems: "center",
 					justifyContent: "center",
 					columnGap: "12px",
-					rowGap: "4px",
+					rowGap: "8px",
 					textAlign: "center",
 					userSelect: "none",
 				}}
@@ -198,9 +205,10 @@ export default function OfflinePage() {
 					className="footer-dot"
 					style={{
 						opacity: 0.6,
-						margin: "0 4px",
-						fontSize: "1.1rem",
-						verticalAlign: "middle",
+						display: "inline-flex",
+						alignItems: "center",
+						lineHeight: "0",
+						fontSize: "1.2rem",
 					}}
 				>
 					•
@@ -215,7 +223,14 @@ export default function OfflinePage() {
 					}}
 				>
 					<span>Developed with</span>
-					<span style={{ color: "#ef4444", fontSize: "1rem" }}>
+					<span
+						className="heart-pulse"
+						style={{
+							color: "#ef4444",
+							fontSize: "1rem",
+							display: "inline-block",
+						}}
+					>
 						❤️
 					</span>
 				</div>
