@@ -65,6 +65,17 @@ export default function OfflinePage() {
                     border-radius: 50%; width: 16px; height: 16px; display: inline-block;
                 }
                 @keyframes spin { to { transform: rotate(360deg); } }
+				.heart-pulse {
+				animation: heartBeat 1.5s ease-in-out infinite;
+				}
+
+				@keyframes heartBeat {
+					0% { transform: scale(1); }
+					15% { transform: scale(1.2); }
+					30% { transform: scale(1); }
+					45% { transform: scale(1.15); }
+					60% { transform: scale(1); }
+				}
             `,
 				}}
 			/>
@@ -147,7 +158,7 @@ export default function OfflinePage() {
 				</button>
 			</div>
 
-			<footer
+			{/* <footer
 				style={{
 					position: "absolute",
 					bottom: "1rem",
@@ -158,6 +169,56 @@ export default function OfflinePage() {
 			>
 				&copy; {new Date().getFullYear()} Muhammad Sayyid • Developed
 				with ❤️
+			</footer> */}
+			<footer
+				style={{
+					position: "absolute",
+					bottom: "2rem",
+					fontSize: "0.9rem",
+					color: "#64748b",
+					display: "flex",
+					flexDirection: "column",
+					alignItems: "center",
+					gap: "4px",
+					width: "100%",
+					zIndex: 10,
+				}}
+			>
+				<div
+					style={{
+						display: "flex",
+						alignItems: "center",
+						gap: "6px",
+					}}
+				>
+					<span style={{ opacity: 0.8 }}>
+						&copy; {new Date().getFullYear()}
+					</span>
+					<span
+						style={{
+							fontWeight: "600",
+							color: "#f8fafc",
+							letterSpacing: "0.5px",
+						}}
+					>
+						Muhammad Sayyid
+					</span>
+				</div>
+
+				<p style={{ margin: 0, fontSize: "0.8rem", opacity: 0.6 }}>
+					Developed with
+					<span
+						className="heart-pulse"
+						style={{
+							display: "inline-block",
+							margin: "0 4px",
+							color: "#ef4444",
+						}}
+					>
+						❤️
+					</span>
+					in Luxor, Egypt
+				</p>
 			</footer>
 		</div>
 	);
