@@ -204,7 +204,7 @@ export default function OfflinePage() {
 				<span
 					style={{
 						opacity: 0.3,
-						display: window.innerWidth > 400 ? "inline" : "none",
+						// display: window.innerWidth > 400 ? "inline" : "none",
 					}}
 				>
 					•
