@@ -173,52 +173,56 @@ export default function OfflinePage() {
 			<footer
 				style={{
 					position: "absolute",
-					bottom: "2rem",
-					fontSize: "0.9rem",
-					color: "#64748b",
+					bottom: "1.5rem",
+					left: "0",
+					right: "0",
+					padding: "0 1.5rem",
+					fontSize: "0.875rem",
+					color: "#475569",
 					display: "flex",
-					flexDirection: "column",
 					alignItems: "center",
-					gap: "4px",
-					width: "100%",
-					zIndex: 10,
+					justifyContent: "center",
+					gap: "6px 12px",
+					flexWrap: "wrap",
+					textAlign: "center",
+					lineHeight: "1.5",
 				}}
 			>
-				<div
-					style={{
-						display: "flex",
-						alignItems: "center",
-						gap: "6px",
-					}}
-				>
-					<span style={{ opacity: 0.8 }}>
-						&copy; {new Date().getFullYear()}
-					</span>
+				<div style={{ whiteSpace: "nowrap" }}>
+					&copy; {new Date().getFullYear()}
 					<span
 						style={{
-							fontWeight: "600",
-							color: "#f8fafc",
-							letterSpacing: "0.5px",
+							color: "#94a3b8",
+							fontWeight: "500",
+							marginLeft: "6px",
 						}}
 					>
 						Muhammad Sayyid
 					</span>
 				</div>
 
-				<p style={{ margin: 0, fontSize: "0.8rem", opacity: 0.6 }}>
+				<span
+					style={{
+						opacity: 0.3,
+						display: window.innerWidth > 400 ? "inline" : "none",
+					}}
+				>
+					•
+				</span>
+
+				<div
+					style={{
+						whiteSpace: "nowrap",
+						display: "flex",
+						alignItems: "center",
+						gap: "4px",
+					}}
+				>
 					Developed with
-					<span
-						className="heart-pulse"
-						style={{
-							display: "inline-block",
-							margin: "0 4px",
-							color: "#ef4444",
-						}}
-					>
+					<span className="heart-pulse" style={{ color: "#ef4444" }}>
 						❤️
 					</span>
-					in Luxor, Egypt
-				</p>
+				</div>
 			</footer>
 		</div>
 	);
