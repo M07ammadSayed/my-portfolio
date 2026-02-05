@@ -207,6 +207,7 @@ export default function OfflinePage() {
 						opacity: 0.6,
 						display: "inline-flex",
 						alignItems: "center",
+						justifyContent: "center",
 						lineHeight: "0",
 						fontSize: "1.2rem",
 					}}
