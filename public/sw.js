@@ -1,4 +1,4 @@
-const CACHE_NAME = "muhammad-portfolio-v-final-99"; // غير الرقم ده لو غيرت أي حاجة في صور الأوفلاين
+const CACHE_NAME = "muhammad-portfolio-v00971";
 const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
@@ -11,27 +11,25 @@ const PRECACHE_ASSETS = [
 ];
 
 self.addEventListener("install", (event) => {
-	self.skipWaiting();
 	event.waitUntil(
 		caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS)),
 	);
+	self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
 	event.waitUntil(
-		Promise.all([
-			caches
-				.keys()
-				.then((keys) =>
-					Promise.all(
-						keys
-							.filter((key) => key !== CACHE_NAME)
-							.map((key) => caches.delete(key)),
-					),
+		caches
+			.keys()
+			.then((keys) =>
+				Promise.all(
+					keys
+						.filter((key) => key !== CACHE_NAME)
+						.map((key) => caches.delete(key)),
 				),
-			self.clients.claim(),
-		]),
+			),
 	);
+	self.clients.claim();
 });
 
 self.addEventListener("fetch", (event) => {
@@ -55,13 +53,8 @@ self.addEventListener("fetch", (event) => {
 
 	if (request.mode === "navigate") {
 		event.respondWith(
-			fetch(request).catch(async () => {
-				const cache = await caches.open(CACHE_NAME);
-				const offlineResponse = await cache.match(OFFLINE_URL);
-				return (
-					offlineResponse ||
-					new Response("Offline Mode", { status: 503 })
-				);
+			fetch(request).catch(() => {
+				return caches.match(OFFLINE_URL);
 			}),
 		);
 		return;
