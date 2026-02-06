@@ -6,13 +6,13 @@ import InstallPrompt from "@/components/InstallPrompt";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { headers } from "next/headers";
 import Script from "next/script";
+import OfflineDetector from "@/components/OfflineDetector";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const jetbrainsMono = JetBrains_Mono({
 	subsets: ["latin"],
 	variable: "--font-mono",
 });
-
 export const metadata: Metadata = {
 	title: "Muhammad Sayyid | AppSec Engineer",
 	description:
@@ -103,7 +103,21 @@ export default async function RootLayout({
 }) {
 	const headerList = await headers();
 	const nonce = headerList.get("x-nonce") || "";
+	useEffect(() => {
+		// التحويل التلقائي أول ما النت يفصل
+		const handleOffline = () => {
+			window.location.href = "/offline";
+		};
 
+		window.addEventListener("offline", handleOffline);
+
+		// التحقق فوراً لو هو أصلاً فتح الموقع وهو أوفلاين
+		if (!navigator.onLine) {
+			handleOffline();
+		}
+
+		return () => window.removeEventListener("offline", handleOffline);
+	}, []);
 	const jsonLd = {
 		"@context": "https://schema.org",
 		"@graph": [
@@ -169,6 +183,7 @@ export default async function RootLayout({
 				className={`${inter.className} ${jetbrainsMono.variable} bg-[#020617] text-slate-200 antialiased selection:bg-cyan-500/30`}
 				suppressHydrationWarning={true}
 			>
+				<OfflineDetector />
 				{children}
 
 				<Analytics />
