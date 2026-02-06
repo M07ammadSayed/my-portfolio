@@ -1,4 +1,4 @@
-const CACHE_NAME = "my-portfolio-v312034";
+const CACHE_NAME = "my-portfolio-v94613";
 const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
@@ -6,6 +6,8 @@ const PRECACHE_ASSETS = [
 	"/manifest.json",
 	"/favicon.ico",
 	"/icon.svg",
+	"/web-app-manifest-192x192.png",
+	"/web-app-manifest-512x512.png",
 ];
 
 self.addEventListener("install", (event) => {
