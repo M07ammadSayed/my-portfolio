@@ -1,4 +1,4 @@
-const CACHE_NAME = "muhammad-portfolio-v0137204";
+const CACHE_NAME = "muhammad-portfolio-v54104";
 const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
@@ -37,19 +37,6 @@ self.addEventListener("fetch", (event) => {
 	const url = new URL(request.url);
 
 	if (!url.protocol.startsWith("http")) return;
-
-	if (
-		url.hostname.includes("google-analytics") ||
-		url.hostname.includes("analytics.google") ||
-		url.hostname.includes("vercel") ||
-		url.pathname.includes("/_next/static/media/") ||
-		request.method !== "GET"
-	) {
-		if (!navigator.onLine) {
-			event.respondWith(new Response(null, { status: 204 }));
-			return;
-		}
-	}
 
 	if (request.mode === "navigate") {
 		event.respondWith(
