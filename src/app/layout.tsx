@@ -103,21 +103,7 @@ export default async function RootLayout({
 }) {
 	const headerList = await headers();
 	const nonce = headerList.get("x-nonce") || "";
-	useEffect(() => {
-		// التحويل التلقائي أول ما النت يفصل
-		const handleOffline = () => {
-			window.location.href = "/offline";
-		};
-
-		window.addEventListener("offline", handleOffline);
-
-		// التحقق فوراً لو هو أصلاً فتح الموقع وهو أوفلاين
-		if (!navigator.onLine) {
-			handleOffline();
-		}
-
-		return () => window.removeEventListener("offline", handleOffline);
-	}, []);
+	
 	const jsonLd = {
 		"@context": "https://schema.org",
 		"@graph": [
