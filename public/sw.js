@@ -1,4 +1,4 @@
-const CACHE_NAME = "muhammad-portfolio-v0971";
+const CACHE_NAME = "muhammad-portfolio-v0137204";
 const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
@@ -53,20 +53,21 @@ self.addEventListener("fetch", (event) => {
 
 	if (request.mode === "navigate") {
 		event.respondWith(
-			fetch(request).catch(() => {
-				return caches.match(OFFLINE_URL);
-			}),
+			fetch(request)
+				.then((networkResponse) => {
+					return networkResponse;
+				})
+				.catch(async () => {
+					const cache = await caches.open(CACHE_NAME);
+					return await cache.match(OFFLINE_URL);
+				}),
 		);
 		return;
 	}
 
 	event.respondWith(
 		caches.match(request).then((cachedResponse) => {
-			if (cachedResponse) return cachedResponse;
-
-			return fetch(request).catch(
-				() => new Response(null, { status: 404 }),
-			);
+			return cachedResponse || fetch(request);
 		}),
 	);
 });
