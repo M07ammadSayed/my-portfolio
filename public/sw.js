@@ -1,4 +1,4 @@
-const CACHE_NAME = "muhammad-portfolio-v0132";
+const CACHE_NAME = "muhammad-portfolio-v-final-99"; // غير الرقم ده لو غيرت أي حاجة في صور الأوفلاين
 const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
@@ -11,10 +11,10 @@ const PRECACHE_ASSETS = [
 ];
 
 self.addEventListener("install", (event) => {
+	self.skipWaiting();
 	event.waitUntil(
 		caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS)),
 	);
-	self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
@@ -38,8 +38,11 @@ self.addEventListener("fetch", (event) => {
 	const { request } = event;
 	const url = new URL(request.url);
 
+	if (!url.protocol.startsWith("http")) return;
+
 	if (
 		url.hostname.includes("google-analytics") ||
+		url.hostname.includes("analytics.google") ||
 		url.hostname.includes("vercel") ||
 		url.pathname.includes("/_next/static/media/") ||
 		request.method !== "GET"
@@ -50,15 +53,14 @@ self.addEventListener("fetch", (event) => {
 		}
 	}
 
-	if (!url.protocol.startsWith("http")) return;
-
 	if (request.mode === "navigate") {
 		event.respondWith(
 			fetch(request).catch(async () => {
 				const cache = await caches.open(CACHE_NAME);
 				const offlineResponse = await cache.match(OFFLINE_URL);
 				return (
-					offlineResponse || new Response("Offline", { status: 503 })
+					offlineResponse ||
+					new Response("Offline Mode", { status: 503 })
 				);
 			}),
 		);
@@ -69,9 +71,9 @@ self.addEventListener("fetch", (event) => {
 		caches.match(request).then((cachedResponse) => {
 			if (cachedResponse) return cachedResponse;
 
-			return fetch(request).catch(() => {
-				return new Response(null, { status: 404 });
-			});
+			return fetch(request).catch(
+				() => new Response(null, { status: 404 }),
+			);
 		}),
 	);
 });
