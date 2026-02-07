@@ -77,15 +77,13 @@ export default function OfflinePage() {
 					45% { transform: scale(1.15); }
 					60% { transform: scale(1); }
 				}
-				@media (max-width: 360px) {
-    				.footer-container { 
-        				flex-wrap: wrap !important; 
-        				flex-direction: column !important;
-    				}
-    				.footer-dot {
-						display: none !important;
-					}
-				}
+				@media (max-width: 768px) {
+            		.footer-container {
+                		bottom: calc(env(safe-area-inset-bottom, 0px) + 2.5rem) !important;
+                		font-size: 0.8rem !important;
+                		gap: 8px !important;
+            		}
+        		}
             `,
 				}}
 			/>
@@ -171,20 +169,19 @@ export default function OfflinePage() {
 				className="footer-container"
 				style={{
 					position: "absolute",
-					bottom: "calc(env(safe-area-inset-bottom, 0px) + 2rem)",
 					left: "0",
 					right: "0",
 					width: "100%",
-					padding: "0 1.5rem",
-					fontSize: "0.875rem",
-					color: "#475569",
 					display: "flex",
 					flexWrap: "nowrap",
 					alignItems: "center",
 					justifyContent: "center",
 					gap: "12px",
+					fontSize: "0.875rem",
+					color: "#475569",
 					textAlign: "center",
 					userSelect: "none",
+					bottom: "1.5rem",
 				}}
 			>
 				<div
