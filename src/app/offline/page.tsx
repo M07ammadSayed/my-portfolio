@@ -77,14 +77,14 @@ export default function OfflinePage() {
 					45% { transform: scale(1.15); }
 					60% { transform: scale(1); }
 				}
-				@media (max-width: 480px) {
-    			.footer-container { 
-        			flex-direction: column !important; 
-        				gap: 8px !important; 
+				@media (max-width: 360px) {
+    				.footer-container { 
+        				flex-wrap: wrap !important; 
+        				flex-direction: column !important;
     				}
-    				.footer-dot { 
-        				display: none !important; 
-    				}
+    				.footer-dot {
+						display: none !important;
+					}
 				}
             `,
 				}}
@@ -167,33 +167,32 @@ export default function OfflinePage() {
 					)}
 				</button>
 			</div>
-
 			<footer
 				className="footer-container"
 				style={{
 					position: "absolute",
-					bottom: "1.5rem",
+					bottom: "env(safe-area-inset-bottom, 1.5rem)",
 					left: "0",
 					right: "0",
-					padding: "0 1.5rem",
-					fontSize: "0.875rem",
+					width: "100%",
+					padding: "0 10px",
+					fontSize: "0.8rem",
 					color: "#475569",
 					display: "flex",
-					flexWrap: "wrap",
+					flexWrap: "nowrap",
 					alignItems: "center",
 					justifyContent: "center",
-					columnGap: "12px",
-					rowGap: "8px",
+					gap: "8px",
 					textAlign: "center",
 					userSelect: "none",
 				}}
 			>
 				<div
 					style={{
-						whiteSpace: "nowrap",
 						display: "flex",
 						alignItems: "center",
-						gap: "6px",
+						gap: "4px",
+						whiteSpace: "nowrap",
 					}}
 				>
 					<span>&copy; {new Date().getFullYear()}</span>
@@ -208,9 +207,8 @@ export default function OfflinePage() {
 						opacity: 0.6,
 						display: "inline-flex",
 						alignItems: "center",
-						justifyContent: "center",
 						lineHeight: "0",
-						fontSize: "1.2rem",
+						fontSize: "1.5rem",
 					}}
 				>
 					•
@@ -218,21 +216,14 @@ export default function OfflinePage() {
 
 				<div
 					style={{
-						whiteSpace: "nowrap",
 						display: "flex",
 						alignItems: "center",
 						gap: "4px",
+						whiteSpace: "nowrap",
 					}}
 				>
 					<span>Developed with</span>
-					<span
-						className="heart-pulse"
-						style={{
-							color: "#ef4444",
-							fontSize: "1rem",
-							display: "inline-block",
-						}}
-					>
+					<span className="heart-pulse" style={{ color: "#ef4444" }}>
 						❤️
 					</span>
 				</div>
