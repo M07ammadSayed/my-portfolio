@@ -79,7 +79,7 @@ export default function OfflinePage() {
 				}
 				@media (max-width: 768px) {
             		.footer-container {
-                		bottom: calc(env(safe-area-inset-bottom, 0px) + 2.5rem) !important;
+                		bottom: calc(env(safe-area-inset-bottom, 0px) + 2rem) !important;
                 		font-size: 0.8rem !important;
                 		gap: 8px !important;
             		}
