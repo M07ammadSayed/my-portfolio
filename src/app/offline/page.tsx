@@ -171,11 +171,11 @@ export default function OfflinePage() {
 				className="footer-container"
 				style={{
 					position: "absolute",
-					bottom: "env(safe-area-inset-bottom, 1.5rem)",
-					left: "50%",
-					transform: "translateX(-50%)",
-					width: "max-content",
-					maxWidth: "95vw",
+					bottom: "calc(env(safe-area-inset-bottom, 0px) + 2rem)",
+					left: "0",
+					right: "0",
+					width: "100%",
+					padding: "0 1.5rem",
 					fontSize: "0.875rem",
 					color: "#475569",
 					display: "flex",
