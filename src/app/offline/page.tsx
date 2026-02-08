@@ -79,8 +79,10 @@ export default function OfflinePage() {
 				}
 				@media (max-width: 768px) {
             		.footer-container {
-                		bottom: calc(env(safe-area-inset-bottom, 0px) + 2rem) !important;
-                		font-size: 0.8rem !important;
+                		bottom: 0 !important;
+                		padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 1.2rem) !important;
+                		height: 4rem;
+                		font-size: 0.75rem !important;
                 		gap: 8px !important;
             		}
         		}
@@ -181,6 +183,7 @@ export default function OfflinePage() {
 					color: "#475569",
 					textAlign: "center",
 					userSelect: "none",
+					padding: "0 10px",
 					bottom: "1.5rem",
 				}}
 			>
