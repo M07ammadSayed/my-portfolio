@@ -80,7 +80,7 @@ export default function OfflinePage() {
 				@media (max-width: 768px) {
             		.footer-container {
                 		bottom: 0 !important;
-                		padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 2.5rem) !important;
+                		padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 3rem) !important;
                 		height: 4rem;
                 		font-size: 0.75rem !important;
                 		gap: 8px !important;
