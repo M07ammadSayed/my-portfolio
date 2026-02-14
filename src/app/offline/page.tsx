@@ -81,7 +81,7 @@ export default function OfflinePage() {
     				.footer-container {
         				position: fixed !important;
         				bottom: 0 !important;
-        				padding-bottom: max(env(safe-area-inset-bottom, 0px), 1rem) !important;
+        				padding-bottom: max(env(safe-area-inset-bottom, 0px), 1.5rem) !important;
         				height: auto;
         				font-size: 0.75rem !important;
         				gap: 8px !important;

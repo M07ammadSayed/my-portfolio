@@ -1,5 +1,5 @@
-const CACHE_NAME = "muhammad-portfolio-v0304190";
-const RUNTIME_CACHE = "muhammad-portfolio-runtime-v1";
+const CACHE_NAME = "muhammad-portfolio-v672310315";
+const RUNTIME_CACHE = "muhammad-portfolio-runtime-v2";
 const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
@@ -10,8 +10,6 @@ const PRECACHE_ASSETS = [
 	"/web-app-manifest-192x192.png",
 	"/web-app-manifest-512x512.png",
 ];
-
-const CACHE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
 
 self.addEventListener("install", (event) => {
 	event.waitUntil(
@@ -55,39 +53,9 @@ self.addEventListener("fetch", (event) => {
 					return response;
 				})
 				.catch(async () => {
-					const cachedResponse = await caches.match(request);
-					if (cachedResponse) return cachedResponse;
-
 					const cache = await caches.open(CACHE_NAME);
 					return cache.match(OFFLINE_URL);
 				}),
-		);
-		return;
-	}
-
-	if (url.pathname.startsWith("/api/")) {
-		event.respondWith(
-			Promise.race([
-				fetch(request).then((response) => {
-					if (response.ok) {
-						const responseClone = response.clone();
-						caches.open(RUNTIME_CACHE).then((cache) => {
-							cache.put(request, responseClone);
-						});
-					}
-					return response;
-				}),
-				new Promise((_, reject) =>
-					setTimeout(() => reject(new Error("timeout")), 3000),
-				),
-			]).catch(async () => {
-				const cachedResponse = await caches.match(request);
-				if (cachedResponse) return cachedResponse;
-				return new Response(JSON.stringify({ error: "Offline" }), {
-					headers: { "Content-Type": "application/json" },
-					status: 503,
-				});
-			}),
 		);
 		return;
 	}
@@ -100,15 +68,7 @@ self.addEventListener("fetch", (event) => {
 	) {
 		event.respondWith(
 			caches.match(request).then((cachedResponse) => {
-				if (cachedResponse) {
-					const dateHeader = cachedResponse.headers.get("date");
-					const cachedTime = dateHeader
-						? new Date(dateHeader).getTime()
-						: 0;
-					const isFresh = Date.now() - cachedTime < CACHE_MAX_AGE;
-
-					if (isFresh) return cachedResponse;
-				}
+				if (cachedResponse) return cachedResponse;
 
 				return fetch(request)
 					.then((response) => {
@@ -121,7 +81,6 @@ self.addEventListener("fetch", (event) => {
 						return response;
 					})
 					.catch(() => {
-						if (cachedResponse) return cachedResponse;
 						if (request.destination === "image") {
 							return new Response(
 								'<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect fill="#ddd" width="200" height="200"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="#999">Offline</text></svg>',
@@ -144,7 +103,7 @@ self.addEventListener("fetch", (event) => {
 	event.respondWith(
 		fetch(request)
 			.then((response) => {
-				if (response.ok) {
+				if (response.ok && request.method === "GET") {
 					const responseClone = response.clone();
 					caches.open(RUNTIME_CACHE).then((cache) => {
 						cache.put(request, responseClone);
@@ -152,12 +111,11 @@ self.addEventListener("fetch", (event) => {
 				}
 				return response;
 			})
-			.catch(async () => {
-				const cachedResponse = await caches.match(request);
-				if (cachedResponse) return cachedResponse;
-				throw new Error(
-					"Network request failed and no cache available",
-				);
+			.catch(() => {
+				return new Response("", {
+					status: 503,
+					statusText: "Service Unavailable",
+				});
 			}),
 	);
 });
