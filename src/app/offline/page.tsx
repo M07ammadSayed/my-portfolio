@@ -78,14 +78,16 @@ export default function OfflinePage() {
 					60% { transform: scale(1); }
 				}
 				@media (max-width: 768px) {
-            		.footer-container {
-                		bottom: 0 !important;
-                		padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 4.5rem) !important;
-                		height: 4rem;
-                		font-size: 0.75rem !important;
-                		gap: 8px !important;
-            		}
-        		}
+    				.footer-container {
+        				position: fixed !important;
+        				bottom: 0 !important;
+        				padding-bottom: max(env(safe-area-inset-bottom, 0px), 1rem) !important;
+        				height: auto;
+        				font-size: 0.75rem !important;
+        				gap: 8px !important;
+        				background-color: #020617;
+    				}
+				}
             `,
 				}}
 			/>
