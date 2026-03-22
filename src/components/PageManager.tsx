@@ -15,7 +15,7 @@ const ScrollToTop = dynamic(() => import("@/components/ScrollToTop"), {
 });
 const VisualBackground = dynamic(
 	() => import("@/components/VisualBackground"),
-	{ ssr: false },
+	{ ssr: true },
 );
 
 export default function PageManager({
@@ -104,27 +104,30 @@ export default function PageManager({
 			setIsLoaded(true);
 		}, 500);
 	};
-
 	return (
 		<>
 			<AnimatePresence mode="wait">
-				{isLoading && (
+				{mounted && isLoading && (
 					<PremiumLoader onComplete={handleLoaderComplete} />
 				)}
 			</AnimatePresence>
-
-			<ScrollProgress isLoaded={isLoaded} />
-
 			<motion.div
-				className={`min-h-[100dvh] bg-[#020617] text-slate-200 font-sans text-base leading-relaxed tracking-tight overflow-x-hidden relative transition-opacity duration-1000 ${
-					isLoading ? "opacity-0" : "opacity-100"
-				}`}
+				className="min-h-[100dvh] bg-[#020617] text-slate-200 font-sans text-base leading-relaxed tracking-tight overflow-x-hidden relative"
+				style={{
+					opacity: isLoading ? 0 : 1,
+					transition: "opacity 1s ease-in-out",
+				}}
 				role="main"
 			>
-				<CustomCursor />
-				<VisualBackground />
+				{mounted && (
+					<>
+						<CustomCursor />
+						<VisualBackground />
+						<ScrollToTop />
+					</>
+				)}
+				<ScrollProgress isLoaded={isLoaded} />
 				{children}
-				<ScrollToTop />
 			</motion.div>
 		</>
 	);
