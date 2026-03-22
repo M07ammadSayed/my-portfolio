@@ -42,7 +42,7 @@ import Projects from "@/components/Projects";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 
-export const dynamic = "force-static";
+// export const dynamic = "force-static";
 
 export const metadata = {
     title: "Muhammad Sayyid | Full-Stack Developer & AppSec Engineer",
