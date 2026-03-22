@@ -15,7 +15,7 @@ const ScrollToTop = dynamic(() => import("@/components/ScrollToTop"), {
 });
 const VisualBackground = dynamic(
 	() => import("@/components/VisualBackground"),
-	{ ssr: true },
+	{ ssr: false },
 );
 
 export default function PageManager({
