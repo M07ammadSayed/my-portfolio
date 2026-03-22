@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { AnimatePresence } from "framer-motion";
 import PremiumLoader from "./PremiumLoader";
 import ScrollProgress from "./ScrollProgress";
@@ -89,7 +89,7 @@ export default function PageManager({
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
-	const handleLoaderComplete = () => {
+	const handleLoaderComplete = useCallback(() => {
 		document.documentElement.style.setProperty(
 			"scroll-behavior",
 			"auto",
@@ -103,7 +103,7 @@ export default function PageManager({
 			document.body.style.removeProperty("scroll-behavior");
 			setIsLoaded(true);
 		}, 500);
-	};
+	}, []);
 	return (
 		<>
 			<AnimatePresence mode="wait">

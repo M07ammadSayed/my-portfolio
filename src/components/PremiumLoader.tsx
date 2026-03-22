@@ -36,7 +36,7 @@ export default function PremiumLoader({
 		}, 400);
 
 		return () => clearInterval(interval);
-	}, [onComplete]);
+	}, []);
 
 	return (
 		<motion.div
