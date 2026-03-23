@@ -104,6 +104,13 @@ export default function PageManager({
 			setIsLoaded(true);
 		}, 500);
 	}, []);
+
+	useEffect(() => {
+		const fallback = setTimeout(() => {
+			if (isLoading) handleLoaderComplete();
+		}, 5000);
+		return () => clearTimeout(fallback);
+	}, [isLoading, handleLoaderComplete]);
 	return (
 		<>
 			<AnimatePresence mode="wait">

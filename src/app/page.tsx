@@ -1,9 +1,9 @@
 import nextDynamic from "next/dynamic";
 import PageManager from "@/components/PageManager";
 import NavBar from "@/components/NavBar";
-import { Link } from "lucide-react";
+import Link from "next/link";
 
-// export const dynamic = "force-static";
+export const dynamic = "force-static";
 
 export const metadata = {
 	title: "Muhammad Sayyid | Full-Stack Developer & AppSec Engineer",
