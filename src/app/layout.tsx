@@ -4,7 +4,6 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import InstallPrompt from "@/components/InstallPrompt";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { headers } from "next/headers";
 import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -12,6 +11,7 @@ const jetbrainsMono = JetBrains_Mono({
 	subsets: ["latin"],
 	variable: "--font-mono",
 });
+
 export const metadata: Metadata = {
 	title: "Muhammad Sayyid | AppSec Engineer",
 	description:
@@ -100,14 +100,11 @@ export const viewport: Viewport = {
 	viewportFit: "cover",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
-	const headerList = await headers();
-	const nonce = headerList.get("x-nonce") || "";
-
 	const jsonLd = {
 		"@context": "https://schema.org",
 		"@graph": [
@@ -163,7 +160,6 @@ export default async function RootLayout({
 		<html lang="en" className="scroll-smooth">
 			<head>
 				<script
-					nonce={nonce}
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
 				/>
@@ -198,11 +194,7 @@ export default async function RootLayout({
                     `}
 				</Script>
 
-				<Script
-					id="register-sw"
-					strategy="afterInteractive"
-					nonce={nonce}
-				>
+				<Script id="register-sw" strategy="afterInteractive">
 					{`
                         if ('serviceWorker' in navigator) {
                             window.addEventListener('load', function() {
