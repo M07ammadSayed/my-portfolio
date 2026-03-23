@@ -1,5 +1,6 @@
 import Link from "next/link";
 import CustomCursor from "@/components/CustomCursor";
+export const dynamic = "force-static";
 
 export default function NotFound() {
 	return (
