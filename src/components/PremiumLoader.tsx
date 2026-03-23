@@ -13,10 +13,8 @@ export default function PremiumLoader({
 
 	useEffect(() => {
 		const steps = [
-			{ p: 20, s: "Loading Security Modules..." },
-			{ p: 45, s: "Establishing Secure Connection..." },
-			{ p: 70, s: "Encrypting Data Streams..." },
-			{ p: 90, s: "Finalizing UI/UX Handshake..." },
+			{ p: 35, s: "Loading..." },
+			{ p: 70, s: "Almost there..." },
 			{ p: 100, s: "Access Granted." },
 		];
 
@@ -25,7 +23,7 @@ export default function PremiumLoader({
 		const interval = setInterval(() => {
 			if (currentStep >= steps.length) {
 				clearInterval(interval);
-				setTimeout(onComplete, 800);
+				setTimeout(onComplete, 300);
 				return;
 			}
 
@@ -33,7 +31,7 @@ export default function PremiumLoader({
 			setProgress(step.p);
 			setStatus(step.s);
 			currentStep++;
-		}, 400);
+		}, 200);
 
 		return () => clearInterval(interval);
 	}, []);
