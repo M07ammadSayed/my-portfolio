@@ -13,6 +13,7 @@ const withPWA = withPWAInit({
 		document: "/offline.html",
 	},
 	workboxOptions: {
+		exclude: [/\.html$/, /\/$/],
 		runtimeCaching: [
 			{
 				urlPattern: ({ request }) => request.mode === "navigate",
