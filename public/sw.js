@@ -96,13 +96,15 @@
 //     }
 // });
 
-const CACHE_NAME = "ms-portfolio-v1554";
+const CACHE_NAME = "ms-portfolio-v488942";
 const ASSETS_TO_CACHE = [
     "/",
     "/index.html",
     "/offline.html",
-    "/manifest.webmanifest",
-    "/icon.png"
+    "/manifest.json",
+    "/favicon.ico",
+    "/icon.svg",
+    "/favicon-96x96.png"
 ];
 
 self.addEventListener("install", (event) => {
