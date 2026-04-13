@@ -11,8 +11,8 @@ export default function Projects() {
 		>
 			<SectionHeader
 				icon={Code}
-				title="Engineering Labs"
-				desc="Real-world solutions for complex problems."
+				title="AppSec Labs"
+				desc="Hands-on security research and tooling."
 			/>
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 				<ProjectCard

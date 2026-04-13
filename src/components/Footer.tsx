@@ -19,7 +19,7 @@ export default function Footer() {
 					</strong>
 					.
 					<span className="block text-sm text-slate-600 mt-2">
-						I ensure apps are broken by me, not hackers.
+						I find the vulnerabilities before attackers do.
 					</span>
 				</p>
 				<div className="flex justify-center gap-6 mb-12">

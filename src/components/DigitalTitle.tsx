@@ -1,42 +1,8 @@
-// "use client";
-// import { useEffect, useState } from "react";
-// import { motion, AnimatePresence } from "framer-motion";
-
-// const titles = ["Modern", "Cloud-Native", "API-Driven", "Mission-Critical"];
-
-// export default function DigitalTitle() {
-// 	const [index, setIndex] = useState(0);
-
-// 	useEffect(() => {
-// 		const timer = setInterval(() => {
-// 			setIndex((prev) => (prev + 1) % titles.length);
-// 		}, 3000);
-// 		return () => clearInterval(timer);
-// 	}, []);
-
-// 	return (
-// 		<div className="relative inline-block min-w-[140px] md:min-w-[200px] text-center md:text-left">
-// 			<AnimatePresence mode="wait">
-// 				<motion.span
-// 					key={index}
-// 					initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-// 					animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-// 					exit={{ opacity: 0, y: -20, filter: "blur(10px)" }}
-// 					transition={{ duration: 0.5, ease: "easeOut" }}
-// 					className="block bg-gradient-to-r from-cyan-400 via-blue-600 to-violet-600 bg-clip-text text-transparent font-extrabold pb-2 whitespace-nowrap"
-// 				>
-// 					{titles[index]}
-// 				</motion.span>
-// 			</AnimatePresence>
-// 		</div>
-// 	);
-// }
-
 "use client";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const titles = ["Modern", "Cloud-Native", "API-Driven", "Mission-Critical"];
+const titles = ["Microservice-Based", "Cloud-Native", "API-Driven", "Mission-Critical"];
 
 export default function DigitalTitle() {
 	const [index, setIndex] = useState(0);

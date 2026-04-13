@@ -6,7 +6,7 @@ import Link from "next/link";
 // export const dynamic = "force-static";
 
 export const metadata = {
-	title: "Muhammad Sayyid | Full-Stack Developer & AppSec Engineer",
+	title: "Muhammad Sayyid | AppSec Engineer",
 	description:
 		"Portfolio of Muhammad Sayyid, specializing in MERN stack and Application Security.",
 };
