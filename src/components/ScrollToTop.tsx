@@ -35,12 +35,14 @@ export default function ScrollToTop() {
 			{isVisible && (
 				<motion.button
 					aria-label="Scroll to top"
+					whileHover={{ scale: 1.1 }}
+					whileTap={{ scale: 0.9 }}
 					initial={{ opacity: 0, scale: 0.5 }}
 					animate={{ opacity: 1, scale: 1 }}
 					exit={{
 						opacity: 0,
 						scale: 0.5,
-						transition: { delay: 1 },
+						transition: { delay: 0.5 },
 					}}
 					onClick={scrollToTop}
 					className="fixed bottom-8 right-8 z-[90] p-3 rounded-full bg-slate-900/80 backdrop-blur-md border border-slate-700 shadow-2xl group hover:border-cyan-500/50 transition-colors"
