@@ -16,10 +16,7 @@ const withPWA = withPWAInit({
 		runtimeCaching: [
 			{
 				urlPattern: ({ request }) => request.mode === "navigate",
-				handler: "NetworkFirst",
-				options: {
-					networkTimeoutSeconds: 3,
-				},
+				handler: "NetworkOnly",
 			},
 		],
 	},
