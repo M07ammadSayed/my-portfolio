@@ -96,7 +96,7 @@
 //     }
 // });
 
-const CACHE_NAME = "ms-portfolio-v488942";
+const CACHE_NAME = "ms-portfolio-v2137624";
 const ASSETS_TO_CACHE = [
     "/",
     "/index.html",
