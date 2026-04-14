@@ -53,7 +53,7 @@ export default function Hero() {
 					{" "}
 					AppSec Engineer
 				</span>
-				, leveraging hands-on development experience for deep
+				, leveraging hands-on development experience for deep{" "}
 				<span className="text-purple-400 font-semibold">
 					White-box Testing
 				</span>{" "}
