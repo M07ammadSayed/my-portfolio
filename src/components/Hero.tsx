@@ -46,12 +46,14 @@ export default function Hero() {
 				transition={{ duration: 0.8, delay: 0.2 }}
 				className="text-base md:text-xl text-slate-400 max-w-2xl leading-relaxed mb-6 md:mb-10 mt-4 md:mt-8"
 			>
-				I am <strong className="text-slate-100">Muhammad Sayyid</strong>
-				. Transitioning from Building to{" "}
+				I am{" "}
+				<strong className="text-slate-100">Muhammad Sayyid </strong>— a
+				Full-Stack Developer turned
 				<span className="text-cyan-400 font-semibold glow-text">
-					Securing
+					{" "}
+					AppSec Engineer
 				</span>
-				. Using my Full-Stack background to perform deep{" "}
+				, leveraging hands-on development experience for deep
 				<span className="text-purple-400 font-semibold">
 					White-box Testing
 				</span>{" "}
