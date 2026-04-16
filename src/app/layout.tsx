@@ -4,6 +4,7 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import InstallPrompt from "@/components/InstallPrompt";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { headers } from "next/headers";
 import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -61,13 +62,8 @@ export const metadata: Metadata = {
 		images: ["/opengraph-image.png"],
 		creator: "@M07ammad_Sayed",
 	},
-	alternates: {
-		canonical: "https://muhammad-sayyid.vercel.app",
-	},
-	robots: {
-		index: true,
-		follow: true,
-	},
+	alternates: { canonical: "https://muhammad-sayyid.vercel.app" },
+	robots: { index: true, follow: true },
 	icons: {
 		icon: [
 			{ url: "/icon.svg", type: "image/svg+xml", sizes: "any" },
@@ -82,14 +78,8 @@ export const metadata: Metadata = {
 			},
 		],
 	},
-	verification: {
-		google: "THFxf1VSo42NqnEMbGPsjkHxmLNUwef2LRZl8WWjO9w",
-	},
-	appleWebApp: {
-		capable: true,
-		statusBarStyle: "default",
-		title: "<MS />",
-	},
+	verification: { google: "THFxf1VSo42NqnEMbGPsjkHxmLNUwef2LRZl8WWjO9w" },
+	appleWebApp: { capable: true, statusBarStyle: "default", title: "<MS />" },
 	category: "technology",
 };
 
@@ -100,11 +90,14 @@ export const viewport: Viewport = {
 	viewportFit: "cover",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
+	const headerList = await headers();
+	const nonce = headerList.get("x-nonce") || "";
+
 	const jsonLd = {
 		"@context": "https://schema.org",
 		"@graph": [
@@ -124,8 +117,7 @@ export default function RootLayout({
 				alternateName: "M07ammadSayed",
 				url: "https://muhammad-sayyid.vercel.app",
 				image: "https://muhammad-sayyid.vercel.app/icon.svg",
-				jobTitle:
-					"Application Security Engineer & Full-Stack Developer",
+				jobTitle: "Application Security Engineer",
 				alumniOf: {
 					"@type": "CollegeOrUniversity",
 					name: "Zagazig University",
@@ -135,7 +127,7 @@ export default function RootLayout({
 					"https://www.linkedin.com/in/muhammad-sayyid/",
 				],
 				description:
-					"Full-Stack Web Developer proficient in React, Next.js, Node.js, and MongoDB. 3rd year student at Faculty of Technology and Development.",
+					"Application Security Engineer. 3rd year student at Faculty of Technology and Development.",
 				knowsAbout: [
 					"Web Development",
 					"JavaScript",
@@ -160,6 +152,7 @@ export default function RootLayout({
 		<html lang="en" className="scroll-smooth">
 			<head>
 				<script
+					nonce={nonce}
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
 				/>
@@ -176,38 +169,34 @@ export default function RootLayout({
 				suppressHydrationWarning={true}
 			>
 				{children}
-
 				<Analytics />
 				<SpeedInsights />
 				<InstallPrompt />
-
 				<Script
 					src="https://www.googletagmanager.com/gtag/js?id=G-WGWDPQMLKR"
 					strategy="lazyOnload"
 				/>
-				<Script id="google-analytics" strategy="lazyOnload">
-					{`
-                        window.dataLayer = window.dataLayer || [];
-                        function gtag(){dataLayer.push(arguments);}
-                        gtag('js', new Date());
-                        gtag('config', 'G-WGWDPQMLKR');
-                    `}
-				</Script>
-
-				<Script id="register-sw" strategy="afterInteractive">
-					{`
-                        if ('serviceWorker' in navigator) {
-                            window.addEventListener('load', function() {
-                                navigator.serviceWorker.register('/sw.js').then(function(reg) {
-                                    reg.update();
-                                    console.log('SW registered and updated!');
-                                }).catch(function(err) {
-                                    console.error('SW registration failed:', err);
-                                });
+				<Script id="google-analytics" strategy="lazyOnload">{`
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', 'G-WGWDPQMLKR');
+                `}</Script>
+				<Script
+					id="register-sw"
+					strategy="afterInteractive"
+					nonce={nonce}
+				>{`
+                    if ('serviceWorker' in navigator) {
+                        window.addEventListener('load', function() {
+                            navigator.serviceWorker.register('/sw.js').then(function(reg) {
+                                reg.update();
+                            }).catch(function(err) {
+                                console.error('SW registration failed:', err);
                             });
-                        }
-                    `}
-				</Script>
+                        });
+                    }
+                `}</Script>
 			</body>
 		</html>
 	);

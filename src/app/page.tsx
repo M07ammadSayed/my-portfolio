@@ -8,7 +8,7 @@ import Link from "next/link";
 export const metadata = {
 	title: "Muhammad Sayyid | AppSec Engineer",
 	description:
-		"Portfolio of Muhammad Sayyid, specializing in MERN stack and Application Security.",
+		"Portfolio of Muhammad Sayyid, specializing in Application Security.",
 };
 
 const Hero = nextDynamic(() => import("@/components/Hero"), { ssr: true });

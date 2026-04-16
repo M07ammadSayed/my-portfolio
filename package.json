@@ -17,8 +17,8 @@
 	"type": "module",
 	"main": "index.js",
 	"scripts": {
-		"dev": "next dev --turbo",
-		"build": "next build",
+		"dev": "next dev",
+		"build": "next build --webpack",
 		"start": "next start",
 		"lint": "next lint"
 	},
