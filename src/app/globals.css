@@ -20,6 +20,8 @@ html {
 	scroll-behavior: smooth;
 	scroll-padding-top: 100px;
 	-webkit-tap-highlight-color: transparent;
+	/* scrollbar-width: thin; */
+	/* scrollbar-color: #334155 #020617; */
 	color-scheme: dark;
 	background-color: #020617;
 }
@@ -46,16 +48,17 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background: #10b981;
+	background: #22d3ee;
 }
 
 /* --- Ultimate Text Selection --- */
 ::selection {
-	background-color: rgba(16, 185, 129, 0.2);
+	background-color: rgba(34, 211, 238, 0.1);
 	color: #ffffff;
 	text-shadow:
-		0 0 2px rgba(16, 185, 129, 1),
-		0 0 10px rgba(16, 185, 129, 0.8);
+		0 0 2px rgba(34, 211, 238, 1),
+		0 0 10px rgba(34, 211, 238, 0.8),
+		0 0 30px rgba(34, 211, 238, 0.4);
 }
 
 /* --- Animations --- */
@@ -117,54 +120,6 @@ body {
 	animation: shimmer 8s linear infinite;
 }
 
-@keyframes scan {
-	0% {
-		top: -10%;
-	}
-	100% {
-		top: 110%;
-	}
-}
-
-.animate-scan {
-	animation: scan 8s linear infinite;
-}
-
-@keyframes glitch {
-	0% {
-		text-shadow: 0.05em 0 0 #ef4444, -0.05em -0.025em 0 #10b981,
-			-0.025em 0.05em 0 #3b82f6;
-	}
-	14% {
-		text-shadow: 0.05em 0 0 #ef4444, -0.05em -0.025em 0 #10b981,
-			-0.025em 0.05em 0 #3b82f6;
-	}
-	15% {
-		text-shadow: -0.05em -0.025em 0 #ef4444, 0.025em 0.025em 0 #10b981,
-			-0.05em -0.05em 0 #3b82f6;
-	}
-	49% {
-		text-shadow: -0.05em -0.025em 0 #ef4444, 0.025em 0.025em 0 #10b981,
-			-0.05em -0.05em 0 #3b82f6;
-	}
-	50% {
-		text-shadow: 0.025em 0.05em 0 #ef4444, 0.05em 0 0 #10b981,
-			0 -0.05em 0 #3b82f6;
-	}
-	99% {
-		text-shadow: 0.025em 0.05em 0 #ef4444, 0.05em 0 0 #10b981,
-			0 -0.05em 0 #3b82f6;
-	}
-	100% {
-		text-shadow: -0.025em 0 0 #ef4444, -0.025em -0.025em 0 #10b981,
-			-0.025em -0.05em 0 #3b82f6;
-	}
-}
-
-.glitch-hover:hover {
-	animation: glitch 500ms infinite;
-}
-
 /* --- Utilities --- */
 .perspective-1000 {
 	perspective: 1000px;
@@ -180,12 +135,12 @@ body {
 	background-image:
 		linear-gradient(
 			to right,
-			rgba(16, 185, 129, 0.03) 1px,
+			rgba(255, 255, 255, 0.03) 1px,
 			transparent 1px
 		),
 		linear-gradient(
 			to bottom,
-			rgba(16, 185, 129, 0.03) 1px,
+			rgba(255, 255, 255, 0.03) 1px,
 			transparent 1px
 		);
 	mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
@@ -200,27 +155,8 @@ body {
 	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
 }
 
-.glow-text-emerald {
-	text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
-}
-
-.glow-text-cyan {
+.glow-text {
 	text-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
-}
-
-.terminal-cursor::after {
-	content: "_";
-	animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-	from,
-	to {
-		opacity: 1;
-	}
-	50% {
-		opacity: 0;
-	}
 }
 
 /* --- Print Styles (For Recruiters saving as PDF) --- */

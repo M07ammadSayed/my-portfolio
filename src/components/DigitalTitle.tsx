@@ -2,13 +2,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const titles = [
-	"Secure-by-Design",
-	"Threat-Modelled",
-	"Hardened Systems",
-	"Vulnerability-Free",
-	"Mission-Critical",
-];
+const titles = ["Microservice-Based", "Cloud-Native", "API-Driven", "Mission-Critical"];
 
 export default function DigitalTitle() {
 	const [index, setIndex] = useState(0);
@@ -35,7 +29,7 @@ export default function DigitalTitle() {
 					animate={{ opacity: 1, y: 0 }}
 					exit={{ opacity: 0, y: -10 }}
 					transition={{ duration: 0.3, ease: "linear" }}
-					className="block bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-600 bg-clip-text text-transparent font-extrabold pb-2 whitespace-nowrap will-change-transform glitch-hover cursor-default"
+					className="block bg-gradient-to-r from-cyan-400 via-blue-600 to-violet-600 bg-clip-text text-transparent font-extrabold pb-2 whitespace-nowrap will-change-transform"
 				>
 					{titles[index]}
 				</motion.span>

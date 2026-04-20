@@ -44,15 +44,13 @@ export default function NavBar() {
 	};
 
 	useEffect(() => {
-		const handleScroll = () => {
-			setScrolled(window.scrollY > 20);
-		};
-		window.addEventListener("scroll", handleScroll);
-
 		const observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
-					if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
+					if (
+						entry.isIntersecting &&
+						entry.intersectionRatio >= 0.2
+					) {
 						setActiveSection(entry.target.id);
 					}
 				});
@@ -63,12 +61,18 @@ export default function NavBar() {
 			},
 		);
 
-		const sections = document.querySelectorAll("section[id]");
-		sections.forEach((section) => observer.observe(section));
+		const refreshObserver = () => {
+			const sections = document.querySelectorAll("section[id]");
+			sections.forEach((section) => observer.observe(section));
+		};
+
+		refreshObserver();
+
+		const timeoutId = setTimeout(refreshObserver, 1500);
 
 		return () => {
-			window.removeEventListener("scroll", handleScroll);
 			observer.disconnect();
+			clearTimeout(timeoutId);
 		};
 	}, []);
 
@@ -78,30 +82,22 @@ export default function NavBar() {
 				<div
 					className={`transition-all duration-500 ${
 						scrolled
-							? "bg-[#0f172a]/80 shadow-2xl shadow-emerald-900/10 border-slate-700/50"
+							? "bg-[#0f172a]/80 shadow-2xl shadow-cyan-900/10 border-slate-700/50"
 							: "bg-transparent border-transparent"
 					} backdrop-blur-md border rounded-full px-6 py-3 flex justify-between items-center md:gap-8`}
 				>
-					<div className="flex items-center gap-4">
-						<h1
-							role="button"
-							className="text-xl font-bold text-emerald-400 font-mono cursor-pointer tracking-tighter hover:text-white transition-colors md:whitespace-nowrap glitch-hover"
-							onClick={() =>
-								window.scrollTo({
-									top: 0,
-									behavior: "smooth",
-								})
-							}
-						>
-							&lt;MS /&gt;
-						</h1>
-						<div className="hidden lg:flex items-center gap-1.5 px-2 py-0.5 rounded border border-emerald-500/20 bg-emerald-500/5">
-							<span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-							<span className="text-[10px] font-mono text-emerald-500/80 tracking-widest uppercase">
-								Secure_
-							</span>
-						</div>
-					</div>
+					<h1
+						role="button"
+						className="text-xl font-bold text-cyan-400 font-mono cursor-pointer tracking-tighter hover:text-white transition-colors md:whitespace-nowrap"
+						onClick={() =>
+							window.scrollTo({
+								top: 0,
+								behavior: "smooth",
+							})
+						}
+					>
+						&lt;MS /&gt;
+					</h1>
 
 					<div className="hidden md:flex gap-1">
 						{["about", "skills", "projects", "contact"].map(
@@ -110,16 +106,12 @@ export default function NavBar() {
 									key={item}
 									href={`#${item}`}
 									onClick={(e) => handleNavClick(e, item)}
-									className={`relative px-4 py-2 rounded-full text-sm font-medium transition-colors hover:text-emerald-400 ${
-										activeSection === item
-											? "text-emerald-400"
-											: "text-slate-300"
-									}`}
+									className="relative px-4 py-2 rounded-full text-sm font-medium transition-colors hover:text-cyan-400 text-slate-300"
 								>
 									{activeSection === item && (
 										<motion.span
 											layoutId="nav-indicator"
-											className="absolute inset-0 rounded-full bg-slate-800/80 border border-slate-700 shadow-[0_0_10px_rgba(16,185,129,0.1)]"
+											className="absolute inset-0 rounded-full bg-slate-800/80 border border-slate-700"
 											transition={{
 												type: "spring",
 												stiffness: 300,
