@@ -3,7 +3,7 @@ import { Terminal, Shield, Code, Lock } from "lucide-react";
 import TiltCard from "./TiltCard";
 import SectionHeader from "./SectionHeader";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 
 const skills = [
 	{
@@ -11,7 +11,7 @@ const skills = [
 		title: "AppSec & Tools",
 		desc: "Burp Suite, OWASP ZAP, Postman, Secure Code Review",
 		color: "#d946ef", // fuchsia
-		glow: "rgba(217, 70, 239, 0.15)",
+		glow: "rgba(217, 70, 239, 0.2)",
 		tag: "Penetration Testing",
 		badge: "Core",
 	},
@@ -20,7 +20,7 @@ const skills = [
 		title: "Web Security",
 		desc: "OWASP Top 10, XSS/Injection Prevention, Auth Logic",
 		color: "#06b6d4", // cyan
-		glow: "rgba(6, 182, 212, 0.15)",
+		glow: "rgba(6, 182, 212, 0.2)",
 		tag: "Threat Modeling",
 		badge: "Expert",
 	},
@@ -29,7 +29,7 @@ const skills = [
 		title: "Secure Coding",
 		desc: "Input Validation, Output Encoding, JWT Handling",
 		color: "#8b5cf6", // violet
-		glow: "rgba(139, 92, 246, 0.15)",
+		glow: "rgba(139, 92, 246, 0.2)",
 		tag: "SDL Practices",
 		badge: "Advanced",
 	},
@@ -38,7 +38,7 @@ const skills = [
 		title: "Full Stack Base",
 		desc: "React.js, Node.js, Express, MongoDB, Linux",
 		color: "#4338ca", // indigo
-		glow: "rgba(67, 56, 202, 0.15)",
+		glow: "rgba(67, 56, 202, 0.2)",
 		tag: "DevSecOps",
 		badge: "Proficient",
 	},
@@ -51,59 +51,68 @@ export default function Skills() {
 		offset: ["start end", "end start"],
 	});
 
-	// Parallax for left and right columns
-	const rawYLeft = useTransform(scrollYProgress, [0, 1], [150, -150]);
-	const rawYRight = useTransform(scrollYProgress, [0, 1], [250, -250]);
+	const [windowHeight, setWindowHeight] = useState(1000);
+	useEffect(() => {
+		setWindowHeight(window.innerHeight);
+	}, []);
+
+	// Extreme Parallax for left and right columns
+	// They come from extreme Y offsets and converge towards the center
+	const rawYLeft = useTransform(scrollYProgress, [0, 0.5, 1], [windowHeight * 0.8, 0, -windowHeight * 0.8]);
+	const rawYRight = useTransform(scrollYProgress, [0, 0.5, 1], [windowHeight * 1.2, 0, -windowHeight * 1.2]);
+	const rawOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+	const rawScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
 	
-	const yLeft = useSpring(rawYLeft, { stiffness: 60, damping: 20 });
-	const yRight = useSpring(rawYRight, { stiffness: 60, damping: 20 });
+	const yLeft = useSpring(rawYLeft, { stiffness: 40, damping: 20 });
+	const yRight = useSpring(rawYRight, { stiffness: 40, damping: 20 });
+	const opacity = useSpring(rawOpacity, { stiffness: 60, damping: 20 });
+	const scale = useSpring(rawScale, { stiffness: 60, damping: 20 });
 
 	return (
 		<section
 			id="skills"
 			ref={ref}
-			className="py-24 md:py-40 px-6 max-w-7xl mx-auto relative z-10"
+			className="py-32 md:py-48 px-6 max-w-7xl mx-auto relative z-10"
 		>
-			<SectionHeader
-				icon={Shield}
-				title="Security & Tech Stack"
-				desc="The toolkit I use to build secure software and identify vulnerabilities."
-			/>
+			<motion.div style={{ opacity }}>
+				<SectionHeader
+					icon={Shield}
+					title="Security & Tech Stack"
+					desc="The toolkit I use to build secure software and identify vulnerabilities."
+				/>
+			</motion.div>
 
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-10">
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-16">
 				{skills.map((item, index) => {
-					// Alternating parallax direction based on index
+					// Alternating dramatic parallax direction based on index
 					const parallaxY = index % 2 === 0 ? yLeft : yRight;
 
 					return (
 						<motion.div
 							key={index}
-							style={{ y: parallaxY }}
-							initial={{ opacity: 0, scale: 0.9 }}
-							whileInView={{ opacity: 1, scale: 1 }}
-							viewport={{ once: true, margin: "-100px" }}
-							transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
+							style={{ y: parallaxY, opacity, scale }}
 						>
-							<TiltCard className="p-8 h-full" glowColor={item.glow}>
+							<TiltCard className="p-8 h-full min-h-[320px]" glowColor={item.glow}>
 								{/* Icon + Badge */}
 								<div className="flex items-start justify-between mb-8">
 									<div
-										className="w-14 h-14 rounded-2xl flex items-center justify-center relative overflow-hidden"
+										className="w-16 h-16 rounded-2xl flex items-center justify-center relative overflow-hidden"
 										style={{
 											background: `${item.color}15`,
-											border: `1px solid ${item.color}30`,
-											boxShadow: `0 0 20px ${item.color}20 inset`
+											border: `1px solid ${item.color}40`,
+											boxShadow: `0 0 30px ${item.color}30 inset, 0 0 20px ${item.color}20`
 										}}
 									>
-										<div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent" />
-										<item.icon className="w-7 h-7 relative z-10" style={{ color: item.color }} />
+										<div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent" />
+										<item.icon className="w-8 h-8 relative z-10" style={{ color: item.color, filter: `drop-shadow(0 0 8px ${item.color})` }} />
 									</div>
 									<span
-										className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-md tracking-widest uppercase"
+										className="text-[11px] font-mono font-bold px-3 py-1.5 rounded-lg tracking-widest uppercase"
 										style={{
 											color: item.color,
-											background: `${item.color}12`,
-											border: `1px solid ${item.color}25`,
+											background: `${item.color}15`,
+											border: `1px solid ${item.color}30`,
+											boxShadow: `0 0 15px ${item.color}20`
 										}}
 									>
 										{item.badge}
@@ -111,28 +120,28 @@ export default function Skills() {
 								</div>
 
 								{/* Title */}
-								<h3 className="font-bold text-xl mb-3 text-white leading-snug">
+								<h3 className="font-bold text-2xl mb-4 text-white leading-snug drop-shadow-md">
 									{item.title}
 								</h3>
 
 								{/* Description */}
-								<p className="text-slate-400/90 leading-relaxed text-[15px] mb-8 font-light">
+								<p className="text-slate-400 leading-relaxed text-[16px] mb-10 font-light">
 									{item.desc}
 								</p>
 
 								{/* Tag */}
 								<div className="mt-auto">
 									<span
-										className="inline-flex items-center gap-2 text-xs font-mono px-3 py-1.5 rounded-lg"
+										className="inline-flex items-center gap-2.5 text-sm font-mono px-4 py-2 rounded-xl"
 										style={{
 											color: item.color,
 											background: `${item.color}10`,
-											border: `1px solid ${item.color}20`,
+											border: `1px solid ${item.color}25`,
 										}}
 									>
 										<span
-											className="w-1.5 h-1.5 rounded-full"
-											style={{ background: item.color, boxShadow: `0 0 8px ${item.color}` }}
+											className="w-2 h-2 rounded-full"
+											style={{ background: item.color, boxShadow: `0 0 10px ${item.color}` }}
 										/>
 										{item.tag}
 									</span>

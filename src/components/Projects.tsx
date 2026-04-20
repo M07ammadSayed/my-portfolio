@@ -3,7 +3,7 @@ import { Terminal, Shield, Database, Code } from "lucide-react";
 import SectionHeader from "./SectionHeader";
 import ProjectCard from "./ProjectCard";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 
 const projects = [
 	{
@@ -39,39 +39,48 @@ export default function Projects() {
 		offset: ["start end", "end start"],
 	});
 
-	// Parallax speeds for different columns
-	const rawYCenter = useTransform(scrollYProgress, [0, 1], [150, -150]);
-	const rawYEdge = useTransform(scrollYProgress, [0, 1], [250, -250]);
+	const [windowHeight, setWindowHeight] = useState(1000);
+	useEffect(() => {
+		setWindowHeight(window.innerHeight);
+	}, []);
+
+	// Extreme staggered parallax for project cards
+	const rawY0 = useTransform(scrollYProgress, [0, 0.5, 1], [windowHeight * 1.5, 0, -windowHeight * 1.5]);
+	const rawY1 = useTransform(scrollYProgress, [0, 0.5, 1], [windowHeight * 0.5, 0, -windowHeight * 0.5]);
+	const rawY2 = useTransform(scrollYProgress, [0, 0.5, 1], [windowHeight * 2.0, 0, -windowHeight * 2.0]);
 	
-	const yCenter = useSpring(rawYCenter, { stiffness: 50, damping: 20 });
-	const yEdge = useSpring(rawYEdge, { stiffness: 50, damping: 20 });
+	const rawOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+	const rawScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.7, 1, 0.7]);
+
+	const y0 = useSpring(rawY0, { stiffness: 40, damping: 20 });
+	const y1 = useSpring(rawY1, { stiffness: 35, damping: 25 });
+	const y2 = useSpring(rawY2, { stiffness: 45, damping: 15 });
+	
+	const opacity = useSpring(rawOpacity, { stiffness: 60, damping: 20 });
+	const scale = useSpring(rawScale, { stiffness: 60, damping: 20 });
+
+	const yArray = [y0, y1, y2];
 
 	return (
 		<section
 			id="projects"
 			ref={ref}
-			className="py-24 md:py-40 px-6 max-w-7xl mx-auto relative z-10"
+			className="py-32 md:py-48 px-6 max-w-7xl mx-auto relative z-10"
 		>
-			<SectionHeader
-				icon={Code}
-				title="AppSec Labs"
-				desc="Hands-on security research and tooling."
-			/>
+			<motion.div style={{ opacity }}>
+				<SectionHeader
+					icon={Code}
+					title="AppSec Labs"
+					desc="Hands-on security research and tooling."
+				/>
+			</motion.div>
 
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-10">
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 pt-16">
 				{projects.map((project, i) => {
-					// Apply different parallax to center card for a staggered float effect
-					const isCenter = i % 3 === 1;
-					const parallaxY = isCenter ? yCenter : yEdge;
-
 					return (
 						<motion.div
 							key={project.title}
-							style={{ y: parallaxY }}
-							initial={{ opacity: 0, scale: 0.9 }}
-							whileInView={{ opacity: 1, scale: 1 }}
-							viewport={{ once: true, margin: "-100px" }}
-							transition={{ duration: 0.7, delay: i * 0.15, ease: "easeOut" }}
+							style={{ y: yArray[i], opacity, scale }}
 						>
 							<ProjectCard {...project} />
 						</motion.div>
