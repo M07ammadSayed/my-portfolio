@@ -84,7 +84,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-	themeColor: "#06060f",
+	themeColor: "#030014",
 	width: "device-width",
 	initialScale: 1,
 	viewportFit: "cover",
@@ -165,7 +165,7 @@ export default async function RootLayout({
 				<meta name="application-name" content="Muhammad Sayyid" />
 			</head>
 			<body
-				className={`${inter.className} ${jetbrainsMono.variable} bg-[#06060f] text-slate-200 antialiased selection:bg-violet-500/20`}
+				className={`${inter.className} ${jetbrainsMono.variable} bg-[#030014] text-slate-200 antialiased selection:bg-fuchsia-500/30`}
 				suppressHydrationWarning={true}
 			>
 				{children}

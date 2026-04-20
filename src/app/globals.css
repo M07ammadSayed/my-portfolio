@@ -8,21 +8,14 @@
 
 /* --- CSS Variables / Design Tokens --- */
 :root {
-	--bg-base: #06060f;
-	--bg-card: #0d0d1a;
-	--bg-card-hover: #111126;
-	--accent-primary: #a78bfa; /* violet-400 */
-	--accent-secondary: #818cf8; /* indigo-400 */
-	--accent-cyan: #22d3ee;
-	--accent-pink: #f472b6;
-	--accent-emerald: #34d399;
-	--text-primary: #f1f0ff;
+	--bg-base: #030014;
+	--bg-card: #0b0726;
+	--bg-card-hover: #120b38;
+	--accent-primary: #8b5cf6; /* violet-500 */
+	--accent-secondary: #06b6d4; /* cyan-500 */
+	--accent-tertiary: #d946ef; /* fuchsia-500 */
+	--text-primary: #ffffff;
 	--text-secondary: #94a3b8;
-	--border-subtle: rgba(167, 139, 250, 0.12);
-	--border-glow: rgba(167, 139, 250, 0.3);
-	--glow-violet: rgba(139, 92, 246, 0.4);
-	--glow-indigo: rgba(99, 102, 241, 0.35);
-	--glow-cyan: rgba(34, 211, 238, 0.3);
 }
 
 /* --- Core Setup --- */
@@ -55,7 +48,7 @@ body {
 
 /* --- Premium Custom Scrollbar --- */
 ::-webkit-scrollbar {
-	width: 5px;
+	width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -63,22 +56,21 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-	background: rgba(139, 92, 246, 0.3);
+	background: rgba(139, 92, 246, 0.4);
 	border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background: rgba(167, 139, 250, 0.6);
+	background: rgba(217, 70, 239, 0.8);
 }
 
 /* --- Ultimate Text Selection --- */
 ::selection {
-	background-color: rgba(139, 92, 246, 0.2);
+	background-color: rgba(217, 70, 239, 0.3);
 	color: #ffffff;
 	text-shadow:
-		0 0 2px rgba(167, 139, 250, 1),
-		0 0 10px rgba(167, 139, 250, 0.8),
-		0 0 30px rgba(167, 139, 250, 0.4);
+		0 0 5px rgba(217, 70, 239, 1),
+		0 0 15px rgba(217, 70, 239, 0.8);
 }
 
 /* ============================================
@@ -94,137 +86,78 @@ body {
 		opacity: 1;
 	}
 	100% {
-		transform: rotate(215deg) translateX(-500px);
+		transform: rotate(215deg) translateX(-800px);
 		opacity: 0;
 	}
 }
 
 .animate-meteor-effect {
-	animation: meteor 5s linear infinite;
+	animation: meteor 6s linear infinite;
 }
 
 @keyframes spin-slow {
-	from {
-		transform: translate(-50%, -50%) rotate(0deg);
-	}
-	to {
-		transform: translate(-50%, -50%) rotate(360deg);
-	}
+	from { transform: translate(-50%, -50%) rotate(0deg); }
+	to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 @keyframes spin-reverse-slower {
-	from {
-		transform: translate(-50%, -50%) rotate(360deg);
-	}
-	to {
-		transform: translate(-50%, -50%) rotate(0deg);
-	}
+	from { transform: translate(-50%, -50%) rotate(360deg); }
+	to { transform: translate(-50%, -50%) rotate(0deg); }
 }
 
 .animate-spin-slow {
-	animation: spin-slow 25s linear infinite;
+	animation: spin-slow 30s linear infinite;
 	will-change: transform;
 }
 
 .animate-spin-reverse-slower {
-	animation: spin-reverse-slower 40s linear infinite;
+	animation: spin-reverse-slower 45s linear infinite;
 	will-change: transform;
-}
-
-@keyframes shimmer {
-	0% {
-		background-position: 200% center;
-	}
-	100% {
-		background-position: -200% center;
-	}
-}
-
-.animate-shimmer {
-	animation: shimmer 8s linear infinite;
 }
 
 @keyframes aurora {
 	0%, 100% {
-		transform: translateY(0) scale(1);
+		transform: translateY(0) scale(1) rotate(0deg);
 		opacity: 0.6;
 	}
 	33% {
-		transform: translateY(-30px) scale(1.1);
+		transform: translateY(-40px) scale(1.2) rotate(10deg);
 		opacity: 0.8;
 	}
 	66% {
-		transform: translateY(20px) scale(0.95);
+		transform: translateY(30px) scale(0.9) rotate(-10deg);
 		opacity: 0.5;
 	}
 }
 
 @keyframes aurora-2 {
 	0%, 100% {
-		transform: translateX(0) scale(1.1);
+		transform: translateX(0) scale(1.1) rotate(0deg);
 		opacity: 0.5;
 	}
 	50% {
-		transform: translateX(40px) scale(0.9);
+		transform: translateX(50px) scale(0.85) rotate(-5deg);
 		opacity: 0.7;
 	}
 }
 
-@keyframes float {
-	0%, 100% {
-		transform: translateY(0px);
-	}
-	50% {
-		transform: translateY(-12px);
-	}
-}
-
 .animate-aurora {
-	animation: aurora 10s ease-in-out infinite;
+	animation: aurora 12s ease-in-out infinite;
+	will-change: transform;
 }
 
 .animate-aurora-2 {
-	animation: aurora-2 13s ease-in-out infinite;
+	animation: aurora-2 15s ease-in-out infinite;
+	will-change: transform;
 }
 
-.animate-float {
-	animation: float 6s ease-in-out infinite;
+@keyframes shimmer {
+	0% { background-position: 200% center; }
+	100% { background-position: -200% center; }
 }
 
-@keyframes gradient-shift {
-	0%, 100% { background-position: 0% 50%; }
-	50% { background-position: 100% 50%; }
-}
-
-.animate-gradient {
-	background-size: 300% 300%;
-	animation: gradient-shift 8s ease infinite;
-}
-
-@keyframes border-glow {
-	0%, 100% {
-		box-shadow: 0 0 10px rgba(139, 92, 246, 0.3), 0 0 30px rgba(139, 92, 246, 0.1);
-	}
-	50% {
-		box-shadow: 0 0 20px rgba(139, 92, 246, 0.5), 0 0 60px rgba(139, 92, 246, 0.2);
-	}
-}
-
-.animate-border-glow {
-	animation: border-glow 3s ease-in-out infinite;
-}
-
-@keyframes text-glow-pulse {
-	0%, 100% {
-		text-shadow: 0 0 20px rgba(167, 139, 250, 0.5), 0 0 40px rgba(167, 139, 250, 0.3);
-	}
-	50% {
-		text-shadow: 0 0 30px rgba(167, 139, 250, 0.8), 0 0 60px rgba(167, 139, 250, 0.5);
-	}
-}
-
-.animate-text-glow {
-	animation: text-glow-pulse 3s ease-in-out infinite;
+.animate-shimmer {
+	animation: shimmer 8s linear infinite;
 }
 
 /* ============================================
@@ -232,7 +165,7 @@ body {
    ============================================ */
 
 .perspective-1000 {
-	perspective: 1000px;
+	perspective: 1200px;
 }
 
 .transform-style-3d {
@@ -241,171 +174,25 @@ body {
 
 /* --- Grid Pattern --- */
 .bg-grid-pattern {
-	background-size: 60px 60px;
+	background-size: 70px 70px;
 	background-image:
-		linear-gradient(
-			to right,
-			rgba(167, 139, 250, 0.04) 1px,
-			transparent 1px
-		),
-		linear-gradient(
-			to bottom,
-			rgba(167, 139, 250, 0.04) 1px,
-			transparent 1px
-		);
-	mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
-	-webkit-mask-image: radial-gradient(
-		ellipse at center,
-		black 30%,
-		transparent 75%
-	);
-}
-
-/* --- Dot Pattern --- */
-.bg-dot-pattern {
-	background-image: radial-gradient(rgba(167, 139, 250, 0.08) 1px, transparent 1px);
-	background-size: 30px 30px;
-	mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
-	-webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+		linear-gradient(to right, rgba(139, 92, 246, 0.05) 1px, transparent 1px),
+		linear-gradient(to bottom, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
+	mask-image: radial-gradient(ellipse at center, black 20%, transparent 80%);
+	-webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 80%);
 }
 
 .bg-noise {
-	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
 }
 
 /* --- Glow Effects --- */
 .glow-text {
-	text-shadow: 0 0 20px rgba(167, 139, 250, 0.6), 0 0 40px rgba(167, 139, 250, 0.3);
-}
-
-.glow-text-cyan {
-	text-shadow: 0 0 20px rgba(34, 211, 238, 0.6), 0 0 40px rgba(34, 211, 238, 0.3);
-}
-
-.glow-box {
-	box-shadow: 0 0 30px rgba(139, 92, 246, 0.2), 0 0 60px rgba(139, 92, 246, 0.1);
-}
-
-/* --- Glassmorphism Cards --- */
-.glass-card {
-	background: rgba(13, 13, 26, 0.7);
-	backdrop-filter: blur(20px);
-	-webkit-backdrop-filter: blur(20px);
-	border: 1px solid rgba(167, 139, 250, 0.1);
-}
-
-.glass-card:hover {
-	background: rgba(17, 17, 38, 0.8);
-	border-color: rgba(167, 139, 250, 0.25);
-}
-
-/* --- Gradient Text Utility --- */
-.gradient-text {
-	background: linear-gradient(135deg, #a78bfa 0%, #818cf8 40%, #22d3ee 100%);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-clip: text;
-}
-
-.gradient-text-warm {
-	background: linear-gradient(135deg, #f472b6 0%, #a78bfa 50%, #818cf8 100%);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-clip: text;
-}
-
-/* --- Neon Border --- */
-.neon-border {
-	position: relative;
-}
-
-.neon-border::before {
-	content: '';
-	position: absolute;
-	inset: -1px;
-	border-radius: inherit;
-	background: linear-gradient(135deg, rgba(167, 139, 250, 0.5), rgba(99, 102, 241, 0.3), rgba(34, 211, 238, 0.4));
-	z-index: -1;
-	opacity: 0;
-	transition: opacity 0.3s ease;
-}
-
-.neon-border:hover::before {
-	opacity: 1;
-}
-
-/* --- Skill Badge --- */
-.skill-badge {
-	background: rgba(139, 92, 246, 0.08);
-	border: 1px solid rgba(167, 139, 250, 0.2);
-	color: #c4b5fd;
-	transition: all 0.3s ease;
-}
-
-.skill-badge:hover {
-	background: rgba(139, 92, 246, 0.15);
-	border-color: rgba(167, 139, 250, 0.4);
-	box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
-	transform: translateY(-2px);
-}
-
-/* --- Tag Styles --- */
-.tag-violet {
-	background: rgba(139, 92, 246, 0.12);
-	border: 1px solid rgba(167, 139, 250, 0.25);
-	color: #c4b5fd;
-}
-
-.tag-indigo {
-	background: rgba(99, 102, 241, 0.12);
-	border: 1px solid rgba(129, 140, 248, 0.25);
-	color: #a5b4fc;
-}
-
-.tag-cyan {
-	background: rgba(34, 211, 238, 0.08);
-	border: 1px solid rgba(34, 211, 238, 0.2);
-	color: #67e8f9;
-}
-
-/* --- Print Styles --- */
-@media print {
-	body {
-		background: white !important;
-		color: black !important;
-	}
-
-	nav,
-	footer,
-	.fixed,
-	.absolute,
-	button,
-	.bg-grid-pattern,
-	.bg-noise {
-		display: none !important;
-	}
-
-	p,
-	h1,
-	h2,
-	h3 {
-		color: black !important;
-		text-shadow: none !important;
-	}
-
-	a {
-		text-decoration: underline;
-		color: #000 !important;
-	}
-
-	a[href^="http"]:after {
-		content: " (" attr(href) ")";
-		font-size: 0.8em;
-	}
+	text-shadow: 0 0 20px rgba(217, 70, 239, 0.6), 0 0 40px rgba(139, 92, 246, 0.4);
 }
 
 /* Hide default cursor only on desktop */
-@media (min-width: 768px) {
+@media (min-width: 1280px) {
 	body,
 	a,
 	button,
