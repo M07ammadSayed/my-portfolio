@@ -18,7 +18,7 @@ export default function SocialLink({
 			title={label}
 			className={`text-slate-400 hover:text-white transition-all hover:scale-110 active:scale-95 active:text-cyan-400 ${
 				large
-					? "p-4 bg-slate-900/50 rounded-full border border-slate-800 hover:border-cyan-500/50"
+					? "p-4 bg-slate-900/50 rounded-full border border-slate-800 hover:border-cyan-500/50 hover:shadow-[0_0_15px_rgba(34,211,238,0.3)]"
 					: ""
 			}`}
 		>
