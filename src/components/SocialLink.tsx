@@ -14,15 +14,15 @@ export default function SocialLink({
 			href={href}
 			target="_blank"
 			rel="me noopener noreferrer"
-			// aria-label={label || "Social Link"}
 			title={label}
-			className={`text-slate-400 hover:text-white transition-all hover:scale-110 active:scale-95 active:text-cyan-400 ${
+			className={`group relative text-slate-500 hover:text-violet-300 transition-all duration-300 hover:scale-110 active:scale-95 ${
 				large
-					? "p-4 bg-slate-900/50 rounded-full border border-slate-800 hover:border-cyan-500/50"
-					: ""
+					? "p-4 rounded-xl border border-white/6 hover:border-violet-500/30 hover:bg-violet-500/8 hover:shadow-[0_0_20px_rgba(139,92,246,0.2)]"
+					: "p-2 rounded-lg hover:bg-violet-500/10"
 			}`}
+			style={{ backdropFilter: large ? "blur(8px)" : undefined }}
 		>
-			<Icon size={large ? 24 : 20} aria-hidden="true" role="img" />
+			<Icon size={large ? 22 : 18} aria-hidden="true" role="img" className="transition-all duration-300" />
 		</a>
 	);
 }

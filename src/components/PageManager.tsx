@@ -61,7 +61,7 @@ export default function PageManager({
 		// --- Console Signature ---
 		console.log(
 			"%c Developed by Muhammad Sayyid ",
-			"background: #020617; color: #22d3ee; border: 1px solid #22d3ee; padding: 5px 10px; border-radius: 5px; font-family: monospace; font-size: 12px; font-weight: bold;",
+			"background: #06060f; color: #a78bfa; border: 1px solid #a78bfa; padding: 5px 10px; border-radius: 5px; font-family: monospace; font-size: 12px; font-weight: bold;",
 		);
 		console.log(
 			"%c Looking for a Secure Full-Stack Engineer? Let's talk! 🚀 ",
@@ -119,7 +119,7 @@ export default function PageManager({
 				)}
 			</AnimatePresence>
 			<motion.div
-				className="min-h-[100dvh] bg-[#020617] text-slate-200 font-sans text-base leading-relaxed tracking-tight overflow-x-hidden relative"
+				className="min-h-[100dvh] bg-[#06060f] text-slate-200 font-sans text-base leading-relaxed tracking-tight overflow-x-hidden relative"
 				style={{
 					opacity: isLoading ? 0 : 1,
 					transition: "opacity 1s ease-in-out",
