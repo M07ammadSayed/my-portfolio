@@ -17,22 +17,19 @@ export default function DigitalTitle() {
 	}, []);
 
 	return (
-		<div className="relative inline-block min-w-[160px] md:min-w-[340px] min-h-[1.2em] text-center overflow-hidden">
+		<div className="relative inline-block min-w-[140px] md:min-w-[280px] min-h-[1.2em] text-center md:text-left overflow-hidden">
 			<AnimatePresence mode="wait">
 				<motion.span
 					key={index}
-					initial={isFirstRender ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 15, filter: "blur(8px)" }}
-					animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-					exit={{ opacity: 0, y: -15, filter: "blur(8px)" }}
-					transition={{ duration: 0.45, ease: "easeInOut" }}
-					className="block font-extrabold pb-2 whitespace-nowrap will-change-transform"
-					style={{
-						background: 'linear-gradient(135deg, #a78bfa 0%, #818cf8 40%, #22d3ee 100%)',
-						WebkitBackgroundClip: 'text',
-						WebkitTextFillColor: 'transparent',
-						backgroundClip: 'text',
-						filter: 'drop-shadow(0 0 20px rgba(139, 92, 246, 0.4))',
-					}}
+					initial={
+						isFirstRender
+							? { opacity: 1, y: 0 }
+							: { opacity: 0, y: 10 }
+					}
+					animate={{ opacity: 1, y: 0 }}
+					exit={{ opacity: 0, y: -10 }}
+					transition={{ duration: 0.3, ease: "linear" }}
+					className="block bg-gradient-to-r from-cyan-400 via-blue-600 to-violet-600 bg-clip-text text-transparent font-extrabold pb-2 whitespace-nowrap will-change-transform"
 				>
 					{titles[index]}
 				</motion.span>

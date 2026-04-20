@@ -44,7 +44,7 @@ export default function ClientLayout({
 		// --- Console Signature ---
 		console.log(
 			"%c Developed by Muhammad Sayyid ",
-			"background: #06060f; color: #a78bfa; border: 1px solid #a78bfa; padding: 5px 10px; border-radius: 5px; font-family: monospace; font-size: 12px; font-weight: bold;"
+			"background: #020617; color: #22d3ee; border: 1px solid #22d3ee; padding: 5px 10px; border-radius: 5px; font-family: monospace; font-size: 12px; font-weight: bold;"
 		);
 		console.log(
 			"%c Looking for a Secure Full-Stack Engineer? Let's talk! 🚀 ",

@@ -11,17 +11,18 @@ export default function CustomCursor() {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [isHovering, setIsHovering] = useState(false);
 	const [isLargeScreen, setIsLargeScreen] = useState(false);
-	const [isClicking, setIsClicking] = useState(false);
 
 	const mX = useMotionValue(-100);
 	const mY = useMotionValue(-100);
-	const smoothX = useSpring(mX, { damping: 40, stiffness: 500 });
-	const smoothY = useSpring(mY, { damping: 40, stiffness: 500 });
+	const smoothX = useSpring(mX, { damping: 50, stiffness: 600 });
+	const smoothY = useSpring(mY, { damping: 50, stiffness: 600 });
 
 	useEffect(() => {
 		const checkScreen = () => {
-			setIsLargeScreen(window.innerWidth >= 1280);
+			const isLarge = window.innerWidth >= 1280;
+			setIsLargeScreen(isLarge);
 		};
+
 		checkScreen();
 		window.addEventListener("resize", checkScreen);
 
@@ -29,24 +30,21 @@ export default function CustomCursor() {
 			mX.set(e.clientX);
 			mY.set(e.clientY);
 		};
+
 		const handleInteraction = (e: MouseEvent) => {
 			const target = e.target as HTMLElement;
-			setIsHovering(!!target.closest("a, button, input, [role='button']"));
+			setIsHovering(
+				!!target.closest("a, button, input, [role='button']")
+			);
 		};
-		const handleMouseDown = () => setIsClicking(true);
-		const handleMouseUp = () => setIsClicking(false);
 
 		window.addEventListener("mousemove", handleMouseMove);
 		window.addEventListener("mouseover", handleInteraction);
-		window.addEventListener("mousedown", handleMouseDown);
-		window.addEventListener("mouseup", handleMouseUp);
 
 		return () => {
 			window.removeEventListener("resize", checkScreen);
 			window.removeEventListener("mousemove", handleMouseMove);
 			window.removeEventListener("mouseover", handleInteraction);
-			window.removeEventListener("mousedown", handleMouseDown);
-			window.removeEventListener("mouseup", handleMouseUp);
 		};
 	}, []);
 
@@ -58,8 +56,8 @@ export default function CustomCursor() {
 		if (!ctx) return;
 
 		let particles: any[] = [];
-		const particleCount = 60;
-		const connectionDist = 120;
+		const particleCount = 70;
+		const connectionDist = 130;
 		let animationFrameId: number;
 
 		class Particle {
@@ -67,21 +65,19 @@ export default function CustomCursor() {
 			y: number;
 			vx: number;
 			vy: number;
-			opacity: number;
 			constructor() {
 				this.x = Math.random() * canvas.width;
 				this.y = Math.random() * canvas.height;
-				this.vx = (Math.random() - 0.5) * 0.4;
-				this.vy = (Math.random() - 0.5) * 0.4;
-				this.opacity = Math.random() * 0.4 + 0.1;
+				this.vx = (Math.random() - 0.5) * 0.5;
+				this.vy = (Math.random() - 0.5) * 0.5;
 			}
 			update(mx: number, my: number) {
 				const dx = mx - this.x;
 				const dy = my - this.y;
 				const dist = Math.sqrt(dx * dx + dy * dy);
-				if (dist < 160) {
-					this.x -= dx * 0.018;
-					this.y -= dy * 0.018;
+				if (dist < 150) {
+					this.x -= dx * 0.02;
+					this.y -= dy * 0.02;
 				}
 				this.x += this.vx;
 				this.y += this.vy;
@@ -93,39 +89,37 @@ export default function CustomCursor() {
 		const initCanvas = () => {
 			canvas.width = window.innerWidth;
 			canvas.height = window.innerHeight;
-			particles = Array.from({ length: particleCount }, () => new Particle());
+			particles = Array.from(
+				{ length: particleCount },
+				() => new Particle()
+			);
 		};
 
 		const draw = () => {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			const mx = mX.get();
 			const my = mY.get();
-
 			particles.forEach((p1, i) => {
 				p1.update(mx, my);
-
-				// Draw particle
+				ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
 				ctx.beginPath();
-				ctx.arc(p1.x, p1.y, 1.2, 0, Math.PI * 2);
-				ctx.fillStyle = `rgba(167, 139, 250, ${p1.opacity})`;
+				ctx.arc(p1.x, p1.y, 1, 0, Math.PI * 2);
 				ctx.fill();
-
-				// Draw connections
 				for (let j = i + 1; j < particles.length; j++) {
 					const p2 = particles[j];
 					const dx = p1.x - p2.x;
 					const dy = p1.y - p2.y;
 					const dist = Math.sqrt(dx * dx + dy * dy);
 					if (dist < connectionDist) {
-						const midX = (p1.x + p2.x) / 2;
-						const midY = (p1.y + p2.y) / 2;
-						const dToMouse = Math.sqrt((mx - midX) ** 2 + (my - midY) ** 2);
-						const isNear = dToMouse < 140;
-						const alpha = (1 - dist / connectionDist) * (isNear ? 0.35 : 0.08);
-						ctx.strokeStyle = isNear
-							? `rgba(139, 92, 246, ${alpha})`
-							: `rgba(167, 139, 250, ${alpha})`;
-						ctx.lineWidth = isNear ? 0.7 : 0.3;
+						const dToMouse = Math.sqrt(
+							(mx - (p1.x + p2.x) / 2) ** 2 +
+								(my - (p1.y + p2.y) / 2) ** 2
+						);
+						const isNearMouse = dToMouse < 150;
+						ctx.strokeStyle = isNearMouse
+							? "rgba(34, 211, 238, 0.4)"
+							: "rgba(255, 255, 255, 0.15)";
+						ctx.lineWidth = isNearMouse ? 0.8 : 0.4;
 						ctx.beginPath();
 						ctx.moveTo(p1.x, p1.y);
 						ctx.lineTo(p2.x, p2.y);
@@ -133,7 +127,6 @@ export default function CustomCursor() {
 					}
 				}
 			});
-
 			animationFrameId = requestAnimationFrame(draw);
 		};
 
@@ -152,45 +145,27 @@ export default function CustomCursor() {
 	return (
 		<div className="fixed inset-0 pointer-events-none z-[9999999] hidden xl:block">
 			<canvas ref={canvasRef} className="absolute inset-0" />
-
-			{/* Cursor dot */}
 			<motion.div
-				className="absolute"
+				className="absolute flex items-center justify-center mix-blend-difference"
 				style={{ left: smoothX, top: smoothY, x: "-50%", y: "-50%" }}
 			>
 				<motion.div
 					animate={{
-						width: isClicking ? 10 : isHovering ? 48 : 16,
-						height: isClicking ? 10 : isHovering ? 48 : 16,
+						width: isHovering ? 60 : 18,
+						height: isHovering ? 60 : 18,
+						rotate: isHovering ? 90 : 0,
 					}}
-					transition={{ type: "spring", stiffness: 450, damping: 28 }}
+					transition={{ type: "spring", stiffness: 400, damping: 30 }}
 					className="relative flex items-center justify-center"
 				>
-					{/* Outer ring */}
-					<motion.div
-						className="absolute inset-0 rounded-full"
-						animate={{
-							borderColor: isHovering
-								? "rgba(167, 139, 250, 0.6)"
-								: "rgba(255, 255, 255, 0.4)",
-							boxShadow: isHovering
-								? "0 0 12px rgba(139, 92, 246, 0.4)"
-								: "none",
-						}}
-						style={{ border: "1px solid" }}
-						transition={{ duration: 0.2 }}
-					/>
-
-					{/* Inner dot */}
+					<div className="absolute inset-0 border border-white/60 rounded-full" />
 					<AnimatePresence>
 						{!isHovering && (
 							<motion.div
 								initial={{ scale: 0 }}
 								animate={{ scale: 1 }}
 								exit={{ scale: 0 }}
-								transition={{ type: "spring", stiffness: 500, damping: 30 }}
-								className="w-1.5 h-1.5 rounded-full"
-								style={{ background: "rgba(167, 139, 250, 0.9)", boxShadow: "0 0 6px rgba(139, 92, 246, 0.6)" }}
+								className="w-1 h-1 bg-white rounded-full shadow-[0_0_8px_white]"
 							/>
 						)}
 					</AnimatePresence>

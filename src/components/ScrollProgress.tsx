@@ -1,9 +1,11 @@
 "use client";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 
+// ضفنا الـ prop هنا عشان يستلم الحالة من الـ PageManager
 export default function ScrollProgress({ isLoaded }: { isLoaded: boolean }) {
 	const { scrollYProgress } = useScroll();
 
+	// بنخلي الـ progress يحسب بناءً على الـ prop اللي جاي من بره
 	const gatedProgress = useTransform(scrollYProgress, (v) =>
 		isLoaded ? v : 0
 	);
@@ -15,23 +17,9 @@ export default function ScrollProgress({ isLoaded }: { isLoaded: boolean }) {
 	});
 
 	return (
-		<>
-			{/* Main bar */}
-			<motion.div
-				className="fixed top-0 left-0 right-0 h-[2px] origin-left z-[9999]"
-				style={{
-					scaleX,
-					background: "linear-gradient(90deg, #7c3aed, #6366f1, #818cf8, #22d3ee)",
-				}}
-			/>
-			{/* Glow trail */}
-			<motion.div
-				className="fixed top-0 left-0 right-0 h-[2px] origin-left z-[9998] blur-[3px] opacity-60"
-				style={{
-					scaleX,
-					background: "linear-gradient(90deg, #7c3aed, #6366f1, #818cf8, #22d3ee)",
-				}}
-			/>
-		</>
+		<motion.div
+			className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-cyan-400 via-blue-600 to-violet-600 origin-left z-[9999]"
+			style={{ scaleX }}
+		/>
 	);
 }

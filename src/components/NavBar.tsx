@@ -5,8 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { createPortal } from "react-dom";
 import SocialLink from "./SocialLink";
 
-const navItems = ["about", "skills", "projects", "contact"];
-
 export default function NavBar() {
 	const [scrolled, setScrolled] = useState(false);
 	const [mounted, setMounted] = useState(false);
@@ -19,6 +17,7 @@ export default function NavBar() {
 		} else {
 			document.body.style.overflow = "unset";
 		}
+
 		return () => {
 			document.body.style.overflow = "unset";
 		};
@@ -26,18 +25,19 @@ export default function NavBar() {
 
 	useEffect(() => {
 		setMounted(true);
-		const handleScroll = () => setScrolled(window.scrollY > 40);
-		window.addEventListener("scroll", handleScroll, { passive: true });
-		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
-	const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+	const handleNavClick = (
+		e: React.MouseEvent<HTMLAnchorElement>,
+		id: string,
+	) => {
 		e.preventDefault();
 		setIsMobileMenuOpen(false);
 		setTimeout(() => {
 			const element = document.getElementById(id);
 			if (element) {
-				const offset = element.getBoundingClientRect().top + window.scrollY - 100;
+				const offset =
+					element.getBoundingClientRect().top + window.scrollY - 100;
 				window.scrollTo({ top: offset, behavior: "smooth" });
 			}
 		}, 100);
@@ -47,12 +47,18 @@ export default function NavBar() {
 		const observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
-					if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
+					if (
+						entry.isIntersecting &&
+						entry.intersectionRatio >= 0.2
+					) {
 						setActiveSection(entry.target.id);
 					}
 				});
 			},
-			{ threshold: [0.2, 0.5], rootMargin: "-15% 0px -50% 0px" },
+			{
+				threshold: [0.2, 0.5],
+				rootMargin: "-15% 0px -50% 0px",
+			},
 		);
 
 		const refreshObserver = () => {
@@ -61,7 +67,9 @@ export default function NavBar() {
 		};
 
 		refreshObserver();
+
 		const timeoutId = setTimeout(refreshObserver, 1500);
+
 		return () => {
 			observer.disconnect();
 			clearTimeout(timeoutId);
@@ -70,80 +78,88 @@ export default function NavBar() {
 
 	return (
 		<>
-			<nav className="fixed top-5 left-1/2 -translate-x-1/2 w-[92%] md:w-auto z-[10001] will-change-transform">
-				<motion.div
-					initial={{ opacity: 0, y: -20 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.6, ease: "easeOut" }}
+			<nav className="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] md:w-auto z-[10001] will-change-transform">
+				<div
 					className={`transition-all duration-500 ${
 						scrolled
-							? "bg-[#0a0a14]/85 shadow-[0_8px_32px_rgba(139,92,246,0.12)] border-violet-500/20"
-							: "bg-[#0a0a14]/40 border-white/5"
-					} backdrop-blur-xl border rounded-2xl px-5 py-3 flex justify-between items-center md:gap-6`}
+							? "bg-[#0f172a]/80 shadow-2xl shadow-cyan-900/10 border-slate-700/50"
+							: "bg-transparent border-transparent"
+					} backdrop-blur-md border rounded-full px-6 py-3 flex justify-between items-center md:gap-8`}
 				>
-					{/* Logo */}
 					<h1
 						role="button"
-						className="text-lg font-bold font-mono tracking-tighter cursor-pointer group relative"
-						onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+						className="text-xl font-bold text-cyan-400 font-mono cursor-pointer tracking-tighter hover:text-white transition-colors md:whitespace-nowrap"
+						onClick={() =>
+							window.scrollTo({
+								top: 0,
+								behavior: "smooth",
+							})
+						}
 					>
-						<span className="relative z-10 bg-gradient-to-r from-violet-400 via-indigo-400 to-cyan-400 bg-clip-text text-transparent transition-all duration-300 group-hover:opacity-80">
-							&lt;MS /&gt;
-						</span>
-						<span className="absolute -inset-2 rounded-lg bg-violet-500/10 opacity-0 group-hover:opacity-100 transition-opacity blur-sm" />
+						&lt;MS /&gt;
 					</h1>
 
-					{/* Desktop Nav Links */}
 					<div className="hidden md:flex gap-1">
-						{navItems.map((item) => (
-							<a
-								key={item}
-								href={`#${item}`}
-								onClick={(e) => handleNavClick(e, item)}
-								className="relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 hover:text-violet-300 text-slate-400"
-							>
-								{activeSection === item && (
-									<motion.span
-										layoutId="nav-indicator"
-										className="absolute inset-0 rounded-xl bg-violet-500/10 border border-violet-500/20"
-										transition={{ type: "spring", stiffness: 350, damping: 35 }}
-									/>
-								)}
-								<span className={`relative z-10 transition-colors ${activeSection === item ? "text-violet-300" : ""}`}>
-									{item.charAt(0).toUpperCase() + item.slice(1)}
-								</span>
-							</a>
-						))}
+						{["about", "skills", "projects", "contact"].map(
+							(item) => (
+								<a
+									key={item}
+									href={`#${item}`}
+									onClick={(e) => handleNavClick(e, item)}
+									className="relative px-4 py-2 rounded-full text-sm font-medium transition-colors hover:text-cyan-400 text-slate-300"
+								>
+									{activeSection === item && (
+										<motion.span
+											layoutId="nav-indicator"
+											className="absolute inset-0 rounded-full bg-slate-800/80 border border-slate-700"
+											transition={{
+												type: "spring",
+												stiffness: 300,
+												damping: 30,
+											}}
+										/>
+									)}
+									<span className="relative z-10">
+										{item.charAt(0).toUpperCase() +
+											item.slice(1)}
+									</span>
+								</a>
+							),
+						)}
 					</div>
 
-					{/* Social Links */}
-					<div className="hidden md:flex gap-2 pl-4 border-l border-white/8">
-						<SocialLink href="https://github.com/M07ammadSayed" icon={Github} label="Visit GitHub Profile" />
-						<SocialLink href="https://www.linkedin.com/in/muhammad-sayyid/" icon={Linkedin} label="Visit LinkedIn Profile" />
+					<div className="hidden md:flex gap-3 pl-4 border-l border-slate-700/50">
+						<SocialLink
+							href="https://github.com/M07ammadSayed"
+							icon={Github}
+							label="Visit GitHub Profile"
+							aria-label="GitHub Profile"
+						/>
+						<SocialLink
+							href="https://www.linkedin.com/in/muhammad-sayyid/"
+							icon={Linkedin}
+							label="Visit LinkedIn Profile"
+							aria-label="LinkedIn Profile"
+						/>
 					</div>
 
-					{/* Mobile Menu Button */}
 					<button
-						className="md:hidden text-slate-400 hover:text-violet-300 transition-colors p-1.5 rounded-lg hover:bg-violet-500/10"
+						className="md:hidden text-slate-300 p-2"
 						onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-						aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+						aria-label={
+							isMobileMenuOpen ? "Close menu" : "Open menu"
+						}
 					>
-						<AnimatePresence mode="wait">
-							{isMobileMenuOpen ? (
-								<motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
-									<X size={22} />
-								</motion.span>
-							) : (
-								<motion.span key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.2 }}>
-									<Menu size={22} />
-								</motion.span>
-							)}
-						</AnimatePresence>
+						{isMobileMenuOpen ? (
+							<X size={24} />
+						) : (
+							<Menu size={24} />
+						)}
 					</button>
-				</motion.div>
+				</div>
 			</nav>
 
-			{/* Mobile Menu Portal */}
+			{/* --- MOBILE MENU --- */}
 			{mounted &&
 				typeof document !== "undefined" &&
 				createPortal(
@@ -155,35 +171,58 @@ export default function NavBar() {
 									animate={{ opacity: 1 }}
 									exit={{ opacity: 0 }}
 									onClick={() => setIsMobileMenuOpen(false)}
-									className="fixed inset-0 bg-[#06060f]/90 backdrop-blur-md z-[9998] md:hidden"
+									className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[9998] md:hidden"
 								/>
 								<motion.div
-									initial={{ opacity: 0, y: -15, scale: 0.97 }}
-									animate={{ opacity: 1, y: 0, scale: 1 }}
-									exit={{ opacity: 0, y: -15, scale: 0.97 }}
-									transition={{ type: "spring", stiffness: 300, damping: 28 }}
-									className="fixed top-[4.5rem] left-1/2 -translate-x-1/2 w-[88%] bg-[#0d0d1a]/95 backdrop-blur-xl border border-violet-500/15 rounded-2xl p-3 shadow-[0_20px_60px_rgba(139,92,246,0.2)] flex flex-col gap-1 md:hidden z-[9999]"
+									initial={{
+										opacity: 0,
+										y: -20,
+										scale: 0.95,
+									}}
+									animate={{
+										opacity: 1,
+										y: 0,
+										scale: 1,
+									}}
+									exit={{
+										opacity: 0,
+										y: -20,
+										scale: 0.95,
+									}}
+									className="fixed top-24 left-1/2 -translate-x-1/2 w-[90%] bg-[#0f172a] border border-slate-800 rounded-2xl p-4 shadow-2xl flex flex-col gap-2 md:hidden z-[9999]"
 								>
-									{navItems.map((item, i) => (
-										<motion.a
+									{[
+										"about",
+										"skills",
+										"projects",
+										"contact",
+									].map((item) => (
+										<a
 											key={item}
 											href={`#${item}`}
-											initial={{ opacity: 0, x: -10 }}
-											animate={{ opacity: 1, x: 0 }}
-											transition={{ delay: i * 0.07 }}
-											onClick={(e) => { handleNavClick(e, item); setIsMobileMenuOpen(false); }}
-											className={`p-3 text-center rounded-xl transition-all font-medium text-sm ${
-												activeSection === item
-													? "bg-violet-500/15 text-violet-300 border border-violet-500/20"
-													: "text-slate-400 hover:bg-white/5 hover:text-slate-200"
-											}`}
+											onClick={(e) => {
+												handleNavClick(e, item);
+												setIsMobileMenuOpen(false);
+											}}
+											className="p-3 text-center text-slate-300 hover:bg-slate-800 rounded-xl transition font-medium"
 										>
-											{item.charAt(0).toUpperCase() + item.slice(1)}
-										</motion.a>
+											{item.charAt(0).toUpperCase() +
+												item.slice(1)}
+										</a>
 									))}
-									<div className="mt-1 pt-3 pb-1 border-t border-white/6 flex justify-center gap-6">
-										<SocialLink href="https://github.com/M07ammadSayed" icon={Github} label="Visit GitHub Profile" />
-										<SocialLink href="https://www.linkedin.com/in/muhammad-sayyid/" icon={Linkedin} label="Visit LinkedIn Profile" />
+									<div className="mt-2 pt-4 pb-3 border-t border-slate-700/50 flex justify-center gap-6">
+										<SocialLink
+											href="https://github.com/M07ammadSayed"
+											icon={Github}
+											label="Visit GitHub Profile"
+											aria-label="GitHub Profile"
+										/>
+										<SocialLink
+											href="https://www.linkedin.com/in/muhammad-sayyid/"
+											icon={Linkedin}
+											label="Visit LinkedIn Profile"
+											aria-label="LinkedIn Profile"
+										/>
 									</div>
 								</motion.div>
 							</>
