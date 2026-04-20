@@ -18,32 +18,34 @@ export default function Skills() {
 				{[
 					{
 						icon: Shield,
-						title: "AppSec & Tools",
-						desc: "Burp Suite, OWASP ZAP, Postman, Secure Code Review",
-						color: "text-red-400",
+						title: "Offensive Security",
+						desc: "Vulnerability Research, Pentesting, OWASP Top 10, Network Scanning",
+						color: "text-red-500",
 					},
 					{
 						icon: Lock,
-						title: "Web Security",
-						desc: "OWASP Top 10, XSS/Injection Prevention, Auth Logic",
-						color: "text-cyan-400",
+						title: "Defensive & AppSec",
+						desc: "WAF, Secure Code Review, Identity Management (IAM), JWT Security",
+						color: "text-emerald-500",
 					},
 					{
 						icon: Code,
-						title: "Secure Coding",
-						desc: "Input Validation, Output Encoding, JWT Handling",
-						color: "text-green-400",
+						title: "Secure Engineering",
+						desc: "Input Validation, CSRF/XSS Mitigation, Hardened APIs, Cryptography",
+						color: "text-cyan-500",
 					},
 					{
 						icon: Terminal,
-						title: "Full Stack Base",
-						desc: "React.js, Node.js, Express, MongoDB, Linux",
-						color: "text-purple-400",
+						title: "Dev & Ops Foundation",
+						desc: "MERN Stack (6+ yrs), Docker Security, CI/CD, Linux Systems",
+						color: "text-purple-500",
 					},
 				].map((item, index) => (
-					<TiltCard key={index} className="p-8 h-full">
-						<item.icon className={`w-12 h-12 ${item.color} mb-6`} />
-						<h3 className="font-bold text-2xl mb-3 text-slate-100">
+					<TiltCard key={index} className="p-8 h-full group">
+						<item.icon
+							className={`w-12 h-12 ${item.color} mb-6 transition-transform group-hover:scale-110 group-hover:rotate-3`}
+						/>
+						<h3 className="font-bold text-2xl mb-3 text-slate-100 group-hover:glitch-hover cursor-default">
 							{item.title}
 						</h3>
 						<p className="text-slate-400 leading-relaxed text-sm">

@@ -17,29 +17,32 @@ export default function Projects() {
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 				<ProjectCard
 					icon={Shield}
-					color="cyan"
-					title="Hardened Runtime"
-					desc="Securing supply chain with Least Privilege, Alpine, and Trivy."
+					color="emerald"
+					title="Secure Supply Chain"
+					desc="Implementing Least Privilege, Alpine hardening, and automated Trivy scanning for production containers."
 					link="https://github.com/M07ammadSayed/secure-software-supply-chain"
 					tags={["AppSec", "Docker", "Trivy"]}
+					securityStatus="Audited"
 					aria-label="View Secure Software Supply Chain project on GitHub"
 				/>
 				<ProjectCard
 					icon={Terminal}
-					color="purple"
-					title="Python Port Scanner"
-					desc="Custom network tool built with raw Sockets & Multi-threading."
+					color="amber"
+					title="Network Scanner"
+					desc="Multi-threaded socket-based scanner for identifying open ports and service banners."
 					link="https://github.com/M07ammadSayed/python-port-scanner"
 					tags={["Python", "Networking"]}
+					securityStatus="Offensive"
 					aria-label="View Python Port Scanner project on GitHub"
 				/>
 				<ProjectCard
 					icon={Database}
-					color="blue"
-					title="Secure State Mgmt"
-					desc="React app focused on Input Handling and logic integrity."
+					color="cyan"
+					title="Secure MERN Core"
+					desc="A reference architecture for MERN apps focused on Auth logic, Input Sanitization, and XSS prevention."
 					link="https://github.com/M07ammadSayed/use-popcorn"
 					tags={["React.js", "Secure Coding"]}
+					securityStatus="Hardened"
 					aria-label="View usePopcorn project on GitHub"
 				/>
 			</div>
