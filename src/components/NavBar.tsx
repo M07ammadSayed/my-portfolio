@@ -167,6 +167,7 @@ export default function NavBar() {
 						{isMobileMenuOpen && (
 							<>
 								<motion.div
+									key="mobile-backdrop"
 									initial={{ opacity: 0 }}
 									animate={{ opacity: 1 }}
 									exit={{ opacity: 0 }}
@@ -174,6 +175,7 @@ export default function NavBar() {
 									className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[9998] md:hidden"
 								/>
 								<motion.div
+									key="mobile-menu"
 									initial={{
 										opacity: 0,
 										y: -20,

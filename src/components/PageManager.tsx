@@ -24,10 +24,7 @@ export default function PageManager({
 	children: React.ReactNode;
 }) {
 	const [isLoading, setIsLoading] = useState(true);
-	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 	const [mounted, setMounted] = useState(false);
-	const [activeSection, setActiveSection] = useState("about");
-	const [scrolled, setScrolled] = useState(false);
 	const [isLoaded, setIsLoaded] = useState(false);
 
 	useEffect(() => {
@@ -46,16 +43,6 @@ export default function PageManager({
 	}, [isLoading]);
 
 	useEffect(() => {
-		if (isMobileMenuOpen) {
-			document.body.style.overflow = "hidden";
-		} else {
-			if (!isLoading) {
-				document.body.style.overflow = "unset";
-			}
-		}
-	}, [isMobileMenuOpen, isLoading]);
-
-	useEffect(() => {
 		setMounted(true);
 
 		// --- Console Signature ---
@@ -69,25 +56,7 @@ export default function PageManager({
 		);
 	}, []);
 
-	useEffect(() => {
-		const handleScroll = () => {
-			const sections = ["about", "skills", "projects", "contact"];
-			const scrollPosition = window.scrollY + 200;
-			sections.forEach((section) => {
-				const element = document.getElementById(section);
-				if (
-					element &&
-					scrollPosition >= element.offsetTop &&
-					scrollPosition < element.offsetTop + element.offsetHeight
-				) {
-					setActiveSection(section);
-				}
-			});
-			setScrolled(window.scrollY > 50);
-		};
-		window.addEventListener("scroll", handleScroll);
-		return () => window.removeEventListener("scroll", handleScroll);
-	}, []);
+
 
 	const handleLoaderComplete = useCallback(() => {
 		document.documentElement.style.setProperty(
