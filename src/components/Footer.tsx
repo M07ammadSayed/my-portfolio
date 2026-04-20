@@ -1,3 +1,4 @@
+"use client";
 import { Github, Linkedin, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import SocialLink from "./SocialLink";
