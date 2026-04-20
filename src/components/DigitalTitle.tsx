@@ -31,7 +31,7 @@ export default function DigitalTitle() {
 					transition={{ duration: 0.3, ease: "linear" }}
 					className="block bg-gradient-to-r from-cyan-400 via-blue-600 to-violet-600 bg-clip-text text-transparent font-extrabold pb-2 whitespace-nowrap will-change-transform"
 				>
-					{titles[index]}
+					{titles[index]}<span className="inline-block w-[0.4em] h-[0.9em] ml-1 bg-cyan-400 animate-pulse align-baseline"></span>
 				</motion.span>
 			</AnimatePresence>
 		</div>

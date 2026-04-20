@@ -2,6 +2,40 @@
 import { Github, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import DigitalTitle from "@/components/DigitalTitle";
+import { useRef, useState } from "react";
+
+function MagneticWrapper({ children, className = "" }: { children: React.ReactNode, className?: string }) {
+	const ref = useRef<HTMLDivElement>(null);
+	const [position, setPosition] = useState({ x: 0, y: 0 });
+
+	const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
+		if (!ref.current) return;
+		const { clientX, clientY } = e;
+		const { height, width, left, top } = ref.current.getBoundingClientRect();
+		const middleX = clientX - (left + width / 2);
+		const middleY = clientY - (top + height / 2);
+		setPosition({ x: middleX * 0.3, y: middleY * 0.3 });
+	};
+
+	const reset = () => {
+		setPosition({ x: 0, y: 0 });
+	};
+
+	const { x, y } = position;
+
+	return (
+		<motion.div
+			ref={ref}
+			onMouseMove={handleMouse}
+			onMouseLeave={reset}
+			animate={{ x, y }}
+			transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+			className={className}
+		>
+			{children}
+		</motion.div>
+	);
+}
 
 export default function Hero() {
 	return (
@@ -66,28 +100,32 @@ export default function Hero() {
 				transition={{ duration: 0.8, delay: 0.6 }}
 				className="flex flex-col sm:flex-row gap-3 md:gap-4 w-full sm:w-auto relative z-20"
 			>
-				<a
-					href="/Muhammad_Sayyid_Resume.pdf?v=1"
-					download="Muhammad_Sayyid_Resume.pdf"
-					target="_blank"
-					rel="me noopener noreferrer"
-					aria-label="CV Downloader"
-					className="group relative px-8 py-4 bg-cyan-600 text-white rounded-xl font-bold overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(8,145,178,0.4)] w-full sm:w-auto flex justify-center text-slate-950"
-				>
-					<div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:animate-shimmer" />
-					<span className="flex items-center gap-2">
-						<Download size={20} /> Download CV
-					</span>
-				</a>
-				<a
-					href="https://github.com/M07ammadSayed"
-					target="_blank"
-					rel="me noopener noreferrer"
-					aria-label="GitHub Profile"
-					className="px-8 py-4 bg-slate-900/50 text-white rounded-xl font-medium border border-slate-700 hover:border-cyan-500/50 hover:bg-slate-800 transition-all flex items-center justify-center gap-2 hover:scale-105 active:scale-95 w-full sm:w-auto"
-				>
-					<Github size={20} /> View GitHub
-				</a>
+				<MagneticWrapper className="w-full sm:w-auto">
+					<a
+						href="/Muhammad_Sayyid_Resume.pdf?v=1"
+						download="Muhammad_Sayyid_Resume.pdf"
+						target="_blank"
+						rel="me noopener noreferrer"
+						aria-label="CV Downloader"
+						className="group relative px-8 py-4 bg-cyan-600 text-white rounded-xl font-bold overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(8,145,178,0.4)] hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] w-full sm:w-auto flex justify-center text-slate-950"
+					>
+						<div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:animate-shimmer" />
+						<span className="flex items-center gap-2">
+							<Download size={20} /> Download CV
+						</span>
+					</a>
+				</MagneticWrapper>
+				<MagneticWrapper className="w-full sm:w-auto">
+					<a
+						href="https://github.com/M07ammadSayed"
+						target="_blank"
+						rel="me noopener noreferrer"
+						aria-label="GitHub Profile"
+						className="px-8 py-4 bg-slate-900/50 text-white rounded-xl font-medium border border-slate-700 hover:border-cyan-500/50 hover:bg-slate-800 transition-all flex items-center justify-center gap-2 hover:scale-105 active:scale-95 hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] w-full sm:w-auto"
+					>
+						<Github size={20} /> View GitHub
+					</a>
+				</MagneticWrapper>
 			</motion.div>
 		</section>
 	);
