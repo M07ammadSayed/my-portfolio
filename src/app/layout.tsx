@@ -14,7 +14,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "Muhammad Sayyid | AppSec Engineer",
+	title: "Muhammad Sayyid | Application Security Engineer",
 	description:
 		"Application Security Engineer & Full-Stack Developer securing modern web applications. Expert in White-box Testing, Secure Code Review.",
 	applicationName: "Muhammad Sayyid",
