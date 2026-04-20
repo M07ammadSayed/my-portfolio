@@ -37,29 +37,20 @@ export default function ScrollToTop() {
 					aria-label="Scroll to top"
 					whileHover={{ scale: 1.1 }}
 					whileTap={{ scale: 0.9 }}
-					initial={{ opacity: 0, scale: 0.5, y: 20 }}
-					animate={{ opacity: 1, scale: 1, y: 0 }}
+					initial={{ opacity: 0, scale: 0.5 }}
+					animate={{ opacity: 1, scale: 1 }}
 					exit={{
 						opacity: 0,
 						scale: 0.5,
-						y: 20,
-						transition: { duration: 0.2 },
+						transition: { delay: 1 },
 					}}
 					onClick={scrollToTop}
-					className="fixed bottom-8 right-8 z-[90] p-3 rounded-full bg-slate-900/80 backdrop-blur-md border border-slate-700 shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] hover:border-cyan-500/50 transition-all group"
+					className="fixed bottom-8 right-8 z-[90] p-3 rounded-full bg-slate-900/80 backdrop-blur-md border border-slate-700 shadow-2xl group hover:border-cyan-500/50 transition-colors"
 				>
 					<svg
 						className="absolute inset-0 w-full h-full -rotate-90 pointer-events-none"
 						viewBox="0 0 100 100"
 					>
-						<circle
-							cx="50"
-							cy="50"
-							r="48"
-							fill="none"
-							stroke="#1e293b"
-							strokeWidth="4"
-						/>
 						<motion.circle
 							cx="50"
 							cy="50"
@@ -67,9 +58,9 @@ export default function ScrollToTop() {
 							fill="none"
 							stroke="#22d3ee"
 							strokeWidth="4"
-							strokeLinecap="round"
+							strokeDasharray="1 1"
 							pathLength={pathLength}
-							className="drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]"
+							className="opacity-100 transition-opacity duration-300"
 						/>
 					</svg>
 
