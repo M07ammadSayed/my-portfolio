@@ -1,5 +1,5 @@
 "use client";
-import { Github, Download } from "lucide-react";
+import { Github, Download, ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
 import DigitalTitle from "@/components/DigitalTitle";
 import { useRef, useState } from "react";
@@ -126,6 +126,26 @@ export default function Hero() {
 						<Github size={20} /> View GitHub
 					</a>
 				</MagneticWrapper>
+			</motion.div>
+
+			<motion.div
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				transition={{ duration: 1, delay: 1.5 }}
+				className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 cursor-pointer group"
+				onClick={() => {
+					window.scrollBy({ top: window.innerHeight, behavior: "smooth" });
+				}}
+			>
+				<span className="text-cyan-500/70 text-xs md:text-sm font-mono tracking-widest uppercase group-hover:text-cyan-400 transition-colors duration-300">
+					Scroll
+				</span>
+				<motion.div
+					animate={{ y: [0, 8, 0] }}
+					transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+				>
+					<ChevronDown className="text-cyan-400 w-5 h-5 md:w-6 md:h-6 opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+				</motion.div>
 			</motion.div>
 		</section>
 	);
