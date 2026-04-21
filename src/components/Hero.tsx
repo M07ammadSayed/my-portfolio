@@ -41,7 +41,7 @@ export default function Hero() {
 	return (
 		<section
 			id="about"
-			className="relative pt-20 md:pt-32 pb-16 md:pb-20 px-6 flex flex-col items-center justify-center min-h-[100dvh] text-center z-10 overflow-hidden"
+			className="relative pt-20 md:pt-32 pb-24 md:pb-40 px-6 flex flex-col items-center justify-center min-h-[100dvh] text-center z-10 overflow-hidden"
 			aria-label="About Me"
 		>
 			<div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] border border-cyan-500/10 rounded-full animate-spin-slow pointer-events-none md:w-[800px] md:h-[800px] select-none"></div>
@@ -132,7 +132,7 @@ export default function Hero() {
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
 				transition={{ duration: 1, delay: 1.5 }}
-				className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 cursor-pointer group"
+				className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 cursor-pointer group"
 				onClick={() => {
 					window.scrollBy({ top: window.innerHeight, behavior: "smooth" });
 				}}
