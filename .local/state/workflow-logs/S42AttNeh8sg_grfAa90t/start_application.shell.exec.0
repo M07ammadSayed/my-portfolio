@@ -1,0 +1,29 @@
+
+> my-portfolio@0.1.0 dev
+> next dev --port 5000
+
+[1G[0K   [1m[38;2;173;127;168m▲ Next.js 16.0.10[39m[22m (Turbopack)
+   - Local:         http://localhost:5000
+   - Network:       http://172.31.114.226:5000
+
+ [32m[1m✓[22m[39m Starting...
+[35m[1mAttention[22m[39m: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+[36mhttps://nextjs.org/telemetry[39m
+
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ [32m[1m✓[22m[39m Ready in 1195ms
+ [37m[1m○[22m[39m Compiling / ...
+ GET / [32m200[39m in 7.8s[2m (compile: 7.4s, render: 432ms)[22m
+ GET / [32m200[39m in 7.9s[2m (compile: 7.5s, render: 379ms)[22m
+ GET / [32m200[39m in 97ms[2m (compile: 6ms, render: 91ms)[22m
+ [33m[1m⚠[22m[39m Cross origin request detected from 79ad9428-f30c-40ef-bbfd-a31e27e9a4f6-00-3i3vg35n00p9o.worf.replit.dev to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ GET /offline [32m200[39m in 934ms[2m (compile: 878ms, render: 56ms)[22m
+ GET / [32m200[39m in 77ms[2m (compile: 4ms, render: 73ms)[22m
+ GET / [32m200[39m in 66ms[2m (compile: 4ms, render: 62ms)[22m
+ GET / [32m200[39m in 78ms[2m (compile: 5ms, render: 73ms)[22m
+ GET / [32m200[39m in 80ms[2m (compile: 4ms, render: 75ms)[22m
+[?25h
+[1G[0K⠙[1G[0K

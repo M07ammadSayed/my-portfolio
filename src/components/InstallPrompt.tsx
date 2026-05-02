@@ -71,9 +71,9 @@ export default function InstallPrompt() {
 					transition={{ type: "spring", stiffness: 300, damping: 30 }}
 					className="fixed bottom-6 left-0 right-0 z-[100] flex justify-center px-4"
 				>
-					<div className="bg-slate-900/95 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center justify-between gap-6 max-w-md w-full ring-1 ring-white/5">
+					<div className="bg-[#080810]/95 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center justify-between gap-6 max-w-md w-full ring-1 ring-white/5">
 						<div className="flex items-center gap-3">
-							<div className="bg-cyan-500/20 p-2 rounded-xl">
+							<div className="bg-[#06b6d4]/20 p-2 rounded-xl">
 								📱
 							</div>
 							<div className="text-white">
@@ -94,7 +94,7 @@ export default function InstallPrompt() {
 							</button>
 							<button
 								onClick={() => setShowInstallBtn(false)}
-								className="text-slate-500 hover:text-white p-2 transition-colors"
+								className="text-[#ffffff] hover:text-white p-2 transition-colors"
 								aria-label="Close"
 							>
 								✕

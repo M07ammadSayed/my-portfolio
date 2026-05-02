@@ -7,8 +7,8 @@
 	"scope": "/",
 	"display": "standalone",
 	"orientation": "portrait",
-	"background_color": "#020617",
-	"theme_color": "#020617",
+	"background_color": "#080810",
+	"theme_color": "#080810",
 	"categories": ["education", "security", "developer"],
 	"launch_handler": {
 		"client_mode": ["focus-existing", "auto"]
@@ -55,7 +55,7 @@
 		},
 		{
 			"src": "/screenshot-mobile.jpg",
-			"sizes": "1080x2248",
+			"sizes": "1080x2262",
 			"type": "image/jpeg",
 			"form_factor": "narrow",
 			"label": "Mobile View of Muhammad's Portfolio"

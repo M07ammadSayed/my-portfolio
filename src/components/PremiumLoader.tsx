@@ -1,127 +1,115 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Cpu, Zap, ShieldCheck, Terminal } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 
-export default function PremiumLoader({
-	onComplete,
-}: {
-	onComplete: () => void;
-}) {
-	const [progress, setProgress] = useState(0);
-	const [status, setStatus] = useState("Initializing System...");
+export default function PremiumLoader({ onComplete }: { onComplete: () => void }) {
+        const [progress, setProgress] = useState(0);
+        const [status, setStatus] = useState("Initializing...");
 
-	useEffect(() => {
-		const steps = [
-			{ p: 35, s: "Loading..." },
-			{ p: 70, s: "Almost there..." },
-			{ p: 100, s: "Access Granted." },
-		];
+        useEffect(() => {
+                const steps = [
+                        { p: 40, s: "Loading assets..." },
+                        { p: 75, s: "Preparing environment..." },
+                        { p: 100, s: "Access granted." },
+                ];
 
-		let currentStep = 0;
+                let currentStep = 0;
 
-		const interval = setInterval(() => {
-			if (currentStep >= steps.length) {
-				clearInterval(interval);
-				setTimeout(onComplete, 300);
-				return;
-			}
+                const interval = setInterval(() => {
+                        if (currentStep >= steps.length) {
+                                clearInterval(interval);
+                                setTimeout(onComplete, 280);
+                                return;
+                        }
 
-			const step = steps[currentStep];
-			setProgress(step.p);
-			setStatus(step.s);
-			currentStep++;
-		}, 200);
+                        const step = steps[currentStep];
+                        setProgress(step.p);
+                        setStatus(step.s);
+                        currentStep++;
+                }, 220);
 
-		return () => clearInterval(interval);
-	}, []);
+                return () => clearInterval(interval);
+        }, []);
 
-	return (
-		<motion.div
-			className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#020617] text-cyan-500 font-mono"
-			initial={{ opacity: 1 }}
-			exit={{ opacity: 0, scale: 1.1, filter: "blur(20px)" }}
-			transition={{ duration: 0.8, ease: "easeInOut" }}
-		>
-			{/* --- Quantum Core Animation --- */}
-			<div className="relative w-32 h-32 mb-12">
-				{/* Outer Ring 1 */}
-				<motion.span
-					className="absolute inset-0 rounded-full border-2 border-cyan-500/20 border-t-cyan-500"
-					animate={{ rotate: 360 }}
-					transition={{
-						duration: 2,
-						repeat: Infinity,
-						ease: "linear",
-					}}
-				/>
-				{/* Outer Ring 2 (Reverse) */}
-				<motion.span
-					className="absolute inset-2 rounded-full border-2 border-purple-500/20 border-b-purple-500"
-					animate={{ rotate: -360 }}
-					transition={{
-						duration: 3,
-						repeat: Infinity,
-						ease: "linear",
-					}}
-				/>
-				{/* Inner Core Pulse */}
-				<motion.div
-					className="absolute inset-8 rounded-full bg-cyan-500/10 blur-xl"
-					animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
-					transition={{ duration: 1.5, repeat: Infinity }}
-				/>
-				{/* Icons Swap */}
-				<div className="absolute inset-0 flex items-center justify-center text-white">
-					<AnimatePresence mode="wait">
-						{progress < 30 && (
-							<Cpu key="cpu" className="animate-pulse" />
-						)}
-						{progress >= 30 && progress < 60 && (
-							<Terminal key="term" className="animate-pulse" />
-						)}
-						{progress >= 60 && progress < 90 && (
-							<ShieldCheck
-								key="shield"
-								className="animate-pulse"
-							/>
-						)}
-						{progress >= 90 && (
-							<Zap
-								key="zap"
-								className="text-yellow-400 animate-pulse"
-							/>
-						)}
-					</AnimatePresence>
-				</div>
-			</div>
+        return (
+                <motion.div
+                        className="fixed inset-0 z-[9999] flex flex-col items-center justify-center font-mono"
+                        style={{ background: "#080810" }}
+                        initial={{ opacity: 1 }}
+                        exit={{ opacity: 0, filter: "blur(16px)" }}
+                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                >
+                        {/* Logo mark */}
+                        <div className="relative w-20 h-20 mb-10">
+                                {/* Outer spinner ring — justified for loader context */}
+                                <motion.span
+                                        className="absolute inset-0 rounded-full"
+                                        style={{ border: "1px solid rgba(168,85,247,0.15)", borderTopColor: "#a855f7" }}
+                                        animate={{ rotate: 360 }}
+                                        transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+                                />
+                                {/* Inner spinner ring */}
+                                <motion.span
+                                        className="absolute inset-2.5 rounded-full"
+                                        style={{ border: "1px solid rgba(6,182,212,0.12)", borderBottomColor: "#06b6d4" }}
+                                        animate={{ rotate: -360 }}
+                                        transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
+                                />
+                                {/* Center icon */}
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                        <AnimatePresence mode="wait">
+                                                <motion.div
+                                                        key={progress > 60 ? "shield" : "dot"}
+                                                        initial={{ opacity: 0, scale: 0.7 }}
+                                                        animate={{ opacity: 1, scale: 1 }}
+                                                        exit={{ opacity: 0, scale: 0.7 }}
+                                                        transition={{ duration: 0.3 }}
+                                                >
+                                                        {progress > 60 ? (
+                                                                <ShieldCheck className="w-5 h-5 text-[#06b6d4]" />
+                                                        ) : (
+                                                                <div
+                                                                        className="w-2 h-2 rounded-full"
+                                                                        style={{ background: "linear-gradient(135deg, #a855f7, #06b6d4)" }}
+                                                                />
+                                                        )}
+                                                </motion.div>
+                                        </AnimatePresence>
+                                </div>
+                        </div>
 
-			{/* --- Typography & Stats --- */}
-			<div className="w-64 space-y-4">
-				<div className="flex justify-between text-xs uppercase tracking-widest text-slate-500 font-sans text-base leading-relaxed">
-					<span>System Integrity</span>
-					<span className="text-cyan-400">{progress}%</span>
-				</div>
+                        {/* Progress info */}
+                        <div className="w-52 space-y-3">
+                                <div className="flex justify-between items-center text-xs">
+                                        <span className="text-[#334155] tracking-widest uppercase">System</span>
+                                        <span className="text-[#06b6d4]">{progress}%</span>
+                                </div>
 
-				{/* Progress Bar */}
-				<div className="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
-					<motion.div
-						className="h-full bg-gradient-to-r from-cyan-400 via-blue-600 to-violet-600"
-						initial={{ width: 0 }}
-						animate={{ width: `${progress}%` }}
-						transition={{ type: "spring", stiffness: 50 }}
-					/>
-				</div>
+                                {/* Track */}
+                                <div
+                                        className="h-px w-full rounded-full overflow-hidden"
+                                        style={{ background: "rgba(30,42,58,0.8)" }}
+                                >
+                                        <motion.div
+                                                className="h-full rounded-full"
+                                                style={{ background: "linear-gradient(90deg, #a855f7, #06b6d4)" }}
+                                                initial={{ width: 0 }}
+                                                animate={{ width: `${progress}%` }}
+                                                transition={{ type: "spring", stiffness: 60, damping: 20 }}
+                                        />
+                                </div>
 
-				<motion.p
-					key={status}
-					initial={{ opacity: 0, y: 5 }}
-					animate={{ opacity: 1, y: 0 }}
-					className="text-center text-xs text-cyan-500/80 h-4"
-				>
-					{status}
-				</motion.p>
-			</div>
-		</motion.div>
-	);
+                                <motion.p
+                                        key={status}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="text-center text-[10px] text-[#334155] tracking-wider uppercase"
+                                >
+                                        {status}
+                                </motion.p>
+                        </div>
+                </motion.div>
+        );
 }

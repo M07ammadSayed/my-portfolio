@@ -32,7 +32,7 @@ export default function OfflinePage() {
     return (
         <div
             style={{
-                backgroundColor: "#020617",
+                backgroundColor: "#080810",
                 color: "white",
                 height: "100dvh",
                 minHeight: "-webkit-fill-available",
@@ -85,7 +85,7 @@ export default function OfflinePage() {
                         height: auto;
                         font-size: 0.75rem !important;
                         gap: 8px !important;
-                        background-color: #020617;
+                        background-color: #080810;
                     }
                 }
             `,
@@ -107,12 +107,12 @@ export default function OfflinePage() {
                         marginBottom: "2rem",
                         height: "96px",
                         width: "96px",
-                        backgroundColor: "#0f172a",
+                        backgroundColor: "#080810",
                         borderRadius: "50%",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        boxShadow: "0 0 20px rgba(8, 145, 178, 0.4)",
+                        boxShadow: "0 0 20px rgba(168, 85, 247, 0.4)",
                     }}
                 >
                     <span style={{ fontSize: "3rem" }}>📡</span>
@@ -145,7 +145,7 @@ export default function OfflinePage() {
                     onClick={handleReconnect}
                     disabled={isChecking}
                     style={{
-                        backgroundColor: "#0891b2",
+                        backgroundColor: "#a855f7",
                         color: "white",
                         padding: "12px 32px",
                         borderRadius: "12px",

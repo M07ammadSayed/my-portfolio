@@ -29,12 +29,12 @@ export default function Error({
 	return (
 		<>
 			<CustomCursor />
-			<div className="h-screen w-full flex flex-col items-center justify-center bg-[#020617] text-slate-200 font-mono text-center p-4">
+			<div className="h-screen w-full flex flex-col items-center justify-center bg-[#080810] text-[#ffffff] font-mono text-center p-4">
 				<div className="p-6 rounded-2xl border border-red-500/20 bg-red-900/10 backdrop-blur-md max-w-md w-full">
 					<h2 className="text-3xl font-bold text-red-500 mb-2">
 						System Malfunction
 					</h2>
-					<p className="text-slate-400 text-sm mb-6">
+					<p className="text-[#ffffff] text-sm mb-6">
 						{!navigator.onLine
 							? "Connection lost during system synchronization. Please check your network."
 							: "A critical runtime error has occurred. Security protocols have engaged to prevent data leak."}

@@ -1,4 +1,4 @@
-const CACHE_NAME = "static-assets-v154612";
+const CACHE_NAME = "v562137";
 const OFFLINE_URL = "/offline";
 
 const STATIC_ASSETS = [
@@ -6,7 +6,6 @@ const STATIC_ASSETS = [
 	"/favicon.ico",
 	"/icon.svg",
 	"/manifest.json",
-	"/sw.js",
 ];
 
 self.addEventListener("install", (event) => {
@@ -43,13 +42,22 @@ self.addEventListener("fetch", (event) => {
 		return;
 	}
 
+	if (
+		event.request.method !== "GET" ||
+		!event.request.url.startsWith(self.location.origin)
+	) {
+		return;
+	}
+
 	event.respondWith(
 		fetch(event.request)
 			.then((response) => {
-				const clone = response.clone();
-				caches.open(CACHE_NAME).then((cache) => {
-					cache.put(event.request, clone);
-				});
+				if (response.ok) {
+					const clone = response.clone();
+					caches.open(CACHE_NAME).then((cache) => {
+						cache.put(event.request, clone);
+					});
+				}
 				return response;
 			})
 			.catch(() => caches.match(event.request)),
