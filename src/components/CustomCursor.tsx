@@ -285,7 +285,7 @@ export default function CustomCursor() {
 	const borderW = isClicking ? 2.5 : isHovering ? 1.5 : 1.5;
 
 	return (
-		<div className="fixed inset-0 pointer-events-none z-[9999999] hidden lg:block">
+		<div className="fixed inset-0 pointer-events-none z-[9999999] hidden 2xl:block">
 			<canvas ref={canvasRef} className="absolute inset-0" />
 
 			{/* ── Main cursor element ── */}

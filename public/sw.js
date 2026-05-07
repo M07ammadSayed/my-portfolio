@@ -1,4 +1,4 @@
-const CACHE_NAME = "v5947217";
+const CACHE_NAME = "v9561273";
 const OFFLINE_URL = "/offline";
 
 const STATIC_ASSETS = [
