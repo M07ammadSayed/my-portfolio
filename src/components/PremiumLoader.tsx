@@ -104,7 +104,7 @@ export default function PremiumLoader({
 				</div>
 
 				{/* Progress Bar */}
-				<div className="h-1 w-full bg-[#080810] rounded-full overflow-hidden">
+				<div className="h-1 w-full bg-white/[0.05] rounded-full overflow-hidden">
 					<motion.div
 						className="h-full bg-gradient-to-r from-[#ff6ec7] via-[#a855f7] to-[#06b6d4]"
 						initial={{ width: 0 }}

@@ -29,12 +29,12 @@ export default function DigitalTitle() {
 					initial={
 						isFirstRender
 							? { opacity: 1, y: 0 }
-							: { opacity: 0, y: 12 }
+							: { opacity: 0, y: 10 }
 					}
 					animate={{ opacity: 1, y: 0 }}
-					exit={{ opacity: 0, y: -12 }}
-					transition={{ duration: 0.4, ease: [0.25, 0.1, 0, 1] }}
-					className="block bg-gradient-to-r from-[#ff6ec7] via-[#a855f7] to-[#06b6d4] bg-clip-text text-transparent font-extrabold pb-2 whitespace-nowrap will-change-transform"
+					exit={{ opacity: 0, y: -10 }}
+					transition={{ duration: 0.35, ease: [0.25, 0.1, 0, 1] }}
+					className="block bg-gradient-to-r from-[#ff6ec7] via-[#a855f7] to-[#06b6d4] bg-clip-text text-transparent font-extrabold pb-1 whitespace-nowrap will-change-transform"
 				>
 					{titles[index]}
 				</motion.span>

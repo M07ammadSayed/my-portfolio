@@ -59,24 +59,29 @@ export default function SectionHeader({
 }) {
 	return (
 		<motion.div
-			initial={{ opacity: 0, y: 40, filter: "blur(12px)", scale: 0.95 }}
-			whileInView={{ opacity: 1, y: 0, filter: "blur(0px)", scale: 1 }}
+			initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+			whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
 			viewport={{ once: true, margin: "-5%" }}
-			transition={{ duration: 0.7, ease: [0.25, 0.1, 0, 1] }}
-			className="mb-16 md:mb-20"
+			transition={{ duration: 0.6, ease: [0.25, 0.1, 0, 1] }}
+			className="mb-14 md:mb-16"
 		>
-			<h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 flex items-center gap-4">
+			{/* Overline label */}
+			<div className="flex items-center gap-3 mb-4">
 				<span className="relative">
-					<Icon className="text-[#06b6d4] w-8 h-8 md:w-10 md:h-10 relative z-10" />
-					<span className="absolute inset-0 bg-[#06b6d4]/20 blur-xl rounded-full animate-pulse" />
+					<Icon className="text-[#06b6d4] w-5 h-5 md:w-6 md:h-6 relative z-10" />
+					<span className="absolute inset-0 bg-[#06b6d4]/10 blur-lg rounded-full" />
 				</span>
-				<span className="text-[#ffffff] font-mono tracking-tight">
+				<span className="text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-[#06b6d4]/70 font-mono">
+					{desc}
+				</span>
+			</div>
+
+			{/* Title */}
+			<h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#ffffff] tracking-[-0.02em] leading-[1.1]">
+				<span className="font-mono">
 					<ScrambleText text={title} />
 				</span>
 			</h2>
-			<p className="text-slate-400 text-base md:text-lg flex items-center gap-2 ml-0 md:ml-14">
-				<span className="text-[#06b6d4]/50 font-mono">{">"}</span> {desc}
-			</p>
 		</motion.div>
 	);
 }

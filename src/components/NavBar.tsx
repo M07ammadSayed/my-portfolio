@@ -90,20 +90,20 @@ export default function NavBar() {
 	return (
 		<>
 			<nav
-				className="fixed top-6 left-1/2 -translate-x-1/2 w-[92%] md:w-auto z-[10001] will-change-transform"
+				className="fixed top-5 left-1/2 -translate-x-1/2 w-[92%] md:w-auto z-[10001] will-change-transform"
 				role="navigation"
 				aria-label="Main navigation"
 			>
 				<div
-					className={`transition-all duration-500 ease-out border rounded-full px-5 py-3 flex justify-between items-center md:gap-8 ${
+					className={`transition-all duration-500 ease-out border rounded-full px-4 py-2.5 flex justify-between items-center md:gap-6 ${
 						isScrolled
-							? "bg-[#080810]/70 border-slate-800/60 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
-							: "bg-transparent border-transparent backdrop-blur-md"
+							? "bg-[#080810]/75 border-slate-800/50 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+							: "bg-[#080810]/30 border-white/[0.04] backdrop-blur-md"
 					}`}
 				>
 					<button
 						type="button"
-						className="text-xl font-bold text-[#06b6d4] font-mono tracking-tighter hover:text-white transition-colors duration-200 md:whitespace-nowrap"
+						className="text-sm font-semibold text-[#06b6d4] font-mono tracking-tight hover:text-white transition-colors duration-200 md:whitespace-nowrap px-1"
 						onClick={() =>
 							window.scrollTo({
 								top: 0,
@@ -115,23 +115,23 @@ export default function NavBar() {
 						&lt;MS /&gt;
 					</button>
 
-					<div className="hidden md:flex gap-1">
+					<div className="hidden md:flex gap-0.5">
 						{NAV_ITEMS.map(
 							(item) => (
 								<a
 									key={item}
 									href={`#${item}`}
 									onClick={(e) => handleNavClick(e, item)}
-									className={`relative px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
+									className={`relative px-4 py-2 rounded-full text-[13px] font-medium transition-colors duration-200 ${
 										activeSection === item
 											? "text-[#ffffff]"
-											: "text-slate-400 hover:text-[#ffffff]"
+											: "text-slate-500 hover:text-slate-300"
 									}`}
 								>
 									{activeSection === item && (
 										<motion.span
 											layoutId="nav-indicator"
-											className="absolute inset-0 rounded-full bg-[#080810]/80 border border-slate-700/80"
+											className="absolute inset-0 rounded-full bg-white/[0.06] border border-white/[0.08]"
 											transition={{
 												type: "spring",
 												stiffness: 300,
@@ -147,7 +147,7 @@ export default function NavBar() {
 						)}
 					</div>
 
-					<div className="hidden md:flex gap-3 pl-4 border-l border-slate-700/50">
+					<div className="hidden md:flex gap-2 pl-3 border-l border-white/[0.06]">
 						<SocialLink
 							href="https://github.com/M07ammadSayed"
 							icon={Github}
@@ -179,7 +179,7 @@ export default function NavBar() {
 									exit={{ rotate: 90, opacity: 0 }}
 									transition={{ duration: 0.2 }}
 								>
-									<X size={22} />
+									<X size={20} />
 								</motion.div>
 							) : (
 								<motion.div
@@ -189,7 +189,7 @@ export default function NavBar() {
 									exit={{ rotate: -90, opacity: 0 }}
 									transition={{ duration: 0.2 }}
 								>
-									<Menu size={22} />
+									<Menu size={20} />
 								</motion.div>
 							)}
 						</AnimatePresence>
@@ -231,7 +231,7 @@ export default function NavBar() {
 										scale: 0.95,
 									}}
 									transition={{ duration: 0.3, ease: [0.25, 0.1, 0, 1] }}
-									className="fixed top-24 left-1/2 -translate-x-1/2 w-[90%] bg-[#080810]/95 border border-slate-800 rounded-2xl p-4 shadow-2xl backdrop-blur-xl flex flex-col gap-1 md:hidden z-[9999]"
+									className="fixed top-20 left-1/2 -translate-x-1/2 w-[90%] bg-[#080810]/95 border border-slate-800 rounded-2xl p-3 shadow-2xl backdrop-blur-xl flex flex-col gap-0.5 md:hidden z-[9999]"
 								>
 									{NAV_ITEMS.map((item, i) => (
 										<motion.a
@@ -244,16 +244,16 @@ export default function NavBar() {
 											initial={{ opacity: 0, x: -10 }}
 											animate={{ opacity: 1, x: 0 }}
 											transition={{ delay: i * 0.05 }}
-											className={`p-4 text-center rounded-xl transition-all duration-200 font-medium min-h-[44px] flex items-center justify-center ${
+											className={`p-3.5 text-center rounded-xl transition-all duration-200 text-sm font-medium min-h-[44px] flex items-center justify-center ${
 												activeSection === item
 													? "text-[#06b6d4] bg-[#06b6d4]/5"
-													: "text-[#ffffff] hover:bg-slate-800/50"
+													: "text-slate-300 hover:bg-slate-800/50"
 											}`}
 										>
 											<span className="capitalize">{item}</span>
 										</motion.a>
 									))}
-									<div className="mt-3 pt-4 pb-3 border-t border-slate-700/50 flex justify-center gap-6">
+									<div className="mt-2 pt-3 pb-2 border-t border-slate-700/50 flex justify-center gap-6">
 										<SocialLink
 											href="https://github.com/M07ammadSayed"
 											icon={Github}

@@ -5,15 +5,14 @@ import SectionHeader from "./SectionHeader";
 import ProjectCard from "./ProjectCard";
 
 const cardVariants = {
-	hidden: { opacity: 0, y: 60, filter: "blur(8px)", scale: 0.9 },
+	hidden: { opacity: 0, y: 50, filter: "blur(6px)" },
 	visible: (i: number) => ({
 		opacity: 1,
 		y: 0,
 		filter: "blur(0px)",
-		scale: 1,
 		transition: {
-			duration: 0.6,
-			delay: i * 0.12,
+			duration: 0.5,
+			delay: i * 0.1,
 			ease: [0.25, 0.1, 0, 1],
 		},
 	}),
@@ -53,14 +52,14 @@ export default function Projects() {
 	return (
 		<section
 			id="projects"
-			className="py-24 md:py-36 px-6 max-w-7xl mx-auto relative z-10"
+			className="py-28 md:py-40 px-6 max-w-6xl mx-auto relative z-10"
 		>
 			<SectionHeader
 				icon={Code}
 				title="AppSec Labs"
 				desc="Hands-on security research and tooling."
 			/>
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
 				{projects.map((project, index) => (
 					<motion.div
 						key={index}

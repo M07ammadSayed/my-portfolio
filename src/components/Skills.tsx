@@ -5,15 +5,14 @@ import TiltCard from "./TiltCard";
 import SectionHeader from "./SectionHeader";
 
 const cardVariants = {
-	hidden: { opacity: 0, y: 60, filter: "blur(8px)", scale: 0.9 },
+	hidden: { opacity: 0, y: 50, filter: "blur(6px)" },
 	visible: (i: number) => ({
 		opacity: 1,
 		y: 0,
 		filter: "blur(0px)",
-		scale: 1,
 		transition: {
-			duration: 0.6,
-			delay: i * 0.1,
+			duration: 0.5,
+			delay: i * 0.08,
 			ease: [0.25, 0.1, 0, 1],
 		},
 	}),
@@ -50,14 +49,14 @@ export default function Skills() {
 	return (
 		<section
 			id="skills"
-			className="py-24 md:py-36 px-6 max-w-7xl mx-auto relative z-10"
+			className="py-28 md:py-40 px-6 max-w-6xl mx-auto relative z-10"
 		>
 			<SectionHeader
 				icon={Shield}
 				title="Security & Tech Stack"
 				desc="The toolkit I use to build secure software and identify vulnerabilities."
 			/>
-			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
 				{skills.map((item, index) => (
 					<motion.div
 						key={index}
@@ -67,12 +66,12 @@ export default function Skills() {
 						whileInView="visible"
 						viewport={{ once: true, margin: "-10%" }}
 					>
-						<TiltCard className="p-6 md:p-8 h-full">
-							<item.icon className={`w-10 h-10 md:w-12 md:h-12 ${item.color} mb-5 md:mb-6`} />
-							<h3 className="font-bold text-lg md:text-xl mb-2.5 text-[#ffffff] tracking-tight">
+						<TiltCard className="p-6 md:p-7 h-full">
+							<item.icon className={`w-8 h-8 md:w-9 md:h-9 ${item.color} mb-5`} />
+							<h3 className="font-semibold text-base md:text-lg mb-2 text-[#ffffff] tracking-tight">
 								{item.title}
 							</h3>
-							<p className="text-slate-400 leading-relaxed text-sm">
+							<p className="text-slate-400 leading-relaxed text-[13px] md:text-sm">
 								{item.desc}
 							</p>
 						</TiltCard>

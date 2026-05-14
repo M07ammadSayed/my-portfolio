@@ -55,12 +55,11 @@ body {
 
 /* --- Ultimate Text Selection --- */
 ::selection {
-	background-color: rgba(6, 182, 212, 0.1);
+	background-color: rgba(6, 182, 212, 0.15);
 	color: #ffffff;
 	text-shadow:
-		0 0 2px rgba(6, 182, 212, 1),
-		0 0 10px rgba(6, 182, 212, 0.8),
-		0 0 30px rgba(6, 182, 212, 0.4);
+		0 0 2px rgba(6, 182, 212, 0.6),
+		0 0 8px rgba(6, 182, 212, 0.3);
 }
 
 /* --- Animations --- */
@@ -158,7 +157,7 @@ body {
 }
 
 .glow-text {
-	text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+	text-shadow: 0 0 12px rgba(6, 182, 212, 0.3);
 }
 
 /* --- Uppercase Label Tracking --- */
