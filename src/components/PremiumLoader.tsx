@@ -98,7 +98,7 @@ export default function PremiumLoader({
 
 			{/* --- Typography & Stats --- */}
 			<div className="w-64 space-y-4">
-				<div className="flex justify-between text-xs uppercase tracking-widest text-slate-300 font-sans text-base leading-relaxed">
+				<div className="flex justify-between text-xs uppercase tracking-widest text-slate-300">
 					<span>System Integrity</span>
 					<span className="text-[#06b6d4]">{progress}%</span>
 				</div>

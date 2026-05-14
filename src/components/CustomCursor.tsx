@@ -118,7 +118,15 @@ export default function CustomCursor() {
 	const smoothY = useSpring(mY, { damping: 40, stiffness: 500 });
 
 	/* ── Event listeners ── */
+	/* ── Respect reduced motion ── */
+	const [prefersReduced, setPrefersReduced] = useState(false);
+
 	useEffect(() => {
+		const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+		setPrefersReduced(mq.matches);
+		const handler = (e: MediaQueryListEvent) => setPrefersReduced(e.matches);
+		mq.addEventListener("change", handler);
+
 		const checkScreen = () => setIsLargeScreen(window.innerWidth >= 1280);
 		checkScreen();
 		window.addEventListener("resize", checkScreen);
@@ -140,6 +148,7 @@ export default function CustomCursor() {
 		window.addEventListener("mouseup", onUp);
 
 		return () => {
+			mq.removeEventListener("change", handler);
 			window.removeEventListener("resize", checkScreen);
 			window.removeEventListener("mousemove", onMove);
 			window.removeEventListener("mouseover", onOver);
@@ -278,14 +287,14 @@ export default function CustomCursor() {
 		};
 	}, [isLargeScreen]);
 
-	if (!isLargeScreen) return null;
+	if (!isLargeScreen || prefersReduced) return null;
 
 	/* ── Cursor sizes ── */
 	const ringSize = isClicking ? 14 : isHovering ? 56 : 22;
 	const borderW = isClicking ? 2.5 : isHovering ? 1.5 : 1.5;
 
 	return (
-		<div className="fixed inset-0 pointer-events-none z-[9999999] hidden 2xl:block">
+		<div className="fixed inset-0 pointer-events-none z-[9999999] hidden xl:block">
 			<canvas ref={canvasRef} className="absolute inset-0" />
 
 			{/* ── Main cursor element ── */}

@@ -42,7 +42,7 @@ export default function ScrollToTop() {
 					exit={{
 						opacity: 0,
 						scale: 0.5,
-						transition: { delay: 1 },
+						transition: { duration: 0.2 },
 					}}
 					onClick={scrollToTop}
 					className="fixed bottom-8 right-8 z-[90] p-3 rounded-full bg-[#080810]/80 backdrop-blur-md border border-slate-700 shadow-2xl group hover:border-[#06b6d4]/50 transition-colors"

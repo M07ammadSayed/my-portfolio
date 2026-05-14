@@ -44,10 +44,10 @@ export default function ProjectCard({
 
 	return (
 		<TiltCard className="flex flex-col h-full group">
-			<div className="p-8 flex-1 flex flex-col h-full">
-				<div className="flex justify-between items-start mb-6">
+			<div className="p-6 md:p-8 flex-1 flex flex-col h-full">
+				<div className="flex justify-between items-start mb-5">
 					<div
-						className={`p-3 rounded-lg border ${active.bg} ${active.border}`}
+						className={`p-3 rounded-lg border ${active.bg} ${active.border} transition-colors duration-200`}
 					>
 						<Icon
 							className={`w-6 h-6 ${active.text}`}
@@ -58,10 +58,10 @@ export default function ProjectCard({
 						href={link}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="text-slate-400 hover:text-white transition-transform hover:rotate-45 p-2 hover:bg-white/5 rounded-full"
+						className="text-slate-500 hover:text-[#06b6d4] transition-all duration-200 hover:rotate-45 p-2 hover:bg-white/5 rounded-full min-h-[44px] min-w-[44px] flex items-center justify-center"
 						aria-label={`Visit ${title} on GitHub`}
 					>
-						<ExternalLink size={20} />
+						<ExternalLink size={18} />
 					</a>
 				</div>
 
@@ -69,9 +69,9 @@ export default function ProjectCard({
 					href={link}
 					target="_blank"
 					rel="noopener noreferrer"
-					className="block w-fit group"
+					className="block w-fit"
 				>
-					<h3 className="text-2xl font-bold text-[#ffffff] mb-2 group-hover:text-[#06b6d4] transition-colors">
+					<h3 className="text-xl md:text-2xl font-bold text-[#ffffff] mb-2 hover:text-[#06b6d4] transition-colors duration-200 tracking-tight">
 						{title}
 					</h3>
 				</a>
@@ -84,7 +84,7 @@ export default function ProjectCard({
 					{tags.map((tag) => (
 						<span
 							key={tag}
-							className="px-3 py-1 bg-[#080810]/80 border border-slate-700/50 text-slate-400 text-xs rounded-full font-mono"
+							className="px-3 py-1.5 bg-[#080810]/80 border border-slate-700/50 text-slate-400 text-[11px] rounded-full font-mono uppercase tracking-[0.08em]"
 						>
 							{tag}
 						</span>

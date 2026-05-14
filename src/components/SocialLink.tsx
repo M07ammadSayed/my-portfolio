@@ -16,13 +16,13 @@ export default function SocialLink({
 			rel="me noopener noreferrer"
 			aria-label={label || "Social Link"}
 			title={label}
-			className={`text-[#ffffff] hover:text-white transition-all hover:scale-110 active:scale-95 active:text-[#06b6d4] ${
+			className={`text-slate-300 hover:text-[#06b6d4] transition-all duration-200 hover:scale-110 active:scale-95 min-h-[44px] min-w-[44px] flex items-center justify-center ${
 				large
-					? "p-4 bg-[#080810]/50 rounded-full border border-slate-800 hover:border-[#06b6d4]/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.3)]"
-					: ""
+					? "p-4 bg-[#080810]/50 rounded-full border border-slate-800 hover:border-[#06b6d4]/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.2)]"
+					: "p-2"
 			}`}
 		>
-			<Icon size={large ? 24 : 20} aria-hidden="true" role="img" />
+			<Icon size={large ? 22 : 18} aria-hidden="true" />
 		</a>
 	);
 }

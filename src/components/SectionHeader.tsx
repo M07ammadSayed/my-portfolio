@@ -11,6 +11,14 @@ function ScrambleText({ text }: { text: string }) {
 
 	useEffect(() => {
 		if (!isInView) return;
+
+		// Respect reduced motion
+		const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+		if (prefersReduced) {
+			setDisplayText(text);
+			return;
+		}
+
 		let iteration = 0;
 		let interval: NodeJS.Timeout;
 
@@ -55,19 +63,19 @@ export default function SectionHeader({
 			whileInView={{ opacity: 1, y: 0, filter: "blur(0px)", scale: 1 }}
 			viewport={{ once: true, margin: "-5%" }}
 			transition={{ duration: 0.7, ease: [0.25, 0.1, 0, 1] }}
-			className="mb-16"
+			className="mb-16 md:mb-20"
 		>
-			<h2 className="text-3xl md:text-5xl font-bold mb-4 flex items-center gap-4">
+			<h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 flex items-center gap-4">
 				<span className="relative">
-					<Icon className="text-[#06b6d4] w-10 h-10 relative z-10" />
+					<Icon className="text-[#06b6d4] w-8 h-8 md:w-10 md:h-10 relative z-10" />
 					<span className="absolute inset-0 bg-[#06b6d4]/20 blur-xl rounded-full animate-pulse" />
 				</span>
 				<span className="text-[#ffffff] font-mono tracking-tight">
 					<ScrambleText text={title} />
 				</span>
 			</h2>
-			<p className="text-slate-400 text-lg flex items-center gap-2">
-				<span className="text-[#06b6d4]/50">{">"}</span> {desc}
+			<p className="text-slate-400 text-base md:text-lg flex items-center gap-2 ml-0 md:ml-14">
+				<span className="text-[#06b6d4]/50 font-mono">{">"}</span> {desc}
 			</p>
 		</motion.div>
 	);

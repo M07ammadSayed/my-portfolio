@@ -13,7 +13,7 @@ const cardVariants = {
 		scale: 1,
 		transition: {
 			duration: 0.6,
-			delay: i * 0.15,
+			delay: i * 0.12,
 			ease: [0.25, 0.1, 0, 1],
 		},
 	}),
@@ -53,14 +53,14 @@ export default function Projects() {
 	return (
 		<section
 			id="projects"
-			className="py-20 md:py-32 px-6 max-w-7xl mx-auto relative z-10"
+			className="py-24 md:py-36 px-6 max-w-7xl mx-auto relative z-10"
 		>
 			<SectionHeader
 				icon={Code}
 				title="AppSec Labs"
 				desc="Hands-on security research and tooling."
 			/>
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
 				{projects.map((project, index) => (
 					<motion.div
 						key={index}

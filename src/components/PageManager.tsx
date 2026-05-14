@@ -26,10 +26,14 @@ export default function PageManager({
 	const [isLoading, setIsLoading] = useState(true);
 	const [mounted, setMounted] = useState(false);
 	const [isLoaded, setIsLoaded] = useState(false);
+	const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
 			window.history.scrollRestoration = "manual";
+			setPrefersReducedMotion(
+				window.matchMedia("(prefers-reduced-motion: reduce)").matches
+			);
 		}
 	}, []);
 
@@ -56,8 +60,6 @@ export default function PageManager({
 		);
 	}, []);
 
-
-
 	const handleLoaderComplete = useCallback(() => {
 		document.documentElement.style.setProperty(
 			"scroll-behavior",
@@ -74,16 +76,23 @@ export default function PageManager({
 		}, 500);
 	}, []);
 
+	// Skip loader for reduced motion preference
 	useEffect(() => {
+		if (prefersReducedMotion) {
+			handleLoaderComplete();
+			return;
+		}
+
 		const fallback = setTimeout(() => {
 			if (isLoading) handleLoaderComplete();
 		}, 3000);
 		return () => clearTimeout(fallback);
-	}, [isLoading, handleLoaderComplete]);
+	}, [isLoading, handleLoaderComplete, prefersReducedMotion]);
+
 	return (
 		<>
 			<AnimatePresence mode="wait">
-				{mounted && isLoading && (
+				{mounted && isLoading && !prefersReducedMotion && (
 					<PremiumLoader onComplete={handleLoaderComplete} />
 				)}
 			</AnimatePresence>
@@ -91,7 +100,7 @@ export default function PageManager({
 				className="min-h-[100dvh] bg-[#080810] text-[#ffffff] font-sans text-base leading-relaxed tracking-tight overflow-x-hidden relative"
 				style={{
 					opacity: isLoading ? 0 : 1,
-					transition: "opacity 1s ease-in-out",
+					transition: prefersReducedMotion ? "none" : "opacity 0.8s ease-out",
 				}}
 				role="main"
 			>

@@ -26,13 +26,19 @@ export default function TiltCard({
 		mouseY.set(clientY - top);
 	}
 
-	const rotationX = useTransform(mouseY, [0, 400], [5, -5]);
-	const rotationY = useTransform(mouseX, [0, 400], [-5, 5]);
+	function handleMouseLeave() {
+		mouseX.set(0);
+		mouseY.set(0);
+	}
+
+	const rotationX = useTransform(mouseY, [0, 400], [4, -4]);
+	const rotationY = useTransform(mouseX, [0, 400], [-4, 4]);
 
 	return (
 		<motion.div
-			className={`relative border border-slate-800 bg-[#080810]/40 backdrop-blur-md rounded-2xl overflow-hidden group perspective-1000 ${className}`}
+			className={`relative border border-slate-800/80 bg-[#080810]/40 backdrop-blur-md rounded-2xl overflow-hidden group perspective-1000 transition-[border-color] duration-300 hover:border-slate-700/80 ${className}`}
 			onMouseMove={handleMouseMove}
+			onMouseLeave={handleMouseLeave}
 			style={{
 				rotateX: rotationX,
 				rotateY: rotationY,
@@ -41,15 +47,15 @@ export default function TiltCard({
 			whileHover={{ scale: 1.02 }}
 			transition={{ type: "spring", stiffness: 300, damping: 30 }}
 		>
-			<div className="absolute inset-0 bg-grid-pattern z-0 pointer-events-none" />
+			<div className="absolute inset-0 bg-grid-pattern z-0 pointer-events-none opacity-60" />
 
 			<motion.div
-				className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100 z-10"
+				className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10"
 				style={{
 					background: useMotionTemplate`
                         radial-gradient(
                           650px circle at ${mouseX}px ${mouseY}px,
-                          rgba(6, 182, 212, 0.1),
+                          rgba(6, 182, 212, 0.08),
                           transparent 80%
                         )
                       `,
