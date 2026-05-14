@@ -95,10 +95,10 @@ export default function NavBar() {
 				aria-label="Main navigation"
 			>
 				<div
-					className={`transition-all duration-500 ease-out border rounded-full px-5 py-3 flex justify-between items-center md:gap-8 ${
+					className={`transition-all duration-500 ease-out border rounded-full px-4 py-2.5 flex justify-between items-center md:gap-6 ${
 						isScrolled
-							? "bg-[#080810]/80 border-slate-800/60 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
-							: "bg-[#080810]/40 border-white/[0.08] backdrop-blur-lg"
+							? "bg-[#080810]/75 border-slate-800/50 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+							: "bg-[#080810]/30 border-white/[0.04] backdrop-blur-md"
 					}`}
 				>
 					<button
@@ -122,10 +122,10 @@ export default function NavBar() {
 									key={item}
 									href={`#${item}`}
 									onClick={(e) => handleNavClick(e, item)}
-									className={`relative px-5 py-2.5 rounded-full text-sm font-semibold transition-colors duration-300 ${
+									className={`relative px-4 py-2 rounded-full text-[13px] font-medium transition-colors duration-200 ${
 										activeSection === item
 											? "text-[#ffffff]"
-											: "text-slate-500 hover:text-slate-200"
+											: "text-slate-500 hover:text-slate-300"
 									}`}
 								>
 									{activeSection === item && (

@@ -48,10 +48,10 @@ export default function ProjectCard({
 				href={link}
 				target="_blank"
 				rel="noopener noreferrer"
-				className="p-8 flex-1 flex flex-col h-full"
+				className="p-6 md:p-7 flex-1 flex flex-col h-full"
 				aria-label={`Visit ${title} on GitHub`}
 			>
-				<div className="flex justify-between items-start mb-6">
+				<div className="flex justify-between items-start mb-5">
 					<div
 						className={`p-2.5 rounded-lg border ${active.bg} ${active.border} transition-colors duration-200`}
 					>
@@ -65,11 +65,11 @@ export default function ProjectCard({
 					</span>
 				</div>
 
-				<h3 className="text-xl md:text-2xl font-bold text-[#ffffff] mb-3 group-hover:text-[#06b6d4] transition-colors duration-200 tracking-tight">
+				<h3 className="text-lg md:text-xl font-semibold text-[#ffffff] mb-2 group-hover:text-[#06b6d4] transition-colors duration-200 tracking-tight">
 					{title}
 				</h3>
 
-				<p className="text-sm md:text-base text-slate-400/90 font-medium mb-8 flex-1 leading-relaxed">
+				<p className="text-[13px] md:text-sm text-slate-400 mb-6 flex-1 leading-relaxed">
 					{desc}
 				</p>
 
@@ -77,7 +77,7 @@ export default function ProjectCard({
 					{tags.map((tag) => (
 						<span
 							key={tag}
-							className="px-3 py-1.5 bg-white/[0.03] border border-white/[0.06] text-slate-400 text-[11px] rounded-md font-mono uppercase tracking-[0.1em] font-semibold"
+							className="px-2.5 py-1 bg-white/[0.03] border border-white/[0.06] text-slate-500 text-[10px] rounded-md font-mono uppercase tracking-[0.08em]"
 						>
 							{tag}
 						</span>

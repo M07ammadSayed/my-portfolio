@@ -54,9 +54,9 @@ export default function Skills() {
 			<SectionHeader
 				icon={Shield}
 				title="Security & Tech Stack"
-				desc="The toolkit I use to build secure software"
+				desc="The toolkit I use to build secure software and identify vulnerabilities."
 			/>
-			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
 				{skills.map((item, index) => (
 					<motion.div
 						key={index}
@@ -66,12 +66,12 @@ export default function Skills() {
 						whileInView="visible"
 						viewport={{ once: true, margin: "-10%" }}
 					>
-						<TiltCard className="p-8 h-full">
-							<item.icon className={`w-8 h-8 md:w-10 md:h-10 ${item.color} mb-6`} />
-							<h3 className="font-bold text-lg md:text-xl mb-3 text-[#ffffff] tracking-tight">
+						<TiltCard className="p-6 md:p-7 h-full">
+							<item.icon className={`w-8 h-8 md:w-9 md:h-9 ${item.color} mb-5`} />
+							<h3 className="font-semibold text-base md:text-lg mb-2 text-[#ffffff] tracking-tight">
 								{item.title}
 							</h3>
-							<p className="text-slate-400/90 leading-relaxed text-sm md:text-base font-medium">
+							<p className="text-slate-400 leading-relaxed text-[13px] md:text-sm">
 								{item.desc}
 							</p>
 						</TiltCard>

@@ -66,18 +66,18 @@ export default function SectionHeader({
 			className="mb-14 md:mb-16"
 		>
 			{/* Overline label */}
-			<div className="flex items-center gap-3 mb-6">
+			<div className="flex items-center gap-3 mb-4">
 				<span className="relative">
 					<Icon className="text-[#06b6d4] w-5 h-5 md:w-6 md:h-6 relative z-10" />
-					<span className="absolute inset-0 bg-[#06b6d4]/10 blur-xl rounded-full" />
+					<span className="absolute inset-0 bg-[#06b6d4]/10 blur-lg rounded-full" />
 				</span>
-				<span className="text-xs md:text-sm uppercase tracking-[0.3em] text-[#06b6d4]/80 font-mono font-semibold">
+				<span className="text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-[#06b6d4]/70 font-mono">
 					{desc}
 				</span>
 			</div>
 
 			{/* Title */}
-			<h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#ffffff] tracking-[-0.03em] leading-[1.1]">
+			<h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#ffffff] tracking-[-0.02em] leading-[1.1]">
 				<span className="font-mono">
 					<ScrambleText text={title} />
 				</span>
