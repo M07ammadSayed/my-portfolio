@@ -2,10 +2,11 @@
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-const CHARS = "!@#$%^&*()_+-=[]{}|;':\",./<>?`~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const CHARS =
+	"!@#$%^&*()_+-=[]{}|;':\",./<>?`~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 function ScrambleText({ text }: { text: string }) {
-	const [displayText, setDisplayText] = useState(text.replace(/./g, " "));
+	const [displayText, setDisplayText] = useState(text);
 	const ref = useRef<HTMLSpanElement>(null);
 	const isInView = useInView(ref, { once: true, margin: "-10%" });
 
@@ -13,39 +14,58 @@ function ScrambleText({ text }: { text: string }) {
 		if (!isInView) return;
 
 		// Respect reduced motion
-		const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+		const prefersReduced = window.matchMedia(
+			"(prefers-reduced-motion: reduce)",
+		).matches;
 		if (prefersReduced) {
 			setDisplayText(text);
 			return;
 		}
 
 		let iteration = 0;
-		let interval: NodeJS.Timeout;
 
-		interval = setInterval(() => {
-			setDisplayText((prev) =>
+		setDisplayText(
+			text
+				.split("")
+				.map((letter) =>
+					letter === " "
+						? " "
+						: CHARS[Math.floor(Math.random() * CHARS.length)],
+				)
+				.join(""),
+		);
+
+		const interval = window.setInterval(() => {
+			setDisplayText(
 				text
 					.split("")
 					.map((letter, index) => {
 						if (index < iteration) {
 							return text[index];
 						}
-						return letter === " " ? " " : CHARS[Math.floor(Math.random() * CHARS.length)];
+						return letter === " "
+							? " "
+							: CHARS[Math.floor(Math.random() * CHARS.length)];
 					})
-					.join("")
+					.join(""),
 			);
 
 			if (iteration >= text.length) {
-				clearInterval(interval);
+				setDisplayText(text);
+				window.clearInterval(interval);
 			}
 
 			iteration += 1 / 2;
 		}, 30);
 
-		return () => clearInterval(interval);
+		return () => window.clearInterval(interval);
 	}, [text, isInView]);
 
-	return <span ref={ref}>{displayText}</span>;
+	return (
+		<span ref={ref} className="inline-block min-h-[1em]">
+			{displayText}
+		</span>
+	);
 }
 
 export default function SectionHeader({
