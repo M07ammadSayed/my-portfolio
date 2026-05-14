@@ -21,7 +21,7 @@ export default function Footer() {
 					whileInView={{ opacity: 1, y: 0 }}
 					viewport={{ once: true }}
 					transition={{ duration: 0.5, ease }}
-					className="text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-[#06b6d4]/60 font-mono mb-6"
+					className="text-xs uppercase tracking-[0.3em] text-[#06b6d4]/80 font-mono font-semibold mb-8"
 				>
 					Get in touch
 				</motion.p>
@@ -31,7 +31,7 @@ export default function Footer() {
 					whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
 					viewport={{ once: true }}
 					transition={{ duration: 0.6, delay: 0.05, ease }}
-					className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#ffffff] mb-4 tracking-[-0.02em] leading-[1.1]"
+					className="text-4xl md:text-5xl lg:text-7xl font-extrabold text-[#ffffff] mb-6 tracking-[-0.04em] leading-[1.1]"
 				>
 					Let&apos;s Talk AppSec.
 				</motion.h2>
@@ -41,14 +41,14 @@ export default function Footer() {
 					whileInView={{ opacity: 1, y: 0 }}
 					viewport={{ once: true }}
 					transition={{ duration: 0.5, delay: 0.1, ease }}
-					className="text-slate-400 mb-12 md:mb-14 text-sm md:text-base leading-relaxed"
+					className="text-slate-400/90 mb-14 md:mb-16 text-base md:text-lg lg:text-xl leading-relaxed font-medium"
 				>
 					Open to opportunities in{" "}
-					<strong className="text-[#06b6d4] font-semibold">
+					<strong className="text-[#06b6d4] font-bold">
 						Application Security
 					</strong>
 					.
-					<span className="block text-slate-600 text-xs mt-2 font-mono">
+					<span className="block text-slate-500 text-sm mt-3 font-mono">
 						I find the vulnerabilities before attackers do.
 					</span>
 				</motion.p>

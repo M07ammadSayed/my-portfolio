@@ -54,11 +54,11 @@ export default function Hero() {
 				initial={{ opacity: 0, y: -20, filter: "blur(10px)", scale: 0.9 }}
 				animate={{ opacity: 1, y: 0, filter: "blur(0px)", scale: 1 }}
 				transition={{ duration: 0.8, ease }}
-				className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#080810]/50 border border-[#06b6d4]/15 text-[#06b6d4] text-[11px] md:text-xs font-mono mb-10 md:mb-14 backdrop-blur-sm hover:bg-[#080810]/80 transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.08)] uppercase tracking-[0.15em]"
+				className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/[0.02] border border-[#06b6d4]/20 text-[#06b6d4] text-[11px] md:text-xs font-mono mb-12 md:mb-16 backdrop-blur-md hover:bg-white/[0.05] hover:border-[#06b6d4]/40 transition-all duration-500 shadow-[0_0_20px_rgba(6,182,212,0.1)] uppercase tracking-[0.2em]"
 			>
-				<span className="relative flex h-1.5 w-1.5 pointer-events-none select-none">
+				<span className="relative flex h-2 w-2 pointer-events-none select-none">
 					<span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#06b6d4] opacity-75 pointer-events-none select-none"></span>
-					<span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#06b6d4] pointer-events-none select-none"></span>
+					<span className="relative inline-flex rounded-full h-2 w-2 bg-[#06b6d4] pointer-events-none select-none"></span>
 				</span>
 				Available for AppSec Roles
 			</motion.div>
@@ -68,14 +68,14 @@ export default function Hero() {
 				initial={{ opacity: 0, scale: 0.95, filter: "blur(15px)" }}
 				animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
 				transition={{ duration: 1, delay: 0.15, ease }}
-				className="text-[2.5rem] sm:text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-[-0.03em] mb-3 md:mb-4 relative z-10 leading-[1.05]"
+				className="text-[3rem] sm:text-6xl md:text-7xl lg:text-[7.5rem] font-extrabold tracking-[-0.04em] mb-4 md:mb-6 relative z-10 leading-[0.95]"
 			>
 				Securing the <br />
-				<div className="relative inline-block mt-1">
-					<span className="absolute -inset-3 bg-gradient-to-r from-[#ff6ec7] via-[#a855f7] to-[#06b6d4] opacity-15 blur-2xl rounded-full"></span>
+				<div className="relative inline-block mt-2">
+					<span className="absolute -inset-4 bg-gradient-to-r from-[#ff6ec7] via-[#a855f7] to-[#06b6d4] opacity-20 blur-3xl rounded-full"></span>
 					<DigitalTitle />
 				</div>
-				<span className="block text-slate-200 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal mt-3 tracking-[-0.01em]">
+				<span className="block text-slate-300 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium mt-4 tracking-[-0.02em]">
 					Applications
 				</span>
 			</motion.h1>
@@ -85,17 +85,17 @@ export default function Hero() {
 				initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
 				animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
 				transition={{ duration: 0.8, delay: 0.35, ease }}
-				className="text-[15px] md:text-base lg:text-lg text-slate-400 max-w-lg leading-[1.7] mb-10 md:mb-14 mt-6 md:mt-8"
+				className="text-base md:text-lg lg:text-xl text-slate-400/90 max-w-xl leading-[1.8] mb-12 md:mb-16 mt-8 md:mt-10 font-medium"
 			>
 				I am{" "}
-				<strong className="text-[#ffffff] font-semibold">Muhammad Sayyid </strong>— a
+				<strong className="text-white font-bold">Muhammad Sayyid </strong>— a
 				Full-Stack Developer turned
-				<span className="text-[#06b6d4] font-semibold glow-text">
+				<span className="text-[#06b6d4] font-bold glow-text">
 					{" "}
 					AppSec Engineer
 				</span>
 				, leveraging hands-on development experience for deep{" "}
-				<span className="text-[#ff6ec7] font-semibold">
+				<span className="text-[#ff6ec7] font-bold">
 					White-box Testing
 				</span>{" "}
 				and secure code reviews.
@@ -106,7 +106,7 @@ export default function Hero() {
 				initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
 				animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
 				transition={{ duration: 0.8, delay: 0.55, ease }}
-				className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto relative z-20"
+				className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto relative z-20"
 			>
 				<MagneticWrapper className="w-full sm:w-auto">
 					<a
@@ -115,11 +115,11 @@ export default function Hero() {
 						target="_blank"
 						rel="me noopener noreferrer"
 						aria-label="CV Downloader"
-						className="group relative px-7 py-3.5 bg-[#a855f7] text-slate-950 rounded-xl font-semibold text-sm overflow-hidden transition-all duration-200 hover:scale-[1.03] active:scale-95 shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] w-full sm:w-auto flex justify-center"
+						className="group relative px-8 py-4 bg-[#a855f7] text-slate-950 rounded-full font-bold text-sm md:text-base overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:shadow-[0_0_40px_rgba(168,85,247,0.6)] w-full sm:w-auto flex justify-center tracking-wide"
 					>
-						<div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:animate-shimmer" />
-						<span className="flex items-center gap-2">
-							<Download size={16} /> Download CV
+						<div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-200%] group-hover:animate-shimmer" />
+						<span className="flex items-center gap-2.5">
+							<Download size={18} strokeWidth={2.5} /> Download CV
 						</span>
 					</a>
 				</MagneticWrapper>
@@ -129,9 +129,9 @@ export default function Hero() {
 						target="_blank"
 						rel="me noopener noreferrer"
 						aria-label="GitHub Profile"
-						className="px-7 py-3.5 bg-transparent text-slate-300 rounded-xl font-medium text-sm border border-slate-700/80 hover:border-slate-600 hover:text-white hover:bg-white/[0.03] transition-all duration-200 flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-95 w-full sm:w-auto"
+						className="px-8 py-4 bg-transparent text-slate-300 rounded-full font-bold text-sm md:text-base border border-white/10 hover:border-white/30 hover:text-white hover:bg-white/[0.03] transition-all duration-300 flex items-center justify-center gap-2.5 hover:scale-[1.02] active:scale-95 w-full sm:w-auto tracking-wide backdrop-blur-sm"
 					>
-						<Github size={16} /> View GitHub
+						<Github size={18} strokeWidth={2.5} /> View GitHub
 					</a>
 				</MagneticWrapper>
 			</motion.div>
