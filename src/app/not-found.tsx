@@ -5,7 +5,7 @@ import CursorParticleEngine from "@/components/CursorParticleEngine";
 // 	ssr: false,
 // });
 
-export const dynamicConfig = "force-static"; // `export const dynamic` is reserved for page configs
+// export const dynamicConfig = "force-static"; // `export const dynamic` is reserved for page configs
 
 export default function NotFound() {
 	return (
