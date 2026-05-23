@@ -1,9 +1,9 @@
 import Link from "next/link";
-import dynamic from "next/dynamic";
-
-const CursorParticleEngine = dynamic(() => import("@/components/CursorParticleEngine"), {
-	ssr: false,
-});
+// import dynamic from "next/dynamic";
+import CursorParticleEngine from "@/components/CursorParticleEngine";
+// const CursorParticleEngine = dynamic(() => import("@/components/CursorParticleEngine"), {
+// 	ssr: false,
+// });
 
 export const dynamicConfig = "force-static"; // `export const dynamic` is reserved for page configs
 
