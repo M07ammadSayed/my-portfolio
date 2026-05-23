@@ -7,16 +7,12 @@ import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { ReactNode } from "react";
 
-const CustomCursor = dynamic(() => import("@/components/CustomCursor"), {
+const CursorParticleEngine = dynamic(() => import("@/components/CursorParticleEngine"), {
 	ssr: false,
 });
 const ScrollToTop = dynamic(() => import("@/components/ScrollToTop"), {
 	ssr: false,
 });
-const VisualBackground = dynamic(
-	() => import("@/components/VisualBackground"),
-	{ ssr: false },
-);
 
 export default function PageManager({
 	children,
@@ -52,7 +48,7 @@ export default function PageManager({
 		// --- Console Signature ---
 		console.log(
 			"%c Developed by Muhammad Sayyid ",
-			"background: #080810; color: #22d3ee; border: 1px solid #22d3ee; padding: 5px 10px; border-radius: 5px; font-family: monospace; font-size: 12px; font-weight: bold;",
+			"background: #06060F; color: #22d3ee; border: 1px solid #22d3ee; padding: 5px 10px; border-radius: 5px; font-family: monospace; font-size: 12px; font-weight: bold;",
 		);
 		console.log(
 			"%c Looking for a Secure Full-Stack Engineer? Let's talk! 🚀 ",
@@ -97,7 +93,7 @@ export default function PageManager({
 				)}
 			</AnimatePresence>
 			<motion.div
-				className="min-h-[100dvh] bg-[#080810] text-[#ffffff] font-sans text-base leading-relaxed tracking-tight overflow-x-hidden relative"
+				className="min-h-[100dvh] bg-[#06060F] text-[#ffffff] font-sans text-base leading-relaxed tracking-tight overflow-x-hidden relative"
 				style={{
 					opacity: isLoading ? 0 : 1,
 					transition: prefersReducedMotion ? "none" : "opacity 0.8s ease-out",
@@ -106,8 +102,7 @@ export default function PageManager({
 			>
 				{mounted && (
 					<>
-						<CustomCursor />
-						<VisualBackground />
+						<CursorParticleEngine />
 						<ScrollToTop />
 					</>
 				)}

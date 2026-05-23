@@ -24,11 +24,11 @@ html {
 	scroll-padding-top: 100px;
 	-webkit-tap-highlight-color: transparent;
 	color-scheme: dark;
-	background-color: #080810;
+	background-color: #06060f;
 }
 
 body {
-	background-color: #080810;
+	background-color: #06060f;
 	color: #ffffff;
 	overflow-x: hidden;
 }
@@ -201,8 +201,8 @@ body {
 	}
 }
 
-/* Hide default cursor only on desktop (matches xl breakpoint) */
-@media (min-width: 1280px) {
+/* Hide default cursor only on devices with a fine pointer */
+@media (pointer: fine) {
 	*,
 	body,
 	a,

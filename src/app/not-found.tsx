@@ -1,12 +1,17 @@
 import Link from "next/link";
-import CustomCursor from "@/components/CustomCursor";
-export const dynamic = "force-static";
+import dynamic from "next/dynamic";
+
+const CursorParticleEngine = dynamic(() => import("@/components/CursorParticleEngine"), {
+	ssr: false,
+});
+
+export const dynamicConfig = "force-static"; // `export const dynamic` is reserved for page configs
 
 export default function NotFound() {
 	return (
 		<>
-			<CustomCursor />
-			<div className="h-screen w-full flex flex-col items-center justify-center bg-[#080810] text-[#ffffff] font-mono text-center p-4">
+			<CursorParticleEngine />
+			<div className="h-screen w-full flex flex-col items-center justify-center bg-[#06060f] text-[#ffffff] font-mono text-center p-4">
 				<h1 className="text-9xl font-bold text-[#06b6d4] opacity-20 select-none">
 					404
 				</h1>
