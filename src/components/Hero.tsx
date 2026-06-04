@@ -6,14 +6,21 @@ import { useRef, useState } from "react";
 
 const ease = [0.25, 0.1, 0, 1] as const;
 
-function MagneticWrapper({ children, className = "" }: { children: React.ReactNode, className?: string }) {
+function MagneticWrapper({
+	children,
+	className = "",
+}: {
+	children: React.ReactNode;
+	className?: string;
+}) {
 	const ref = useRef<HTMLDivElement>(null);
 	const [position, setPosition] = useState({ x: 0, y: 0 });
 
 	const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
 		if (!ref.current) return;
 		const { clientX, clientY } = e;
-		const { height, width, left, top } = ref.current.getBoundingClientRect();
+		const { height, width, left, top } =
+			ref.current.getBoundingClientRect();
 		const middleX = clientX - (left + width / 2);
 		const middleY = clientY - (top + height / 2);
 		setPosition({ x: middleX * 0.3, y: middleY * 0.3 });
@@ -31,7 +38,12 @@ function MagneticWrapper({ children, className = "" }: { children: React.ReactNo
 			onMouseMove={handleMouse}
 			onMouseLeave={reset}
 			animate={{ x, y }}
-			transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+			transition={{
+				type: "spring",
+				stiffness: 150,
+				damping: 15,
+				mass: 0.1,
+			}}
 			className={className}
 		>
 			{children}
@@ -51,7 +63,12 @@ export default function Hero() {
 
 			{/* Status badge */}
 			<motion.div
-				initial={{ opacity: 0, y: -20, filter: "blur(10px)", scale: 0.9 }}
+				initial={{
+					opacity: 0,
+					y: -20,
+					filter: "blur(10px)",
+					scale: 0.9,
+				}}
 				animate={{ opacity: 1, y: 0, filter: "blur(0px)", scale: 1 }}
 				transition={{ duration: 0.8, ease }}
 				className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#080810]/50 border border-[#06b6d4]/15 text-[#06b6d4] text-[11px] md:text-xs font-mono mb-10 md:mb-14 backdrop-blur-sm hover:bg-[#080810]/80 transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.08)] uppercase tracking-[0.15em]"
@@ -88,8 +105,10 @@ export default function Hero() {
 				className="text-[15px] md:text-base lg:text-lg text-slate-400 max-w-lg leading-[1.7] mb-10 md:mb-14 mt-6 md:mt-8"
 			>
 				I am{" "}
-				<strong className="text-[#ffffff] font-semibold">Muhammad Sayyid </strong>— a
-				Full-Stack Developer turned
+				<strong className="text-[#ffffff] font-semibold">
+					Muhammad Sayyid{" "}
+				</strong>
+				— a Full-Stack Developer turned
 				<span className="text-[#06b6d4] font-semibold glow-text">
 					{" "}
 					AppSec Engineer
@@ -115,7 +134,7 @@ export default function Hero() {
 						target="_blank"
 						rel="me noopener noreferrer"
 						aria-label="CV Downloader"
-						className="group relative px-7 py-3.5 bg-[#a855f7] text-slate-950 rounded-xl font-semibold text-sm overflow-hidden transition-all duration-200 hover:scale-[1.03] active:scale-95 shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] w-full sm:w-auto flex justify-center"
+						className="group relative px-7 py-3.5 bg-[#a855f7] text-slate-300 rounded-xl font-semibold text-sm overflow-hidden transition-all duration-200 hover:scale-[1.03] active:scale-95 shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] w-full sm:w-auto flex justify-center"
 					>
 						<div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:animate-shimmer" />
 						<span className="flex items-center gap-2">
@@ -151,12 +170,21 @@ export default function Hero() {
 					aria-label="Scroll to Skills section"
 					className="flex flex-col items-center gap-1.5 text-slate-600 hover:text-slate-400 transition-colors duration-500 group p-2"
 				>
-					<span className="text-[9px] uppercase tracking-[0.25em] font-mono">Scroll</span>
+					<span className="text-[9px] uppercase tracking-[0.25em] font-mono">
+						Scroll
+					</span>
 					<motion.div
 						animate={{ y: [0, 5, 0] }}
-						transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+						transition={{
+							duration: 2.5,
+							repeat: Infinity,
+							ease: "easeInOut",
+						}}
 					>
-						<ChevronDown size={14} className="opacity-50 group-hover:opacity-80 transition-opacity" />
+						<ChevronDown
+							size={14}
+							className="opacity-50 group-hover:opacity-80 transition-opacity"
+						/>
 					</motion.div>
 				</motion.button>
 			</motion.div>
