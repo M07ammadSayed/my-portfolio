@@ -102,22 +102,16 @@ export default function Hero() {
 				initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
 				animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
 				transition={{ duration: 0.8, delay: 0.35, ease }}
-				className="text-[15px] md:text-base lg:text-lg text-slate-400 max-w-lg leading-[1.7] mb-10 md:mb-14 mt-6 md:mt-8"
+				className="text-[15px] md:text-base lg:text-lg text-slate-400 max-w-xl leading-[1.7] mb-10 md:mb-14 mt-6 md:mt-8"
 			>
-				I am{" "}
 				<strong className="text-[#ffffff] font-semibold">
-					Muhammad Sayyid{" "}
-				</strong>
-				— a Full-Stack Developer turned
+					Application Security Engineer
+				</strong>{" "}
+				specializing in API Security and Cloud-Native environments. Experienced in threat modeling, secure code review, and hardening applications. My{" "}
 				<span className="text-[#06b6d4] font-semibold glow-text">
-					{" "}
-					AppSec Engineer
-				</span>
-				, leveraging hands-on development experience for deep{" "}
-				<span className="text-[#ff6ec7] font-semibold">
-					White-box Testing
+					Full-Stack background
 				</span>{" "}
-				and secure code reviews.
+				enables a deep understanding of application internals — from API design to deployment security.
 			</motion.p>
 
 			{/* CTAs */}

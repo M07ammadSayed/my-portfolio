@@ -1,5 +1,5 @@
 "use client";
-import { Terminal, Shield, Code, Database } from "lucide-react";
+import { Terminal, Shield, Code, Database, Globe, Layers } from "lucide-react";
 import { motion } from "framer-motion";
 import SectionHeader from "./SectionHeader";
 import ProjectCard from "./ProjectCard";
@@ -20,32 +20,56 @@ const cardVariants = {
 
 const projects = [
 	{
-		icon: Shield,
+		icon: Globe,
 		color: "cyan" as const,
-		title: "Hardened Runtime",
-		desc: "Securing supply chain with Least Privilege, Alpine, and Trivy.",
-		link: "https://github.com/M07ammadSayed/secure-software-supply-chain",
-		tags: ["AppSec", "Docker", "Trivy"],
-		"aria-label": "View Secure Software Supply Chain project on GitHub",
+		title: "Black-Box Penetration Test — extenra.com",
+		desc: "Independent black-box penetration test against a live WordPress-based website.",
+		bullets: [
+			"Identified and confirmed two high-severity CORS misconfigurations on Contact Form 7 endpoints",
+			"Developed working PoC exploits demonstrating real-world exploitability",
+			"Documented findings in a structured security assessment report"
+		],
+		link: "#",
+		tags: ["Burp Suite Professional", "Manual Testing"],
 	},
 	{
-		icon: Terminal,
+		icon: Shield,
 		color: "purple" as const,
-		title: "Python Port Scanner",
-		desc: "Custom network tool built with raw Sockets & Multi-threading.",
-		link: "https://github.com/M07ammadSayed/python-port-scanner",
-		tags: ["Python", "Networking"],
-		"aria-label": "View Python Port Scanner project on GitHub",
+		title: "Hardened Node.js Runtime",
+		desc: "Secure containerization workflow for a Node.js application, focusing on attack surface reduction.",
+		bullets: [
+			"Migrated to Alpine Linux, reducing image size by 60% and minimizing CVEs",
+			"Prevented privilege escalation by running containers as non-root",
+			"Integrated Trivy for automated vulnerability detection",
+			"Configured Express.js security middleware (helmet, rate limiting, sanitization)"
+		],
+		link: "#",
+		tags: ["Docker", "Trivy", "Linux", "Node.js"],
+	},
+	{
+		icon: Layers,
+		color: "blue" as const,
+		title: "The Wild Oasis (Hotel System)",
+		desc: "Based on Jonas Schmedtmann's course project; extended with a security-focused layer.",
+		bullets: [
+			"Implemented RBAC via Supabase and applied strict input validation",
+			"Developed a secure React SPA with efficient state management"
+		],
+		link: "#",
+		tags: ["React.js", "Supabase", "React Query"],
 	},
 	{
 		icon: Database,
-		color: "blue" as const,
-		title: "Secure State Mgmt",
-		desc: "React app focused on Input Handling and logic integrity.",
-		link: "https://github.com/M07ammadSayed/use-popcorn",
-		tags: ["React.js", "Secure Coding"],
-		"aria-label": "View usePopcorn project on GitHub",
-	},
+		color: "cyan" as const,
+		title: "WorldWise (Travel App)",
+		desc: "Based on Jonas Schmedtmann's course project; extended with API and data-exposure security hardening.",
+		bullets: [
+			"Secured user routes and sanitized third-party API inputs to prevent vulnerabilities",
+			"Managed global state securely via Context API to avoid data exposure"
+		],
+		link: "#",
+		tags: ["React.js", "Context API", "CSS Modules"],
+	}
 ];
 
 export default function Projects() {
@@ -56,10 +80,10 @@ export default function Projects() {
 		>
 			<SectionHeader
 				icon={Code}
-				title="AppSec Labs"
-				desc="Hands-on security research and tooling."
+				title="Featured Projects"
+				desc="Security assessments and applications I've built and secured."
 			/>
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
 				{projects.map((project, index) => (
 					<motion.div
 						key={index}

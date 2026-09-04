@@ -1,4 +1,4 @@
 Contact: mailto:msayed.ms2005@gmail.com
-Expires: 2026-01-01T00:00:00.000Z
+Expires: 2027-01-01T00:00:00.000Z
 Preferred-Languages: en, ar
-Canonical: https://muhammad-sayyid.vercel.app/.well-known/security.txt
+Canonical: https://muhammadsayyid.vercel.app/.well-known/security.txt

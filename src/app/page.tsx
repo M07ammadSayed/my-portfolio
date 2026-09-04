@@ -13,6 +13,7 @@ export const metadata = {
 
 const Hero = nextDynamic(() => import("@/components/Hero"), { ssr: true });
 const Skills = nextDynamic(() => import("@/components/Skills"), { ssr: true });
+const Experience = nextDynamic(() => import("@/components/Experience"), { ssr: true });
 const Projects = nextDynamic(() => import("@/components/Projects"), {
 	ssr: true,
 });
@@ -24,6 +25,7 @@ export default function Portfolio() {
 			<NavBar />
 			<Hero />
 			<Skills />
+			<Experience />
 			<Projects />
 			<Footer />
 			<div style={{ display: "none" }}>

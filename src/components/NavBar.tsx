@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { createPortal } from "react-dom";
 import SocialLink from "./SocialLink";
 
-const NAV_ITEMS = ["about", "skills", "projects", "contact"] as const;
+const NAV_ITEMS = ["about", "skills", "experience", "projects", "contact"] as const;
 
 export default function NavBar() {
 	const [mounted, setMounted] = useState(false);

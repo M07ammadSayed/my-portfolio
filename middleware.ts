@@ -28,7 +28,7 @@ export function middleware(request: NextRequest) {
         connect-src 'self' https://*.vercel-scripts.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;
         frame-src 'self' https://vercel.live;
         worker-src 'self' blob:;
-        manifest-src 'self' https://muhammad-sayyid.vercel.app;
+        manifest-src 'self' https://muhammadsayyid.vercel.app;
         base-uri 'self';
         form-action 'self';
         frame-ancestors 'none';
