@@ -29,7 +29,6 @@ export default function NavBar() {
 		setMounted(true);
 	}, []);
 
-	// Track scroll for subtle navbar background
 	useEffect(() => {
 		const handleScroll = () => {
 			setIsScrolled(window.scrollY > 50);
@@ -112,7 +111,7 @@ export default function NavBar() {
 						}
 						aria-label="Scroll to top"
 					>
-						&lt;MS /&gt;
+						&lt;0xMS /&gt;
 					</button>
 
 					<div className="hidden md:flex gap-0.5">
