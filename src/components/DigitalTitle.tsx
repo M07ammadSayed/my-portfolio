@@ -6,7 +6,7 @@ const titles = [
 	"Microservice-Based",
 	"Cloud-Native",
 	"API-Driven",
-	"Zero-Trust",
+	"Event-Driven",
 ];
 
 export default function DigitalTitle() {
