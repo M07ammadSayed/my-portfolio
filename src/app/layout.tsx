@@ -7,7 +7,11 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { headers } from "next/headers";
 import Script from "next/script";
 
-const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-sans" });
+const inter = Inter({
+	subsets: ["latin"],
+	display: "swap",
+	variable: "--font-sans",
+});
 const jetbrainsMono = JetBrains_Mono({
 	subsets: ["latin"],
 	display: "swap",
@@ -112,7 +116,15 @@ export default async function RootLayout({
 				},
 			},
 			{
-				"@type": ["Person", "ProfilePage"],
+				"@type": "ProfilePage",
+				"@id": "https://muhammadsayyid.vercel.app/#profile",
+				url: "https://muhammadsayyid.vercel.app",
+				mainEntity: {
+					"@id": "https://muhammadsayyid.vercel.app/#person",
+				},
+			},
+			{
+				"@type": "Person",
 				"@id": "https://muhammadsayyid.vercel.app/#person",
 				name: "Muhammad Sayyid",
 				alternateName: "M07ammadSayed",
@@ -136,7 +148,7 @@ export default async function RootLayout({
 					"Next.js",
 					"Secure Code Review",
 					"White-box Testing",
-					"DevSecOps"
+					"DevSecOps",
 				],
 			},
 		],
@@ -145,7 +157,10 @@ export default async function RootLayout({
 	return (
 		<html lang="en" className="scroll-smooth">
 			<head>
-				<link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+				<link
+					rel="dns-prefetch"
+					href="https://www.googletagmanager.com"
+				/>
 				<script
 					nonce={nonce}
 					type="application/ld+json"
@@ -160,7 +175,7 @@ export default async function RootLayout({
 				<meta name="application-name" content="Muhammad Sayyid" />
 			</head>
 			<body
-				className={`${inter.className} ${jetbrainsMono.variable} bg-[#080810] text-[#ffffff] antialiased selection:bg-[#06b6d4]/30`}
+				className={`${inter.className} ${jetbrainsMono.variable} bg-[#05050A] text-slate-200 antialiased selection:bg-[#00E5FF]/30`}
 				suppressHydrationWarning={true}
 			>
 				{children}
@@ -172,7 +187,11 @@ export default async function RootLayout({
 					strategy="lazyOnload"
 					nonce={nonce}
 				/>
-				<Script id="google-analytics" strategy="lazyOnload" nonce={nonce}>{`
+				<Script
+					id="google-analytics"
+					strategy="lazyOnload"
+					nonce={nonce}
+				>{`
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
                     gtag('js', new Date());
