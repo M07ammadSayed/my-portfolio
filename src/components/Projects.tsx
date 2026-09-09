@@ -3,6 +3,7 @@ import { Terminal, Shield, Code, Database, Globe, Layers } from "lucide-react";
 import { motion } from "framer-motion";
 import SectionHeader from "./SectionHeader";
 import ProjectCard from "./ProjectCard";
+import Link from "next/link";
 
 const cardVariants = {
 	hidden: { opacity: 0, y: 50, filter: "blur(6px)" },
@@ -27,9 +28,9 @@ const projects = [
 		bullets: [
 			"Identified and confirmed two high-severity CORS misconfigurations on Contact Form 7 endpoints",
 			"Developed working PoC exploits demonstrating real-world exploitability",
-			"Documented findings in a structured security assessment report"
+			"Documented findings in a structured security assessment report",
 		],
-		link: "#",
+		link: "https://www.extenra.com/",
 		tags: ["Burp Suite Professional", "Manual Testing"],
 	},
 	{
@@ -41,9 +42,9 @@ const projects = [
 			"Migrated to Alpine Linux, reducing image size by 60% and minimizing CVEs",
 			"Prevented privilege escalation by running containers as non-root",
 			"Integrated Trivy for automated vulnerability detection",
-			"Configured Express.js security middleware (helmet, rate limiting, sanitization)"
+			"Configured Express.js security middleware (helmet, rate limiting, sanitization)",
 		],
-		link: "#",
+		link: "https://github.com/M07ammadSayed/secure-node-docker-lab",
 		tags: ["Docker", "Trivy", "Linux", "Node.js"],
 	},
 	{
@@ -53,7 +54,7 @@ const projects = [
 		desc: "Based on Jonas Schmedtmann's course project; extended with a security-focused layer.",
 		bullets: [
 			"Implemented RBAC via Supabase and applied strict input validation",
-			"Developed a secure React SPA with efficient state management"
+			"Developed a secure React SPA with efficient state management",
 		],
 		link: "#",
 		tags: ["React.js", "Supabase", "React Query"],
@@ -65,11 +66,11 @@ const projects = [
 		desc: "Based on Jonas Schmedtmann's course project; extended with API and data-exposure security hardening.",
 		bullets: [
 			"Secured user routes and sanitized third-party API inputs to prevent vulnerabilities",
-			"Managed global state securely via Context API to avoid data exposure"
+			"Managed global state securely via Context API to avoid data exposure",
 		],
-		link: "#",
+		link: "https://github.com/M07ammadSayed/travel-list",
 		tags: ["React.js", "Context API", "CSS Modules"],
-	}
+	},
 ];
 
 export default function Projects() {
@@ -93,7 +94,14 @@ export default function Projects() {
 						whileInView="visible"
 						viewport={{ once: true, margin: "-10%" }}
 					>
-						<ProjectCard {...project} />
+						<Link
+							href={project.link}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="block h-full"
+						>
+							<ProjectCard {...project} />
+						</Link>
 					</motion.div>
 				))}
 			</div>
