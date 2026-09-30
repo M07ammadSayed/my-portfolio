@@ -61,7 +61,6 @@ export default function Hero() {
 			<div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] border border-[#06b6d4]/10 rounded-full animate-spin-slow pointer-events-none md:w-[800px] md:h-[800px] select-none"></div>
 			<div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] border border-dashed border-[#06b6d4]/20 rounded-full animate-spin-reverse-slower pointer-events-none select-none"></div>
 
-			{/* Status badge */}
 			<motion.div
 				initial={{
 					opacity: 0,
@@ -97,7 +96,6 @@ export default function Hero() {
 				</span>
 			</motion.h1>
 
-			{/* Description */}
 			<motion.p
 				initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
 				animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}

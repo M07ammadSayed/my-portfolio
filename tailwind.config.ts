@@ -14,23 +14,24 @@ const config: Config = {
 			},
 			colors: {
 				brand: {
-					cyan: "#06b6d4",
-					blue: "#a855f7",
-					violet: "#ff6ec7",
+					cyan: "#00E5FF", // Brighter, cleaner cyan
+					blue: "#8B5CF6", // Nicer violet-blue
+					violet: "#EC4899", // Pinkish-violet
 				},
 				background: {
-					darker: "#080810",
-					card: "#080810",
+					darker: "#05050A",
+					card: "#0A0A10",
 				},
 			},
 			backgroundImage: {
 				"premium-gradient":
-					"linear-gradient(to right, #ff6ec7, #a855f7, #06b6d4)",
+					"linear-gradient(to right, #EC4899, #8B5CF6, #00E5FF)",
 			},
 			boxShadow: {
-				"glow-cyan": "0 0 20px rgba(6, 182, 212, 0.3)",
-				"glow-blue": "0 0 20px rgba(168, 85, 247, 0.3)",
-				"glow-violet": "0 0 20px rgba(255, 110, 199, 0.3)",
+				"glow-cyan": "0 0 24px rgba(0, 229, 255, 0.2)",
+				"glow-blue": "0 0 24px rgba(139, 92, 246, 0.2)",
+				"glow-violet": "0 0 24px rgba(236, 72, 153, 0.2)",
+				"card-hover": "0 8px 32px rgba(0, 0, 0, 0.4)",
 			},
 			animation: {
 				"gradient-x": "gradient-x 15s ease infinite",

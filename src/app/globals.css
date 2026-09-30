@@ -15,7 +15,12 @@
 
 	body {
 		line-height: 1.6;
-		@apply antialiased;
+		letter-spacing: -0.01em;
+		@apply antialiased text-slate-300;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		@apply text-white font-bold tracking-tight leading-tight;
 	}
 }
 
@@ -24,12 +29,12 @@ html {
 	scroll-padding-top: 100px;
 	-webkit-tap-highlight-color: transparent;
 	color-scheme: dark;
-	background-color: #06060f;
+	background-color: #05050A;
 }
 
 body {
-	background-color: #06060f;
-	color: #ffffff;
+	background-color: #05050A;
+	color: #e2e8f0; /* slate-200 */
 	overflow-x: hidden;
 }
 
