@@ -104,6 +104,7 @@ const CERTIFICATIONS = [
 	{
 		name: "Penetration Testing & Application Security (NTI)",
 		status: "Active",
+		link: "https://drive.google.com/file/d/1DJmy6_Kx5-KeB3Fbd1EdybeNpvyuQqx8/view?usp=sharing",
 	},
 	{ name: "Burp Suite Certified Practitioner (BSCP)", status: "In Progress" },
 ];
@@ -161,15 +162,8 @@ export default function Skills() {
 			/>
 
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-				{CERTIFICATIONS.map((cert, index) => (
-					<motion.div
-						key={index}
-						custom={index + 4}
-						variants={cardVariants}
-						initial="hidden"
-						whileInView="visible"
-						viewport={{ once: true, margin: "-10%" }}
-					>
+				{CERTIFICATIONS.map((cert, index) => {
+					const CardContent = (
 						<TiltCard className="p-5 md:p-6 h-full flex flex-col items-center text-center justify-center">
 							<Award
 								className={`w-8 h-8 mb-4 ${cert.status === "Active" ? "text-green-400" : cert.status === "In Progress" ? "text-yellow-400" : "text-slate-500"}`}
@@ -189,8 +183,32 @@ export default function Skills() {
 								{cert.status}
 							</span>
 						</TiltCard>
-					</motion.div>
-				))}
+					);
+
+					return (
+						<motion.div
+							key={index}
+							custom={index + 4}
+							variants={cardVariants}
+							initial="hidden"
+							whileInView="visible"
+							viewport={{ once: true, margin: "-10%" }}
+						>
+							{cert.link ? (
+								<a
+									href={cert.link}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="block h-full cursor-pointer hover:opacity-80 transition-opacity"
+								>
+									{CardContent}
+								</a>
+							) : (
+								<div className="h-full">{CardContent}</div>
+							)}
+						</motion.div>
+					);
+				})}
 			</div>
 		</section>
 	);
