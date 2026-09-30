@@ -1,7 +1,28 @@
 "use client";
-import { Briefcase } from "lucide-react";
+import { Briefcase, ShieldCheck, Code, Search } from "lucide-react";
 import { motion } from "framer-motion";
 import SectionHeader from "./SectionHeader";
+
+const services = [
+	{
+		icon: Search,
+		title: "API Security Assessment",
+		description:
+			"In-depth testing of REST & GraphQL APIs to detect OWASP API Top 10 vulnerabilities like BOLA and data exposure.",
+	},
+	{
+		icon: Code,
+		title: "Secure Code Review",
+		description:
+			"Comprehensive static analysis (SAST) for Node.js, Next.js, and React codebases to catch logic flaws early.",
+	},
+	{
+		icon: ShieldCheck,
+		title: "Web App Pentesting",
+		description:
+			"End-to-end security assessment of web applications with actionable remediation guidance and PoC exploits.",
+	},
+];
 
 export default function Experience() {
 	return (
@@ -14,7 +35,7 @@ export default function Experience() {
 				title="Professional Experience"
 				desc="Consulting and applied security work."
 			/>
-			
+
 			<motion.div
 				initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
 				whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -24,8 +45,8 @@ export default function Experience() {
 			>
 				{/* Top gradient line */}
 				<div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#06b6d4] via-[#ff6ec7] to-transparent rounded-t-2xl opacity-50" />
-				
-				<div className="flex flex-col md:flex-row md:items-start justify-between mb-6 md:mb-8">
+
+				<div className="flex flex-col md:flex-row md:items-start justify-between mb-8">
 					<div>
 						<h3 className="text-xl md:text-2xl font-bold text-[#ffffff] tracking-tight mb-2">
 							Independent AppSec Consultant
@@ -36,24 +57,56 @@ export default function Experience() {
 					</div>
 				</div>
 
-				<div className="space-y-6">
+				<div className="space-y-8">
+					{/* Services Grid Section */}
 					<div>
-						<h4 className="text-[#ffffff] font-semibold mb-2">Service Offerings:</h4>
-						<p className="text-slate-400 text-[13px] md:text-sm leading-relaxed">
-							Operate an independent Application Security consulting practice, offering API security assessments and secure code review services.
-						</p>
+						<h4 className="text-[#ffffff] font-semibold mb-4 text-sm md:text-base">
+							Direct Service Offerings:
+						</h4>
+						<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+							{services.map((service, idx) => {
+								const Icon = service.icon;
+								return (
+									<div
+										key={idx}
+										className="bg-[#06b6d4]/5 border border-[#06b6d4]/10 rounded-xl p-5 hover:bg-[#06b6d4]/10 transition-colors"
+									>
+										<Icon className="w-6 h-6 text-[#06b6d4] mb-3" />
+										<h4 className="text-white font-medium mb-2 text-sm">
+											{service.title}
+										</h4>
+										<p className="text-slate-400 text-[13px] leading-relaxed">
+											{service.description}
+										</p>
+									</div>
+								);
+							})}
+						</div>
 					</div>
-					<div>
-						<h4 className="text-[#ffffff] font-semibold mb-2">Platform Presence:</h4>
-						<p className="text-slate-400 text-[13px] md:text-sm leading-relaxed">
-							Maintain a professional consulting presence on Upwork and Freelancer.com around AppSec service positioning, with defined service pricing for API security assessments and code reviews.
-						</p>
-					</div>
-					<div>
-						<h4 className="text-[#ffffff] font-semibold mb-2">Applied Security Work:</h4>
-						<p className="text-slate-400 text-[13px] md:text-sm leading-relaxed">
-							Apply hands-on offensive security skills through independent research, including full black-box penetration tests of live applications.
-						</p>
+
+					{/* Additional Details */}
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-white/[0.06]">
+						<div>
+							<h4 className="text-[#ffffff] font-semibold mb-2 text-[15px]">
+								Platform Presence:
+							</h4>
+							<p className="text-slate-400 text-[13px] md:text-sm leading-relaxed">
+								Maintain a professional consulting presence on
+								Upwork and Freelancer.com around AppSec service
+								positioning, with defined service pricing for
+								API security assessments and code reviews.
+							</p>
+						</div>
+						<div>
+							<h4 className="text-[#ffffff] font-semibold mb-2 text-[15px]">
+								Applied Security Work:
+							</h4>
+							<p className="text-slate-400 text-[13px] md:text-sm leading-relaxed">
+								Apply hands-on offensive security skills through
+								independent research, including full black-box
+								penetration tests of live applications.
+							</p>
+						</div>
 					</div>
 				</div>
 			</motion.div>

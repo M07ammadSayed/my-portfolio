@@ -1,16 +1,16 @@
 "use client";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, Phone, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import SocialLink from "./SocialLink";
 
 const ease = [0.25, 0.1, 0, 1] as const;
 
 export default function Footer() {
+	const phoneNumber = "+201068461815";
+	const whatsappUrl = "https://wa.me/201068461815";
+
 	return (
-		<footer
-			id="contact"
-			className="py-28 md:py-36 relative z-20"
-		>
+		<footer id="contact" className="py-28 md:py-36 relative z-20">
 			{/* Top divider */}
 			<div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] max-w-lg h-[1px] bg-gradient-to-r from-transparent via-slate-800 to-transparent"></div>
 
@@ -41,7 +41,7 @@ export default function Footer() {
 					whileInView={{ opacity: 1, y: 0 }}
 					viewport={{ once: true }}
 					transition={{ duration: 0.5, delay: 0.1, ease }}
-					className="text-slate-400 mb-12 md:mb-14 text-sm md:text-base leading-relaxed"
+					className="text-slate-400 mb-8 text-sm md:text-base leading-relaxed"
 				>
 					Open to opportunities in{" "}
 					<strong className="text-[#06b6d4] font-semibold">
@@ -53,13 +53,39 @@ export default function Footer() {
 					</span>
 				</motion.p>
 
+				{/* Phone Number Banner */}
+				<motion.div
+					initial={{ opacity: 0, y: 20 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true }}
+					transition={{ duration: 0.5, delay: 0.12, ease }}
+					className="flex justify-center mb-10"
+				>
+					<div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/50 border border-slate-800 text-slate-300 font-mono text-sm shadow-sm">
+						<Phone className="w-4 h-4 text-[#06b6d4]" />
+						<span>{phoneNumber}</span>
+					</div>
+				</motion.div>
+
 				<motion.div
 					initial={{ opacity: 0, y: 20 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					viewport={{ once: true }}
 					transition={{ duration: 0.5, delay: 0.15, ease }}
-					className="flex justify-center gap-4 mb-20 md:mb-24"
+					className="flex justify-center gap-4 flex-wrap mb-20 md:mb-24"
 				>
+					<SocialLink
+						href={`tel:${phoneNumber}`}
+						icon={Phone}
+						label="Call Direct"
+						large
+					/>
+					<SocialLink
+						href={whatsappUrl}
+						icon={MessageCircle}
+						label="Chat on WhatsApp"
+						large
+					/>
 					<SocialLink
 						href="https://github.com/M07ammadSayed"
 						icon={Github}
@@ -73,7 +99,7 @@ export default function Footer() {
 						large
 					/>
 					<SocialLink
-						href="mailto:msayed.ms2005@gmail.com?subject=Contact%20from%20Portfolio&body=Hi%20Muhammad,%0D%0A%0D%0AI%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss..."
+						href="mailto:msayed.ms2005@gmail.com?subject=Contact%20from%20Portfolio"
 						icon={Mail}
 						label="Send Email"
 						large
@@ -93,13 +119,8 @@ export default function Footer() {
 
 					<p className="text-slate-600 text-xs">
 						Engineered with{" "}
-						<span className="text-slate-500">
-							Next.js
-						</span>{" "}
-						&{" "}
-						<span className="text-slate-500">
-							Security
-						</span>
+						<span className="text-slate-500">Next.js</span> &{" "}
+						<span className="text-slate-500">Security</span>
 					</p>
 				</motion.div>
 			</div>
